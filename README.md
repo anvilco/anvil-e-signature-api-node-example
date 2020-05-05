@@ -1,9 +1,41 @@
+# Anvil Coding Takehome
+Hello 👋 & welcome to the anvil coding challenge.  We appreciate you taking the time to complete the assignment and we're excited about the prospect of you joining the team!
+
+The goal of this assignment is to get a sense for how you ____________, not for us to test magic keyword knowledge of our tech stach.  If you're having build issues 🔧 with the project that you feel should be working - please don't hesitate to contact us.
+
+## Getting the project running
+
+```bash
+# Clone the repository TODO actually link repo + do we need to setup some sort of an access token for people to grab this private repo?
+git clone https://github.com/
+
+# Go inside the directory
+cd anvil-coding-takehome 
+
+# Install dependencies
+yarn (or npm install)
+
+# Start development server
+yarn dev (or npm run dev)
+
+# run the tests 
+yarn test (or npm run build)
+
+```
+
+
+## This Project was Bootstraped from simple-react-full-stack
+We've since changed a few things in the project since bootstrapping from the simple-react-full-stack boilerplate.  We decided to leave the original read-me below for interested parties.
+
 # simple-react-full-stack
 
 [![Build Status](https://travis-ci.org/crsandeep/simple-react-full-stack.svg?branch=master)](https://travis-ci.org/crsandeep/simple-react-full-stack)
 
 This is a boilerplate to build a full stack web application using React, Node.js, Express and Webpack. It is also configured with webpack-dev-server, eslint, prettier and babel.
 
+- [Anvil Coding Takehome](#anvil-coding-takehome)
+  - [Getting the project running](#getting-the-project-running)
+  - [This Project was Bootstraped from simple-react-full-stack](#this-project-was-bootstraped-from-simple-react-full-stack)
 - [simple-react-full-stack](#simple-react-full-stack)
   - [Introduction](#introduction)
     - [Development mode](#development-mode)
