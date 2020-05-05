@@ -1,32 +1,50 @@
 import React, { Component } from 'react'
 import './app.css'
-import ReactImage from './react.png'
 import styled from 'styled-components'
+import theme from './theme'
 
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
-
-  width: 100%;
-  background-color: pink;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: ${theme.colors.blacks[5]};
 `
 
-export default class App extends Component {
-  state = { username: null };
+const StyledTitle = styled.h1`
+  color: ${theme.textColor}
+`
 
-  componentDidMount () {
-    fetch('/api/getUsername')
-      .then(res => res.json())
-      .then(user => this.setState({ username: user.username }))
+const StyledExplanationText = styled.span`
+  color: ${theme.textColor}
+`
+
+class App extends Component {
+  state = {
+    username: null,
+  }
+
+  async componentDidMount () {
+    const res = await fetch('/api/getUsername')
+    const json = await res.json()
+    this.setState({ username: json.username })
   }
 
   render () {
     const { username } = this.state
     return (
       <StyledContainer>
-        {username ? <h1>{`Hello ${username}`}</h1> : <h1>Loading.. please wait!</h1>}
-        <img src={ReactImage} alt="react" />
+        {
+          username
+            ? <StyledTitle>{`Hi ${username} 👋`}</StyledTitle>
+            : <StyledTitle>Loading..</StyledTitle>
+        }
+        <StyledExplanationText>We're excited at the prospect of you joining the team!</StyledExplanationText>
       </StyledContainer>
     )
   }
 }
+
+export default App
