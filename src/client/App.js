@@ -1,23 +1,91 @@
-import React, { Component } from 'react';
-import './app.css';
-import ReactImage from './react.png';
+import React, { Component } from 'react'
+import styled from 'styled-components'
+import _ from 'lodash'
 
-export default class App extends Component {
-  state = { username: null };
+import './app.css'
+import theme from './theme'
 
-  componentDidMount() {
-    fetch('/api/getUsername')
-      .then(res => res.json())
-      .then(user => this.setState({ username: user.username }));
+import TeamMember from './components/TeamMember'
+
+const StyledContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: ${theme.colors.blacks[5]};
+`
+
+const StyledTitle = styled.h1`
+  margin-bottom: 20px;
+  color: ${theme.textColor}
+`
+
+const StyledTeamMembersTitle = styled.h4`
+  margin-bottom: 20px;
+  color: ${theme.textColor}
+`
+
+const StyledExplanationText = styled.span`
+  margin-bottom: 20px;
+  color: ${theme.textColor}
+`
+
+class App extends Component {
+  state = {
+    username: null,
+    teamMembers: [],
   }
 
-  render() {
-    const { username } = this.state;
+  async componentDidMount () {
+    await this.getUsername()
+    await this.getUsers()
+  }
+
+  async getUsername () {
+    const res = await fetch('/api/username')
+    const json = await res.json()
+    return this.setState({ username: json.username })
+  }
+
+  async getUsers () {
+    const res = await fetch('/api/team-members')
+    const json = await res.json()
+    return this.setState({ teamMembers: json.teamMembers })
+  }
+
+  renderTeamMembers (team) {
     return (
-      <div>
-        {username ? <h1>{`Hello ${username}`}</h1> : <h1>Loading.. please wait!</h1>}
-        <img src={ReactImage} alt="react" />
-      </div>
-    );
+      <>
+        <StyledTeamMembersTitle>Team Members</StyledTeamMembersTitle>
+        {_.map(team, (teamMember) => this.renderTeamMember(teamMember))}
+      </>
+    )
+  }
+
+  renderTeamMember (teamMember) {
+    return <TeamMember teamMember={teamMember} />
+  }
+
+  render () {
+    const { username, teamMembers } = this.state
+    return (
+      <StyledContainer>
+        {
+          username
+            ? <StyledTitle>{`Hi ${username} 👋`}</StyledTitle>
+            : <StyledTitle>Loading..</StyledTitle>
+        }
+        <StyledExplanationText>We're excited at the prospect of you joining the team!</StyledExplanationText>
+        {
+          teamMembers && teamMembers.length > 0
+            ? this.renderTeamMembers(teamMembers)
+            : 'hmm no team members returned from the API!'
+        }
+      </StyledContainer>
+    )
   }
 }
+
+export default App
