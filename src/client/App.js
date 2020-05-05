@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
-import './app.css'
 import styled from 'styled-components'
+import _ from 'lodash'
+
+import './app.css'
 import theme from './theme'
+
+import TeamMember from './components/TeamMember'
 
 const StyledContainer = styled.div`
   display: flex;
@@ -14,26 +18,58 @@ const StyledContainer = styled.div`
 `
 
 const StyledTitle = styled.h1`
+  margin-bottom: 20px;
+  color: ${theme.textColor}
+`
+
+const StyledTeamMembersTitle = styled.h4`
+  margin-bottom: 20px;
   color: ${theme.textColor}
 `
 
 const StyledExplanationText = styled.span`
+  margin-bottom: 20px;
   color: ${theme.textColor}
 `
 
 class App extends Component {
   state = {
     username: null,
+    teamMembers: [],
   }
 
   async componentDidMount () {
-    const res = await fetch('/api/getUsername')
+    await this.getUsername()
+    await this.getUsers()
+  }
+
+  async getUsername () {
+    const res = await fetch('/api/username')
     const json = await res.json()
-    this.setState({ username: json.username })
+    return this.setState({ username: json.username })
+  }
+
+  async getUsers () {
+    const res = await fetch('/api/team-members')
+    const json = await res.json()
+    return this.setState({ teamMembers: json.teamMembers })
+  }
+
+  renderTeamMembers (team) {
+    return (
+      <>
+        <StyledTeamMembersTitle>Team Members</StyledTeamMembersTitle>
+        {_.map(team, (teamMember) => this.renderTeamMember(teamMember))}
+      </>
+    )
+  }
+
+  renderTeamMember (teamMember) {
+    return <TeamMember teamMember={teamMember} />
   }
 
   render () {
-    const { username } = this.state
+    const { username, teamMembers } = this.state
     return (
       <StyledContainer>
         {
@@ -42,6 +78,11 @@ class App extends Component {
             : <StyledTitle>Loading..</StyledTitle>
         }
         <StyledExplanationText>We're excited at the prospect of you joining the team!</StyledExplanationText>
+        {
+          teamMembers && teamMembers.length > 0
+            ? this.renderTeamMembers(teamMembers)
+            : 'hmm no team members returned from the API!'
+        }
       </StyledContainer>
     )
   }
