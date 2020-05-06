@@ -1,97 +1,31 @@
-import _ from 'lodash'
 import React, { Component } from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 
-import theme from './theme'
+import theme from 'theme'
 
-import TeamMember from './components/TeamMember'
+import AllFiles from 'routes/AllFiles'
 
 const GlobalStyle = createGlobalStyle`
   body {
-    text-align: center;
-    margin: auto;
+    margin: 0;
     font-family: Sans-Serif;
+    background-color: ${theme.colors.blacks[5]};
   }
 `
 
-const StyledContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 100vw;
-  background-color: ${theme.colors.blacks[5]};
-`
-
-const StyledTitle = styled.h1`
-  margin-bottom: 20px;
-  color: ${theme.textColor}
-`
-
-const StyledTeamMembersTitle = styled.h4`
-  margin-bottom: 20px;
-  color: ${theme.textColor}
-`
-
-const StyledExplanationText = styled.span`
-  margin-bottom: 20px;
-  color: ${theme.textColor}
+const AppContainer = styled.div`
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 30px 20px;
 `
 
 class App extends Component {
-  state = {
-    username: null,
-    teamMembers: [],
-  }
-
-  async componentDidMount () {
-    await this.getUsername()
-    await this.getUsers()
-  }
-
-  async getUsername () {
-    const res = await fetch('/api/username')
-    const json = await res.json()
-    return this.setState({ username: json.username })
-  }
-
-  async getUsers () {
-    const res = await fetch('/api/team-members')
-    const json = await res.json()
-    return this.setState({ teamMembers: json.teamMembers })
-  }
-
-  renderTeamMembers (team) {
-    return (
-      <>
-        <StyledTeamMembersTitle>Team Members</StyledTeamMembersTitle>
-        {_.map(team, (teamMember) => this.renderTeamMember(teamMember))}
-      </>
-    )
-  }
-
-  renderTeamMember (teamMember) {
-    return <TeamMember key={teamMember.id} teamMember={teamMember} />
-  }
-
   render () {
-    const { username, teamMembers } = this.state
     return (
-      <StyledContainer>
+      <AppContainer>
         <GlobalStyle />
-        {
-          username
-            ? <StyledTitle>{`Hi ${username} 👋`}</StyledTitle>
-            : <StyledTitle>Loading..</StyledTitle>
-        }
-        <StyledExplanationText>We're excited at the prospect of you joining the team!</StyledExplanationText>
-        {
-          teamMembers && teamMembers.length > 0
-            ? this.renderTeamMembers(teamMembers)
-            : 'hmm no team members returned from the API!'
-        }
-      </StyledContainer>
+        <AllFiles />
+      </AppContainer>
     )
   }
 }
