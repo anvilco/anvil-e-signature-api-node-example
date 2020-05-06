@@ -29,6 +29,12 @@ module.exports = {
     ],
   },
   resolve: {
+    modules: [
+      path.join(__dirname, 'src', 'client'),
+      path.join(__dirname, 'src'),
+      __dirname,
+      'node_modules',
+    ],
     extensions: ['*', '.js', '.jsx'],
   },
   devServer: {
