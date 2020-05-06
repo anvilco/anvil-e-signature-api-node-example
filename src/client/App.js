@@ -1,11 +1,18 @@
-import React, { Component } from 'react'
-import styled from 'styled-components'
 import _ from 'lodash'
+import React, { Component } from 'react'
+import styled, { createGlobalStyle } from 'styled-components'
 
-import './app.css'
 import theme from './theme'
 
 import TeamMember from './components/TeamMember'
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    text-align: center;
+    margin: auto;
+    font-family: Sans-Serif;
+  }
+`
 
 const StyledContainer = styled.div`
   display: flex;
@@ -65,13 +72,14 @@ class App extends Component {
   }
 
   renderTeamMember (teamMember) {
-    return <TeamMember teamMember={teamMember} />
+    return <TeamMember key={teamMember.id} teamMember={teamMember} />
   }
 
   render () {
     const { username, teamMembers } = this.state
     return (
       <StyledContainer>
+        <GlobalStyle />
         {
           username
             ? <StyledTitle>{`Hi ${username} 👋`}</StyledTitle>
