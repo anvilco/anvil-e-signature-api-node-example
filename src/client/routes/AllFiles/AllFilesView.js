@@ -1,17 +1,8 @@
 import React, { Component } from 'react'
-import styled, { createGlobalStyle } from 'styled-components'
+import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 import theme from 'theme'
-
-import TeamMember from 'components/TeamMember'
-
-const GlobalStyle = createGlobalStyle`
-  body {
-    margin: 0;
-    font-family: Sans-Serif;
-    background-color: ${theme.colors.blacks[5]};
-  }
-`
 
 const StyledContainer = styled.div`
 
@@ -33,60 +24,35 @@ const StyledExplanationText = styled.span`
 `
 
 class AllFilesView extends Component {
-  state = {
-    username: null,
-    files: [],
-  }
-
-  async componentDidMount () {
-    await this.getUsername()
-    await this.getFiles()
-  }
-
-  async getUsername () {
-    const res = await fetch('/api/username')
-    const json = await res.json()
-    return this.setState({ username: json.username })
-  }
-
-  async getFiles () {
-    const res = await fetch('/api/files')
-    const json = await res.json()
-    return this.setState({ files: json.files })
-  }
-
   renderFiles (team) {
     return (
       <>
         <StyledTeamMembersTitle>Files</StyledTeamMembersTitle>
-        {JSON.stringify(this.state.files)}
+        {JSON.stringify(this.props.files)}
       </>
     )
   }
 
-  renderTeamMember (teamMember) {
-    return <TeamMember key={teamMember.id} teamMember={teamMember} />
-  }
-
   render () {
-    const { username, files } = this.state
+    const { username, files } = this.props
     return (
       <StyledContainer>
-        <GlobalStyle />
-        {
-          username
-            ? <StyledTitle>{`Hi ${username} 👋`}</StyledTitle>
-            : <StyledTitle>Loading..</StyledTitle>
-        }
+        <StyledTitle>{`Hi ${username} 👋`}</StyledTitle>
         <StyledExplanationText>We're excited at the prospect of you joining the team!</StyledExplanationText>
-        {
-          files && files.length > 0
-            ? this.renderFiles(files)
-            : 'hmm no team members returned from the API!'
-        }
+        {this.renderFiles(files)}
       </StyledContainer>
     )
   }
+}
+
+AllFilesView.propTypes = {
+  username: PropTypes.string.isRequired,
+  files: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    filename: PropTypes.string.isRequired,
+    src: PropTypes.string.isRequired,
+    notes: PropTypes.string.isRequired,
+  })).isRequired,
 }
 
 export default AllFilesView
