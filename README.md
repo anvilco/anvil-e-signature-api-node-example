@@ -1,7 +1,7 @@
 # Anvil Coding Takehome
 Hello 👋 & welcome to the anvil coding challenge.  We appreciate you taking the time to complete the assignment and we're excited about the prospect of you joining the team!
 
-The goal of this assignment is to get a sense for how you ____________, not for us to test magic keyword knowledge of our tech stach.  If you're having build issues 🔧 with the project that you feel should be working - please don't hesitate to contact us.
+The goal of this assignment is to get a sense for how you ____________, not for us to test magic keyword knowledge of our tech stack.  If you're having build issues 🔧 with the project that you feel should be working - please don't hesitate to contact us.
 
 ## Getting the project running
 
@@ -10,7 +10,7 @@ The goal of this assignment is to get a sense for how you ____________, not for 
 git clone https://github.com/
 
 # Go inside the directory
-cd anvil-coding-takehome 
+cd anvil-coding-challenge
 
 # Install dependencies
 yarn (or npm install)
@@ -18,7 +18,7 @@ yarn (or npm install)
 # Start development server
 yarn dev (or npm run dev)
 
-# run the tests 
+# run the tests
 yarn test (or npm run build)
 
 ```
