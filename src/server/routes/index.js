@@ -12,7 +12,7 @@ router.get('/api/username', async (req, res) => {
 
 router.get('/api/files', async (req, res) => {
   const files = db.get('files').value()
-  return res.send({ files })
+  return res.send(files)
 })
 
 module.exports = router
