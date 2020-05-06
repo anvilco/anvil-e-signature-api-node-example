@@ -21,6 +21,7 @@ const StyledDropzone = styled.div`
   font-weight: ${theme.fontWeights.bold};
 
   border: 2px dashed ${theme.colors.inputBorderColor};
+  background: white;
 
   min-height: 140px;
 
@@ -289,7 +290,7 @@ FileInput.defaultProps = {
   accept: '', // can be mimetype
 
   showBackground: false,
-  dropText: 'Drop an Image',
+  dropText: 'Drop a File',
 
   maxSize: 2 * 1024 * 1024, // 2mb
 

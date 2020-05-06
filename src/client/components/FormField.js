@@ -7,6 +7,11 @@ const FieldContainer = styled.div`
   &:last-child {
     margin-bottom: 0;
   }
+
+  > input {
+    display: block;
+    width: 100%;
+  }
 `
 
 class FormField extends React.Component {

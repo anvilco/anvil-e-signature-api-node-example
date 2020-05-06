@@ -10,6 +10,10 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     font-family: Sans-Serif;
     background-color: ${theme.colors.blacks[5]};
+
+    * {
+      box-sizing: border-box;
+    }
   }
 `
 

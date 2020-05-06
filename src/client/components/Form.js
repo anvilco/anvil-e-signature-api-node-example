@@ -19,7 +19,6 @@ class Form extends React.Component {
 
   handleChange = async (fieldName, value) => {
     const { values } = this.state
-    console.log('CHANGE', fieldName, value)
     this.setState({
       values: {
         ...values,

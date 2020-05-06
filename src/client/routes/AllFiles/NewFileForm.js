@@ -4,11 +4,20 @@ import PropTypes from 'prop-types'
 import Form from 'components/Form'
 import FormField from 'components/FormField'
 import FileInput from 'components/FileInput'
+import Input from 'components/Input'
 
 class NewFileForm extends React.Component {
   render () {
+    const { onSubmit } = this.props
     return (
-      <Form>
+      <Form onSubmit={onSubmit}>
+        <FormField name="description">
+          <Input
+            key="description"
+            required
+            placeholder="This file is a file about things and stuff"
+          />,
+        </FormField>
         <FormField name="file">
           <FileInput key="file" />,
         </FormField>
@@ -18,7 +27,7 @@ class NewFileForm extends React.Component {
 }
 
 NewFileForm.propTypes = {
-  // onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 }
 
 export default NewFileForm
