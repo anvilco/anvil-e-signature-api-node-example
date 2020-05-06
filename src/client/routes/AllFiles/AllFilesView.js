@@ -4,6 +4,8 @@ import styled from 'styled-components'
 
 import theme from 'theme'
 
+import NewFileForm from './NewFileForm'
+
 const StyledContainer = styled.div`
 
 `
@@ -40,6 +42,7 @@ class AllFilesView extends Component {
         <StyledTitle>{`Hi ${username} 👋`}</StyledTitle>
         <StyledExplanationText>We're excited at the prospect of you joining the team!</StyledExplanationText>
         {this.renderFiles(files)}
+        <NewFileForm />
       </StyledContainer>
     )
   }

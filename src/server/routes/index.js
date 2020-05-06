@@ -1,7 +1,7 @@
 const express = require('express')
-const router = express.Router()
 const os = require('os')
 const db = require('db')
+const router = express.Router()
 
 // LowDB Usage
 // https://github.com/typicode/lowdb#how-to-use-id-based-resources
