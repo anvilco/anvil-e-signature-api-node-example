@@ -2,7 +2,8 @@
   "files": [{
     "id": 1,
     "filename": "elvis.png",
-    "notes": "This is a picture of elvis...",
+    "mimetype": "image/png",
+    "description": "This is a picture of elvis...",
     "src": ""
   }]
 }

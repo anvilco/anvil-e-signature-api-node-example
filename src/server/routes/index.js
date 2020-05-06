@@ -15,4 +15,17 @@ router.get('/api/files', async (req, res) => {
   return res.send(files)
 })
 
+router.post('/api/files', async (req, res) => {
+  const { description, file } = req.body
+  const newFile = db.get('files')
+    .insert({
+      description,
+      filename: file.name,
+      mimetype: file.mimetype,
+      src: file.base64,
+    })
+    .write()
+  return res.send(newFile)
+})
+
 module.exports = router

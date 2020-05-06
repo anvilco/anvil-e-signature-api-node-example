@@ -8,6 +8,14 @@ const routes = require('./routes')
 const app = express()
 
 app.use(express.static('dist'))
+app.use(express.json({
+  inflate: true,
+  limit: '20mb',
+  reviver: null,
+  strict: true,
+  type: 'application/json',
+  verify: undefined,
+}))
 app.use(routes)
 
 const PORT = process.env.PORT || 8080

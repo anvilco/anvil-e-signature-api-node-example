@@ -26,6 +26,11 @@ const StyledExplanationText = styled.span`
 `
 
 class AllFilesView extends Component {
+  handleAddFile = (data) => {
+    const { addFile } = this.props
+    return addFile(data)
+  }
+
   renderFiles (team) {
     return (
       <>
@@ -42,13 +47,14 @@ class AllFilesView extends Component {
         <StyledTitle>{`Hi ${username} 👋`}</StyledTitle>
         <StyledExplanationText>We're excited at the prospect of you joining the team!</StyledExplanationText>
         {this.renderFiles(files)}
-        <NewFileForm />
+        <NewFileForm onSubmit={this.handleAddFile} />
       </StyledContainer>
     )
   }
 }
 
 AllFilesView.propTypes = {
+  addFile: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired,
   files: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
