@@ -9,7 +9,8 @@ class Form extends React.Component {
     values: {},
   }
 
-  handleSubmit = async () => {
+  handleSubmit = async (e) => {
+    e.preventDefault()
     const { onSubmit } = this.props
     const { values } = this.state
     this.setState({ isSubmitting: true })
