@@ -2,27 +2,19 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import theme from 'theme'
+import Content from 'components/Content'
+import FileList from 'components/FileList'
 
 import NewFileForm from './NewFileForm'
 
-const StyledContainer = styled.div`
+const StyledContainer = styled.div``
 
+const Title = styled.h1`
+  margin-bottom: 20px;
 `
 
-const StyledTitle = styled.h1`
-  margin-bottom: 20px;
-  color: ${theme.textColor}
-`
-
-const StyledTeamMembersTitle = styled.h4`
-  margin-bottom: 20px;
-  color: ${theme.textColor}
-`
-
-const StyledExplanationText = styled.span`
-  margin-bottom: 20px;
-  color: ${theme.textColor}
+const Description = styled.p`
+  margin-bottom: 40px;
 `
 
 class AllFilesView extends Component {
@@ -31,22 +23,24 @@ class AllFilesView extends Component {
     return addFile(data)
   }
 
-  renderFiles (team) {
+  renderFiles () {
+    const { files } = this.props
     return (
-      <>
-        <StyledTeamMembersTitle>Files</StyledTeamMembersTitle>
-        {JSON.stringify(this.props.files)}
-      </>
+      <Content.Card>
+        <FileList
+          files={files}
+        />
+      </Content.Card>
     )
   }
 
   render () {
-    const { username, files } = this.props
+    const { username } = this.props
     return (
       <StyledContainer>
-        <StyledTitle>{`Hi ${username} 👋`}</StyledTitle>
-        <StyledExplanationText>We're excited at the prospect of you joining the team!</StyledExplanationText>
-        {this.renderFiles(files)}
+        <Title>{`Hi ${username} 👋`}</Title>
+        <Description>We're excited at the prospect of you joining the team!</Description>
+        {this.renderFiles()}
         <NewFileForm onSubmit={this.handleAddFile} />
       </StyledContainer>
     )

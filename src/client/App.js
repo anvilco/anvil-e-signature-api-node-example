@@ -10,6 +10,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     font-family: Sans-Serif;
     background-color: ${theme.colors.blacks[5]};
+    color: ${theme.textColor};
 
     * {
       box-sizing: border-box;
@@ -18,7 +19,7 @@ const GlobalStyle = createGlobalStyle`
 `
 
 const AppContainer = styled.div`
-  max-width: 500px;
+  max-width: 600px;
   margin: 0 auto;
   padding: 30px 20px;
 `
