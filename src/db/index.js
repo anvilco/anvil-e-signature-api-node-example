@@ -1,32 +1,19 @@
-module.exports = {
-  teamMembers: [
-    {
-      id: 1,
-      firstName: 'Mang-Git',
-      lastName: 'Ng',
-      favoriteEmoji: '🦕',
-      imgPath: '/src/client/static/img/mg.jpg',
-    },
-    {
-      id: 2,
-      firstName: 'Ben',
-      lastName: 'Ogle',
-      favoriteEmoji: '🌵',
-      imgPath: '/src/client/static/img/bo.jpg',
-    },
-    {
-      id: 3,
-      firstName: 'Evan',
-      lastName: 'Dweck',
-      favoriteEmoji: '🐉',
-      imgPath: '/src/client/static/img/ed.jpg',
-    },
-    {
-      id: 4,
-      firstName: 'Richard',
-      lastName: 'Albayaty',
-      favoriteEmoji: '👾',
-      imgPath: '/src/client/static/img/ra.jpg',
-    },
-  ],
+const fs = require('fs')
+const low = require('lowdb')
+const FileSync = require('lowdb/adapters/FileSync')
+const lodashId = require('lodash-id')
+
+const seedDB = 'src/db/seed.json'
+const localDB = 'src/db/local.json'
+
+if (!fs.existsSync(localDB)) {
+  console.log('Copying Seed DB....')
+  fs.writeFileSync(localDB, fs.readFileSync(seedDB))
 }
+
+const adapter = new FileSync(localDB)
+const db = low(adapter)
+
+db._.mixin(lodashId)
+
+module.exports = db

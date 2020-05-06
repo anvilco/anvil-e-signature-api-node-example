@@ -1,3 +1,14 @@
 module.exports = {
-  extends: ['nicenice']
+  extends: ['nicenice'],
+  settings: {
+    'import/resolver': {
+      'node': {
+        'moduleDirectory': [
+          'node_modules',
+          'src',
+          '.'
+        ]
+      }
+    }
+  }
 }

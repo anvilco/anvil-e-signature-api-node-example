@@ -1,6 +1,10 @@
+const path = require('path')
 const express = require('express')
-const routes = require('./routes')
+const appModulePath = require('app-module-path')
 
+appModulePath.addPath(path.join(__dirname, '..', '..', 'src'))
+
+const routes = require('./routes')
 const app = express()
 
 app.use(express.static('dist'))
