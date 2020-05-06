@@ -4,3 +4,5 @@ dist
 *.log
 yarn.lock
 **/.DS_Store
+
+src/db/local.json
