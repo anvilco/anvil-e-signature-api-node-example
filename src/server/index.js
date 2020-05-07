@@ -16,7 +16,9 @@ app.use(express.json({
   type: 'application/json',
   verify: undefined,
 }))
-app.use(routes)
+
+const router = express.Router()
+app.use(routes(router))
 
 const PORT = process.env.PORT || 8080
 
