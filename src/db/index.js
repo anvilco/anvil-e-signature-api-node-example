@@ -4,10 +4,15 @@ const FileSync = require('lowdb/adapters/FileSync')
 const lodashId = require('lodash-id')
 
 const seedDB = 'src/db/seed.json'
-const localDB = 'src/db/local.json'
+const devDB = 'src/db/dev.json'
+const testDB = 'src/db/test.json'
+
+const localDB = process.env.NODE_ENV === 'test'
+  ? testDB
+  : devDB
 
 if (!fs.existsSync(localDB)) {
-  console.log('Copying Seed DB....')
+  console.log('Building DB from seed....')
   fs.writeFileSync(localDB, fs.readFileSync(seedDB))
 }
 
@@ -15,5 +20,11 @@ const adapter = new FileSync(localDB)
 const db = low(adapter)
 
 db._.mixin(lodashId)
+
+let seedDBJSON = null
+db.resetToSeed = () => {
+  if (!seedDBJSON) seedDBJSON = JSON.parse(fs.readFileSync(seedDB))
+  db.setState(seedDBJSON)
+}
 
 module.exports = db

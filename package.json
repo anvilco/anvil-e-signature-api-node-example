@@ -9,7 +9,7 @@
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
     "server": "nodemon src/server/index.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "test": "mocha 'src/test/**/*.test.js'"
+    "test": "NODE_ENV=test mocha 'test/**/*.test.js' --require test/server/environment.js"
   },
   "author": "Evan Dweck",
   "license": "ISC",
