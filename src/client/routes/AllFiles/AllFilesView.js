@@ -66,10 +66,10 @@ AllFilesView.propTypes = {
   addFile: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired,
   files: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     filename: PropTypes.string.isRequired,
     src: PropTypes.string.isRequired,
-    notes: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
   })).isRequired,
 }
 
