@@ -1,7 +1,7 @@
 {
   "name": "anvil-react-full-stack-coding-challenge",
   "version": "1.0.0",
-  "description": "A sandboxed full stack web application using React, Node.js, Express and Webpack.",
+  "description": "Anvil's interview challenge base webapp",
   "main": "src/server/index.js",
   "scripts": {
     "build": "webpack --mode production",
@@ -15,7 +15,7 @@
     "test:client": "NODE_ENV=test mocha 'test/client/**/*.test.js' --require test/client/environment.js --require @babel/register",
     "test": "yarn lint && yarn test:server && yarn test:client"
   },
-  "author": "Evan Dweck",
+  "author": "Anvil Foundry Inc.",
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.8.7",
