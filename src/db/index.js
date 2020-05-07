@@ -1,32 +1,30 @@
-module.exports = {
-  teamMembers: [
-    {
-      id: '1',
-      firstName: 'Mang-Git',
-      lastName: 'Ng',
-      favoriteEmoji: '🦕',
-      imgPath: '/src/client/static/img/mg.jpg',
-    },
-    {
-      id: '2',
-      firstName: 'Ben',
-      lastName: 'Ogle',
-      favoriteEmoji: '🌵',
-      imgPath: '/src/client/static/img/bo.jpg',
-    },
-    {
-      id: '3',
-      firstName: 'Evan',
-      lastName: 'Dweck',
-      favoriteEmoji: '🐉',
-      imgPath: '/src/client/static/img/ed.jpg',
-    },
-    {
-      id: '3',
-      firstName: 'Richard',
-      lastName: 'Albayaty',
-      favoriteEmoji: '👾',
-      imgPath: '/src/client/static/img/ra.jpg',
-    },
-  ],
+const fs = require('fs')
+const low = require('lowdb')
+const FileSync = require('lowdb/adapters/FileSync')
+const lodashId = require('lodash-id')
+
+const seedDB = 'src/db/seed.json'
+const devDB = 'src/db/dev.json'
+const testDB = 'src/db/test.json'
+
+const localDB = process.env.NODE_ENV === 'test'
+  ? testDB
+  : devDB
+
+if (!fs.existsSync(localDB)) {
+  console.log('Building DB from seed....')
+  fs.writeFileSync(localDB, fs.readFileSync(seedDB))
 }
+
+const adapter = new FileSync(localDB)
+const db = low(adapter)
+
+db._.mixin(lodashId)
+
+let seedDBJSON = null
+db.resetToSeed = () => {
+  if (!seedDBJSON) seedDBJSON = JSON.parse(fs.readFileSync(seedDB))
+  db.setState(seedDBJSON)
+}
+
+module.exports = db

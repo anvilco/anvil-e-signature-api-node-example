@@ -1,15 +1,33 @@
-const express = require('express')
-const router = express.Router()
 const os = require('os')
-const db = require('../../db')
+const db = require('db')
 
-router.get('/api/username', async (req, res) => {
-  return res.send({ username: os.userInfo().username })
-})
+// LowDB Usage
+// https://github.com/typicode/lowdb#how-to-use-id-based-resources
 
-router.get('/api/team-members', async (req, res) => {
-  const teamMembers = db.teamMembers
-  return res.send({ teamMembers })
-})
+function buildRoutes (router) {
+  router.get('/api/username', async (req, res) => {
+    return res.send({ username: os.userInfo().username })
+  })
 
-module.exports = router
+  router.get('/api/files', async (req, res) => {
+    const files = db.get('files').value()
+    return res.send(files)
+  })
+
+  router.post('/api/files', async (req, res) => {
+    const { description, file } = req.body
+    const newFile = db.get('files')
+      .insert({
+        description,
+        filename: file.name,
+        mimetype: file.mimetype,
+        src: file.base64,
+      })
+      .write()
+    return res.send(newFile)
+  })
+
+  return router
+}
+
+module.exports = buildRoutes
