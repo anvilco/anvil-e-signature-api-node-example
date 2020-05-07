@@ -1,6 +1,7 @@
 const { expect } = require('chai')
 const db = require('db')
 const buildRoutes = require('server/routes')
+const buildMockRouter = require('../buildMockRouter')
 
 describe('routes', function () {
   let router, route, res, req
@@ -48,20 +49,3 @@ describe('routes', function () {
     })
   })
 })
-
-const buildMockRouter = () => {
-  const router = {
-    getRoutes: {},
-    postRoutes: {},
-    get: (url, handler) => {
-      router.getRoutes[url] = handler
-    },
-    put: (url, handler) => {
-      router.putRoutes[url] = handler
-    },
-    post: (url, handler) => {
-      router.postRoutes[url] = handler
-    },
-  }
-  return router
-}
