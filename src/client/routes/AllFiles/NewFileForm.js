@@ -15,7 +15,8 @@ class NewFileForm extends React.Component {
           <Input
             key="description"
             required
-            placeholder="This file is a file about things and stuff"
+            placeholder="File Description"
+            autoFocus
           />,
         </FormField>
         <FormField name="file">

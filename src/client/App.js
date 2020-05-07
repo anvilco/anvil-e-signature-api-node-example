@@ -21,7 +21,7 @@ const GlobalStyle = createGlobalStyle`
 const AppContainer = styled.div`
   max-width: 600px;
   margin: 0 auto;
-  padding: 30px 20px;
+  padding: 50px 20px;
 `
 
 class App extends Component {

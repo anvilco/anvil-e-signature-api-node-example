@@ -18,6 +18,7 @@ const buttonVariantSolid = ({
   background-color: ${background};
   border-width: 0;
   font-weight: ${theme.fontWeights.bold};
+  outline: none;
 
   padding: 12px 16px;
 
@@ -141,6 +142,23 @@ const buttonStyles = ({ size, type, toolbar, colorDisabled }) => `
     &.disabled,
     &.disabled:hover {
       color: ${theme.colors.blue} !important;
+    }
+
+    svg {
+      display: inline-block;
+      vertical-align: middle;
+      width: 14px;
+      height: 14px;
+      margin-right: 8px;
+
+      path, polygon, rect {
+        transition: fill 0.1s ease;
+        fill: ${theme.textColors.subtle};
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
     }
   `};
 `

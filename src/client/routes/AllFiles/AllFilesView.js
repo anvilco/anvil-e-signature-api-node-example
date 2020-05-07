@@ -4,6 +4,9 @@ import styled from 'styled-components'
 
 import Content from 'components/Content'
 import FileList from 'components/FileList'
+import Button from 'components/Button'
+import Toggler from 'components/Toggler'
+import IconPlus from 'components/icons/IconPlus'
 
 import NewFileForm from './NewFileForm'
 
@@ -11,10 +14,6 @@ const StyledContainer = styled.div``
 
 const Title = styled.h1`
   margin-bottom: 20px;
-`
-
-const Description = styled.p`
-  margin-bottom: 40px;
 `
 
 class AllFilesView extends Component {
@@ -34,14 +33,30 @@ class AllFilesView extends Component {
     )
   }
 
+  renderNewFileForm () {
+    return (
+      <Toggler
+        renderButton={({ showItem, onClick }) => (
+          <Button type="link" onClick={onClick}>
+            <IconPlus />
+            <span>{showItem ? 'Close Add Form' : 'Add a File'}</span>
+          </Button>
+        )}
+      >
+        {() => (
+          <NewFileForm onSubmit={this.handleAddFile} />
+        )}
+      </Toggler>
+    )
+  }
+
   render () {
     const { username } = this.props
     return (
       <StyledContainer>
         <Title>{`Hi ${username} 👋`}</Title>
-        <Description>We're excited at the prospect of you joining the team!</Description>
         {this.renderFiles()}
-        <NewFileForm onSubmit={this.handleAddFile} />
+        {this.renderNewFileForm()}
       </StyledContainer>
     )
   }
