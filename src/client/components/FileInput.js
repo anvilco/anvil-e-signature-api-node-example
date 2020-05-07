@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
@@ -103,10 +102,6 @@ const Text = styled.div`
   display: block;
 `
 
-const Actions = styled.div`
-  text-align: right;
-`
-
 function acceptsImage (mime) {
   return mime.indexOf('image/') > -1
 }
@@ -123,13 +118,6 @@ const mimeTypeRegex = {
 function acceptsFileName (mime, filename) {
   const re = mimeTypeRegex[mime]
   return re ? re.test(filename) : false
-}
-
-function getPreview (file) {
-  if (window.URL && window.URL.createObjectURL) {
-    return window.URL.createObjectURL(file)
-  }
-  return null
 }
 
 function getBase64 (file) {
@@ -169,7 +157,6 @@ class FileInput extends React.Component {
 
     const file = acceptedFile
     const value = {
-      // src: getPreview(file),
       mimetype: file.type,
       name: file.name,
       base64: await getBase64(file),
@@ -247,18 +234,13 @@ class FileInput extends React.Component {
 
   render () {
     const {
-      value,
       disabled,
       accept,
-      onChange,
       onFocus,
       onBlur,
       maxSize,
-      children,
       className,
     } = this.props
-    const isEmpty = !value
-
     return (
       <Container className={className}>
         <Dropzone
@@ -277,11 +259,6 @@ class FileInput extends React.Component {
   }
 }
 
-// {!isEmpty && !children ? (
-//   <Actions>
-//     <Button type="link" onClick={() => onChange(null)}>remove</Button>
-//   </Actions>
-// ) : null}
 FileInput.defaultProps = {
   value: null,
   disabled: false,

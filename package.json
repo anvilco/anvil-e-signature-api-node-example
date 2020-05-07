@@ -9,10 +9,11 @@
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
     "server": "nodemon src/server/index.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "db:refresh": "rm src/db/dev.json",
+    "db:reset": "rm src/db/dev.json",
+    "lint": "yarn eslint '**/*.js'",
     "test:server": "NODE_ENV=test mocha 'test/server/**/*.test.js' --require test/server/environment.js",
     "test:client": "NODE_ENV=test mocha 'test/client/**/*.test.js' --require test/client/environment.js --require @babel/register",
-    "test": "yarn test:server && yarn test:client"
+    "test": "yarn lint && yarn test:server && yarn test:client"
   },
   "author": "Evan Dweck",
   "license": "ISC",
