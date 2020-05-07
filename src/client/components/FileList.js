@@ -15,8 +15,19 @@ const TypeContainer = styled.div`
   margin-right: 6px;
   font-size: 12px;
   text-transform: uppercase;
+  flex-shrink: 0;
   color: ${theme.textColors.subtleBlue};
   font-weight: ${theme.fontWeights.bold};
+`
+
+const NameContainer = styled.div``
+
+const Name = styled.div``
+
+const Description = styled.div`
+  margin-top: 5px;
+  font-size: 14px;
+  color: ${theme.textColors.subtleBlue};
 `
 
 const imageTypes = {
@@ -55,7 +66,14 @@ class FileList extends React.Component {
             <CircleIcon>
               {this.renderIcon(file.mimetype)}
             </CircleIcon>
-            {file.filename}
+            <NameContainer>
+              <Name>{file.filename}</Name>
+              {file.description
+                ? (
+                  <Description>{file.description}</Description>
+                )
+                : null}
+            </NameContainer>
             <Content.List.Actions>
               <TypeContainer>
                 {getFileType(file.mimetype)} {isImageType(file.mimetype) ? 'image' : ''}
