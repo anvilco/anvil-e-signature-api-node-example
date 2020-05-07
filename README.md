@@ -40,3 +40,15 @@ yarn test:client # Only the client tests
 
 yarn db:reset # Reset the DB to the initial seed data
 ```
+
+## What even is it?
+
+It's a single page app that shows a list of files.
+
+<img width="669" alt="Screen Shot 2020-05-07 at 12 28 14 PM" src="https://user-images.githubusercontent.com/69169/81336579-71df3300-905e-11ea-888a-acccc1344b36.png">
+
+You can add new files!
+
+<img width="636" alt="Screen Shot 2020-05-07 at 12 30 03 PM" src="https://user-images.githubusercontent.com/69169/81336645-8cb1a780-905e-11ea-86ce-f882a2d5fd46.png">
+
+That's all it does without your help!
