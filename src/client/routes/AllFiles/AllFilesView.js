@@ -12,7 +12,7 @@ import NewFileForm from './NewFileForm'
 
 const StyledContainer = styled.div``
 
-const Title = styled.h1`
+export const Title = styled.h1`
   margin-bottom: 20px;
 `
 
