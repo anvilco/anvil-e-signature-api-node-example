@@ -30,7 +30,7 @@ describe('routes', function () {
       route = '/api/files'
     })
 
-    it('returns all the files', async function () {
+    it('uploads a file and returns its metadata', async function () {
       const input = {
         description: 'A portait of an artist',
         file: {

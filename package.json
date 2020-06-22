@@ -10,7 +10,7 @@
     "server": "nodemon src/server/index.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "db:reset": "rm src/db/dev.json",
-    "lint": "yarn eslint '**/*.js'",
+    "lint": "yarn eslint 'src/**/*.js' 'test/**/*.js'",
     "test:server": "NODE_ENV=test mocha 'test/server/**/*.test.js' --require test/server/environment.js",
     "test:client": "NODE_ENV=test mocha 'test/client/**/*.test.js' --require test/client/environment.js --require @babel/register",
     "test": "yarn lint && yarn test:server && yarn test:client"

@@ -1,3 +1,4 @@
+const { cloneDeep } = require('lodash')
 const fs = require('fs')
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
@@ -24,7 +25,7 @@ db._.mixin(lodashId)
 let seedDBJSON = null
 db.resetToSeed = () => {
   if (!seedDBJSON) seedDBJSON = JSON.parse(fs.readFileSync(seedDB))
-  db.setState(seedDBJSON)
+  db.setState(cloneDeep(seedDBJSON))
 }
 
 module.exports = db
