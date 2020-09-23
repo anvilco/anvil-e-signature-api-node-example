@@ -65,7 +65,7 @@ Form.defaultProps = {
 Form.propTypes = {
   submitButtonText: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  children: PropTypes.func.isRequired,
+  children: PropTypes.array.isRequired,
 }
 
 export default Form
