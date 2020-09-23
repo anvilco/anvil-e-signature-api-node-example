@@ -1,9 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 
 import theme from 'theme'
-
-import AllFiles from 'routes/AllFiles'
+import Routes from 'routes'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -24,15 +23,13 @@ const AppContainer = styled.div`
   padding: 50px 20px;
 `
 
-class App extends Component {
-  render () {
-    return (
-      <AppContainer>
-        <GlobalStyle />
-        <AllFiles />
-      </AppContainer>
-    )
-  }
+const App = () => {
+  return (
+    <AppContainer>
+      <Routes />
+      <GlobalStyle />
+    </AppContainer>
+  )
 }
 
 export default App
