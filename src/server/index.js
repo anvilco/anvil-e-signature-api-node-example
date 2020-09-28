@@ -2,6 +2,8 @@ const path = require('path')
 const express = require('express')
 const appModulePath = require('app-module-path')
 
+require('dotenv').config()
+
 appModulePath.addPath(path.join(__dirname, '..', '..', 'src'))
 
 const routes = require('./routes')

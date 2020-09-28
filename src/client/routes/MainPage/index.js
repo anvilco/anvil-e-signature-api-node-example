@@ -7,39 +7,43 @@ import { Title, Description, StyledLink } from 'components/styled'
 
 const NameContainer = styled.div``
 
-const Name = styled.div``
+const Name = styled.div`
+  color: ${theme.colors.black};
+`
 
 const ItemDescription = styled.div`
   margin-top: 5px;
   font-size: 14px;
-  color: ${theme.textColors.subtleBlue};
+  color: ${theme.colors.greens[80]};
 `
 
 const MainPage = () => {
   return (
     <>
-      <Title>Anvil Etch Workflows</Title>
+      <Title>Anvil Signatures</Title>
       <Description>Paperwork without the paper and work.</Description>
       <Content.Card>
         <Content.List
           items={[
             {
               id: 1,
-              name: 'A simple etch signature workflow for one signer',
+              name: 'Create an Anvil signature packet for one signer',
               description: 'Sign your own documents',
-              to: '/oneSignerEmbedded',
+              to: '/embedded/one',
             },
             {
               id: 2,
-              name: 'An etch signature workflow for two signers',
-              description: 'For documents involving two parties',
-              to: '/twoSignersEmbedded',
+              name: 'Create an Anvil signature packet for two signers',
+              description: 'Sign yourself, then gather signatures',
+              to: '/embedded/two',
             },
           ]}
           renderItem={(item, index) => (
             <React.Fragment key={index}>
-              <NameContainer as={StyledLink} to={item.to}>
-                <Name>{item.name}</Name>
+              <NameContainer>
+                <Name as={StyledLink} to={item.to}>
+                  {item.name}
+                </Name>
                 {item.description
                   ? (
                     <ItemDescription>{item.description}</ItemDescription>

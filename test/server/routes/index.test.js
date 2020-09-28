@@ -1,9 +1,8 @@
 const { expect } = require('chai')
-const db = require('db')
 const buildRoutes = require('server/routes')
 const buildMockRouter = require('../buildMockRouter')
 
-describe('routes', function () {
+describe.skip('routes', function () {
   let router, route, res, req
   beforeEach(async function () {
     req = {}
@@ -11,7 +10,6 @@ describe('routes', function () {
       send: (value) => { res.body = value },
     }
     router = buildRoutes(buildMockRouter())
-    db.resetToSeed()
   })
 
   describe('GET /api/files', function () {

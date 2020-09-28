@@ -11,8 +11,8 @@ const Routes = () => {
     <Router>
       <Switch>
         <Route path="/finish" component={FinishedPage} />
-        <Route path="/oneSignerEmbedded" component={OneSignerEmbedded} />
-        <Route path="/twoSignersEmbedded" component={TwoSignersEmbedded} />
+        <Route path="/embedded/one" component={OneSignerEmbedded} />
+        <Route path="/embedded/two" component={TwoSignersEmbedded} />
         <Route path="/" component={MainPage} />
       </Switch>
     </Router>

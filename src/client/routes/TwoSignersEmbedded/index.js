@@ -1,13 +1,13 @@
 import React from 'react'
 
-import EtchPacketForm from './EtchPacketForm'
-import CreateEtchPacketTemplate from 'components/CreateEtchPacketTemplate'
+import TwoSignersForm from './TwoSignersForm'
+import CreateSignaturePacketTemplate from 'components/CreateSignaturePacketTemplate'
 
 const TwoSignersEmbedded = () => (
-  <CreateEtchPacketTemplate
-    title="Etch Signatures for Two"
-    description="For doucments involving two parties."
-    CustomForm={EtchPacketForm}
+  <CreateSignaturePacketTemplate
+    title="Anvil Signature Packets"
+    description="For two signers. Sign yourself and request signatures."
+    CustomForm={TwoSignersForm}
   />
 )
 
