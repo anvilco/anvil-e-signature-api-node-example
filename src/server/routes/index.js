@@ -1,4 +1,15 @@
 const Anvil = require('@anvilco/anvil')
+const { logError } = require('../helpers')
+
+const apiKey = process.env.ANVIL_API_KEY
+const apiBaseURL = process.env.API_BASE_URL || 'https://app.useanvil.com'
+const templateCastEID = process.env.TEMPLATE_CAST_EID || 'XJyMU567bv0QQLZeRUNh'
+
+if (!apiKey) {
+  setTimeout(() => {
+    logError('ANVIL_API_KEY has not been defined. See .env.example at the root of the project')
+  }, 3000)
+}
 
 function buildRoutes (router) {
   router.post('/api/packet/create', async (req, res) => {
@@ -67,8 +78,7 @@ function buildRoutes (router) {
       files: [
         {
           id: 'rootCastUSPS1583',
-          // castEid: 'GgQbmVPQUwAEaBUcdjYZ',
-          castEid: 'XJyMU567bv0QQLZeRUNh',
+          castEid: templateCastEID,
         },
         {
           id: 'fileUpload',
@@ -150,8 +160,8 @@ function buildRoutes (router) {
 
     try {
       const client = new Anvil({
-        apiKey: process.env.ANVIL_API_KEY,
-        baseURL: 'http://localhost:3000',
+        apiKey,
+        baseURL: apiBaseURL,
       })
 
       const { statusCode, data, errors } = await client.createEtchPacket({ variables })
@@ -179,8 +189,8 @@ function buildRoutes (router) {
 
     try {
       const client = new Anvil({
-        apiKey: process.env.ANVIL_API_KEY,
-        baseURL: 'http://localhost:3000',
+        apiKey,
+        baseURL: apiBaseURL,
       })
 
       const { statusCode, url, errors } = await client.generateEtchSignUrl({ variables })
