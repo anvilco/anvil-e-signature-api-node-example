@@ -88,7 +88,7 @@ const createSignaturePacketTemplate = ({ title, description, CustomForm }) => {
           {(createPacketResponse && createPacketResponse.startsWith('Error: API key required.')) &&
             <StyledAnchor
               link
-              href="https://app.useanvil.com/signup"
+              href="https://app.useanvil.com/signup/etch-api"
               target="_blank"
             >
               Sign Up Here
