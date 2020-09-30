@@ -127,7 +127,7 @@ const createSignaturePacketTemplate = ({ title, description, CustomForm }) => {
         {renderCreatePacketResponse()}
         {renderGenerateURLResponse()}
       </Content.Card>
-      <StyledLink to="/">Return</StyledLink>
+      <StyledLink size="small" to="/">Back to index</StyledLink>
     </>
   )
 }

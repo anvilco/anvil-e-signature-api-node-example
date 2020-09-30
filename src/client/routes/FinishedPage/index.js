@@ -125,7 +125,7 @@ const FinishedPage = () => {
         {renderGenerateSignURLButton()}
         {renderToSignButton()}
       </Content.Card>
-      <StyledLink to="/">Return</StyledLink>
+      <StyledLink size="small" to="/">Back to index</StyledLink>
     </>
   )
 }
