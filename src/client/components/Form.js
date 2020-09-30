@@ -1,7 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 import Button from 'components/Button'
+import Spinner from 'components/Spinner'
+
+const ButtonBar = styled.div`
+  display: flex;
+`
 
 class Form extends React.Component {
   state = {
@@ -46,13 +52,16 @@ class Form extends React.Component {
         onSubmit={this.handleSubmit}
       >
         {fields}
-        <Button
-          isSubmit
-          type="cta"
-          disabled={isSubmitting}
-        >
-          {submitButtonText}
-        </Button>
+        <ButtonBar>
+          <Button
+            isSubmit
+            type="cta"
+            disabled={isSubmitting}
+          >
+            {submitButtonText}
+          </Button>
+          {isSubmitting && <Spinner />}
+        </ButtonBar>
       </form>
     )
   }

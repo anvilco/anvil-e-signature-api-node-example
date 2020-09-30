@@ -1,12 +1,12 @@
-export const createRequest = ({ url, method, callback }) => {
-  return async (data) => {
+export const createRequest = ({ url, method, callback, myData }) => {
+  return async (formData) => {
     const result = await fetch(url, {
       method: method || 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: myData ? JSON.stringify(myData) : JSON.stringify(formData),
     })
     if (callback) callback(result)
   }
@@ -17,7 +17,9 @@ export const parseQueryString = () => {
 
   const items = queryString.split('&')
   return items.reduce((data, item) => {
-    const [key, value] = item.split('=')
+    let [key, value] = item.split('=')
+    key = decodeURIComponent(key)
+    value = decodeURIComponent(value)
     if (data[key] !== undefined) {
       if (!Array.isArray(data[key])) {
         data[key] = [data[key]]

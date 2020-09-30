@@ -60,7 +60,7 @@ const buttonStyles = ({ size, type, toolbar, colorDisabled }) => `
   })};
 
   ${type === 'cta' && buttonVariantSolid({
-    color: theme.colors.blacks[50],
+    color: theme.colors.blacks[90],
     background: theme.colors.green,
     backgroundHover: theme.colors.greens[40],
   })};
@@ -69,6 +69,12 @@ const buttonStyles = ({ size, type, toolbar, colorDisabled }) => `
     color: 'white',
     background: theme.colors.blue,
     backgroundHover: theme.colors.blues[40],
+  })};
+
+  ${type === 'orange' && buttonVariantSolid({
+    color: theme.colors.blacks[90],
+    background: theme.colors.orange,
+    backgroundHover: theme.colors.oranges[40],
   })};
 
   ${type === 'danger' && buttonVariantSolid({

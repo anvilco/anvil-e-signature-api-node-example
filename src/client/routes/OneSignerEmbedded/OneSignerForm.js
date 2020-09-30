@@ -5,13 +5,13 @@ import Form from 'components/Form'
 import FormField from 'components/FormField'
 import Input from 'components/Input'
 
-class EtchPacketForm extends React.Component {
+class OneSignerForm extends React.Component {
   render () {
-    const { onSubmit } = this.props
+    const { submitButtonText, onSubmit } = this.props
     return (
       <Form
         onSubmit={onSubmit}
-        submitButtonText="Create Etch Packet"
+        submitButtonText={submitButtonText}
       >
         <FormField name="signerOneName">
           <Input
@@ -28,14 +28,21 @@ class EtchPacketForm extends React.Component {
             placeholder="Signer Email"
           />,
         </FormField>
+        <FormField name="packetName">
+          <Input
+            key="packetName"
+            placeholder="Signature Packet Name (optional)"
+          />,
+        </FormField>
       </Form>
     )
   }
 }
 
-EtchPacketForm.propTypes = {
+OneSignerForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  submitButtonText: PropTypes.string.isRequired,
   items: PropTypes.array,
 }
 
-export default EtchPacketForm
+export default OneSignerForm
