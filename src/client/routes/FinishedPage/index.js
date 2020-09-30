@@ -70,30 +70,26 @@ const FinishedPage = () => {
     // otherwise, create a link to the completed signature packet on the Anvil dashboard
     if (results?.nextSignerEid) {
       return (
-        <>
-          <Button
-            type="cta"
-            onClick={() => generateSignURL()}
-          >
-            Generate Signature Link for Next Signer
-          </Button>
-        </>
+        <Button
+          type="cta"
+          onClick={() => generateSignURL()}
+        >
+          Generate Signature Link for Next Signer
+        </Button>
       )
     } else {
       return (
-        <>
-          <p>
-            <Button
-              type="cta"
+        <p>
+          <Button
+            type="cta"
+          >
+            <StyledAnchor
+              href={`http://localhost:3000/api/etch/download/${results?.documentGroupEid}/${results?.etchTemplateEid}.zip`}
             >
-              <StyledAnchor
-                href={`http://localhost:3000/api/etch/download/${results?.documentGroupEid}/${results?.etchTemplateEid}.zip`}
-              >
-                Download Documents as Zip File
-              </StyledAnchor>
-            </Button>
-          </p>
-        </>
+              Download Documents as Zip File
+            </StyledAnchor>
+          </Button>
+        </p>
       )
     }
   }
