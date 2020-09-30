@@ -1,9 +1,6 @@
 const Anvil = require('@anvilco/anvil')
 const { logError } = require('../helpers')
-
-const apiKey = process.env.ANVIL_API_KEY
-const apiBaseURL = process.env.API_BASE_URL || 'https://app.useanvil.com'
-const templateCastEID = process.env.TEMPLATE_CAST_EID || 'XJyMU567bv0QQLZeRUNh'
+const { apiKey, apiBaseURL, templateCastEID } = require('../../config')
 
 if (!apiKey) {
   setTimeout(() => {
