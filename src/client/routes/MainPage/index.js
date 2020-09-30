@@ -35,13 +35,13 @@ const MainPage = () => {
             {
               id: 1,
               name: 'Embedded signature packet with one signer',
-              description: 'You control the signing process for one signer. The signer receive no emails.',
+              description: 'Embedded signing: your app controls the signing process for all signers.',
               to: '/embedded/one',
             },
             {
               id: 2,
               name: 'Embedded signature packet with two signers',
-              description: 'You control the signing process for two signers. Signers receive no emails.',
+              description: 'Embedded signing: your app controls the signing process for all signers.',
               to: '/embedded/two',
             },
           ]}
@@ -66,7 +66,7 @@ const MainPage = () => {
       </Content.Card>
       <Docs>
         Check out{' '}
-        <a href="https://www.useanvil.com/docs/api/e-signatures" target="_blank">
+        <a href="https://www.useanvil.com/docs/api/e-signatures" target="_blank" rel="noreferrer">
           the e-signature API docs
         </a>
         {' '}for more information
