@@ -1,48 +1,49 @@
 # Anvil Signatures Example App
-This is an example full stack web app showcasing [Anvil Signatures](https://useanvil.com) implmented through the [node-anvil](https://www.npmjs.com/package/@anvilco/anvil) client.
+
+This is an example full stack web app showcasing [Anvil E-Signature API](https://www.useanvil.com/docs/api/e-signatures) implemented with the [node-anvil](https://www.npmjs.com/package/@anvilco/anvil) client.
 
 ## What even is it?
 
-Experiencing difficulties filling documents and gathering signatures? [Anvil E-signatures](https://www.useanvil.com/etch-free-e-signatures) streamlines that process for you. [Sign up](https://app.useanvil.com/signup/etch-api) to use the solution on our dashboard or plug-in our API into your custom workflow as demonstrated here.
+The Anvil [E-Signature API](https://www.useanvil.com/docs/api/e-signatures) allows you to collect e-signatures from within your app. Send a signature packet including multiple PDFs, images, and other uploads to one or more signers. Templatize your common PDFs then fill them with your user's information before sending out the signature packet.
 
-## Getting the project running
+## Set it up
 
-Create a `.env` file following `.env.example`. An API key is required to use the node-anvil client, and the key can be found in your organization settings on your Anvil dashboard. 
+This example will create signature packets on your own Anvil account via the API.
 
-1. [Create your Anvil account.](https://app.useanvil.com/signup/etch-api)
-2. [Log into your account on the Anvil Dashboard and verify your email.](https://app.useanvil.com) An email will be sent when you sign up.
-3. View your organization settings by clicking the building icon in the bottom left followed by the settings icon. 
-4. Click API Settings in your organization naviagation bar.
-5. Add an API Key if your organization doesn't have one.
-6. Copy the development key and paste it in your `.env` file.
-7. Start up the app with `yarn start`. You're ready to begin experimenting!
+1. First [create your own Anvil account](https://app.useanvil.com/signup/etch-api)
+2. The app will ask you to verify your email before continuing
+3. View your organization settings by clicking the building icon in the bottom left followed by the settings icon.
+4. Click API Settings in your organization navigation bar.
+5. Click "Add an API Key"
 
-* After you've entered your API key into your `.env` file, don't forget to restart the app!
+Now you are ready to set this example up!
 
 ```bash
-# Fork this project, then clone your fork
+# Fork this project + clone your fork, or just clone this repo
 git clone https://github.com/...
 
 cd anvil-signature-api-example
+```
 
-# Install dependencies
-yarn
+1. Create a `.env` file at the root of this project. There is a `.env.example` file at the root of this project
+2. Copy the development API key and paste it in your `.env` file.
 
-# Start development server
-yarn dev
+```sh
+yarn install # Get all the deps
+yarn dev     # Start the development server
+```
 
+Now visit http://localhost:8080
+
+## Other helpful things
+
+```bash
 # Start production server
 yarn start
 
-# Visit http://localhost:3000
-
 # Run the linter, server tests, and client tests
 yarn test
-```
 
-Other helpful things
-
-```bash
 yarn lint # Only the linter
 yarn test:server # Only the server tests
 yarn test:client # Only the client tests
