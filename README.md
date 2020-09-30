@@ -33,7 +33,7 @@ yarn install # Get all the deps
 yarn dev     # Start the development server
 ```
 
-Now visit http://localhost:8080
+Now visit http://localhost:3001
 
 ## Other helpful things
 
