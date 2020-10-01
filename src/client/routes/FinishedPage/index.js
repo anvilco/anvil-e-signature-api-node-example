@@ -53,7 +53,7 @@ const FinishedPage = () => {
             type="orange"
           >
             <StyledAnchor
-              href={`http://localhost:3000/org/${results?.organizationSlug}/etch/${results?.etchPacketEid}`}
+              href={buildAnvilURL(`/org/${results?.organizationSlug}/etch/${results?.etchPacketEid}`)}
               target="_blank"
               rel="noreferrer"
             >
@@ -84,7 +84,7 @@ const FinishedPage = () => {
             type="cta"
           >
             <StyledAnchor
-              href={`http://localhost:3000/api/etch/download/${results?.documentGroupEid}/${results?.etchTemplateEid}.zip`}
+              href={buildAnvilURL(`/api/etch/download/${results?.documentGroupEid}/${results?.etchTemplateEid}.zip`)}
             >
               Download Documents as Zip File
             </StyledAnchor>
@@ -125,9 +125,13 @@ const FinishedPage = () => {
         {renderGenerateSignURLButton()}
         {renderToSignButton()}
       </Content.Card>
-      <StyledLink to="/">Return</StyledLink>
+      <StyledLink size="small" to="/">Back to index</StyledLink>
     </>
   )
+}
+
+function buildAnvilURL (url) {
+  return window.apiBaseURL + url
 }
 
 export default FinishedPage

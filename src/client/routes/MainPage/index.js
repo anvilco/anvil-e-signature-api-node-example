@@ -14,27 +14,34 @@ const Name = styled.div`
 const ItemDescription = styled.div`
   margin-top: 5px;
   font-size: 14px;
-  color: ${theme.colors.greens[80]};
+  color: ${theme.textColors.subtle};
+`
+
+const Docs = styled.p`
+  margin-top: 30px;
+  font-size: 14px;
+  color: ${theme.textColors.subtle};
+  text-align: center;
 `
 
 const MainPage = () => {
   return (
     <>
-      <Title>Anvil Signatures</Title>
-      <Description>Paperwork without the paper and work.</Description>
+      <Title>Anvil E-Signature API Example</Title>
+      <Description>Create a signature packet below</Description>
       <Content.Card>
         <Content.List
           items={[
             {
               id: 1,
-              name: 'Create an Anvil signature packet for one signer',
-              description: 'Sign your own documents',
+              name: 'Embedded signature packet with one signer',
+              description: 'Embedded signing: your app controls the signing process for all signers.',
               to: '/embedded/one',
             },
             {
               id: 2,
-              name: 'Create an Anvil signature packet for two signers',
-              description: 'Sign yourself, then gather signatures',
+              name: 'Embedded signature packet with two signers',
+              description: 'Embedded signing: your app controls the signing process for all signers.',
               to: '/embedded/two',
             },
           ]}
@@ -57,6 +64,13 @@ const MainPage = () => {
           )}
         />
       </Content.Card>
+      <Docs>
+        Check out{' '}
+        <a href="https://www.useanvil.com/docs/api/e-signatures" target="_blank" rel="noreferrer">
+          the e-signature API docs
+        </a>
+        {' '}for more information
+      </Docs>
     </>
   )
 }
