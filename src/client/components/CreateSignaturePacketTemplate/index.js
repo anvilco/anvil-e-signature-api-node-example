@@ -5,12 +5,12 @@ import Button from 'components/Button'
 import Content from 'components/Content'
 import { createRequest } from 'helpers'
 import { Title, Description, StyledLink, StyledAnchor, Response } from 'components/styled'
+import SignaturePacketForm from './SignaturePacketForm'
 
-const createSignaturePacketTemplate = ({ title, description, CustomForm }) => {
+const createSignaturePacketTemplate = ({ title, description, CustomForm = SignaturePacketForm }) => {
   const [createPacketResponse, setCreatePacketResponse] = useState(undefined)
   const [packetDetails, setPacketDetails] = useState(undefined)
   const [generateURLResponse, setGenerateURLResponse] = useState(undefined)
-  const [signURL, setSignURL] = useState(undefined)
 
   const createSignaturePacket = createRequest({
     url: '/api/packet/create',
@@ -24,7 +24,6 @@ const createSignaturePacketTemplate = ({ title, description, CustomForm }) => {
         setCreatePacketResponse(`Error: ${error?.message}`)
         setPacketDetails(undefined)
         setGenerateURLResponse(undefined)
-        setSignURL(undefined)
       }
     },
   })
@@ -39,14 +38,17 @@ const createSignaturePacketTemplate = ({ title, description, CustomForm }) => {
       const responseText = await response.text()
       const { statusCode, url, error } = JSON.parse(responseText)
       if (statusCode === 200) {
-        setGenerateURLResponse('Signature link generated!')
-        setSignURL(url)
+        return url
       } else {
         setGenerateURLResponse(`Error: ${error?.message}`)
-        setSignURL(undefined)
       }
     },
   })
+
+  const redirectToSign = async () => {
+    const signURL = await generateSignURL()
+    window.location.assign(signURL)
+  }
 
   const renderCreatePacketResponse = () => {
     if (packetDetails) {
@@ -73,10 +75,11 @@ const createSignaturePacketTemplate = ({ title, description, CustomForm }) => {
           <br />
           <Button
             type="cta"
-            onClick={() => generateSignURL()}
+            onClick={async () => await redirectToSign()}
           >
-            Generate Signature Link for Signer 1
+            Sign Now
           </Button>
+          <Response color="failure">{generateURLResponse}</Response>
         </>
       )
     } else {
@@ -98,34 +101,13 @@ const createSignaturePacketTemplate = ({ title, description, CustomForm }) => {
     }
   }
 
-  const renderGenerateURLResponse = () => {
-    if (signURL) {
-      return (
-        <>
-          <Response color="success">{generateURLResponse}</Response>
-          <Button
-            type="cta"
-            onClick={() => window.location.assign(signURL)}
-          >
-            Go to Signature Page for Signer 1
-          </Button>
-        </>
-      )
-    } else {
-      return (
-        <Response color="failure">{generateURLResponse}</Response>
-      )
-    }
-  }
-
   return (
     <>
       <Title>{title}</Title>
       <Description>{description}</Description>
       <Content.Card>
-        <CustomForm submitButtonText="Create Signature Packet" onSubmit={createSignaturePacket} />
+        <CustomForm onSubmit={createSignaturePacket} />
         {renderCreatePacketResponse()}
-        {renderGenerateURLResponse()}
       </Content.Card>
       <StyledLink to="/">Return</StyledLink>
     </>
@@ -135,7 +117,7 @@ const createSignaturePacketTemplate = ({ title, description, CustomForm }) => {
 createSignaturePacketTemplate.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  CustomForm: PropTypes.elementType.isRequired,
+  CustomForm: PropTypes.elementType,
 }
 
 export default createSignaturePacketTemplate

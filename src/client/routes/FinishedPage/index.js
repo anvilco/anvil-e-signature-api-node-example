@@ -7,7 +7,6 @@ import { createRequest, parseQueryString } from 'helpers'
 const FinishedPage = () => {
   const [results, setResults] = useState(undefined)
   const [generateURLResponse, setGenerateURLResponse] = useState(undefined)
-  const [signURL, setSignURL] = useState(undefined)
 
   useEffect(() => {
     const data = parseQueryString()
@@ -24,14 +23,17 @@ const FinishedPage = () => {
       const responseText = await response.text()
       const { statusCode, url, error } = JSON.parse(responseText)
       if (statusCode === 200) {
-        setGenerateURLResponse('Signature link generated!')
-        setSignURL(url)
+        return url
       } else {
         setGenerateURLResponse(`Error: ${error?.message}`)
-        setSignURL(undefined)
       }
     },
   })
+
+  const redirectToSign = async () => {
+    const signURL = await generateSignURL()
+    window.location.assign(signURL)
+  }
 
   const renderData = () => {
     return (
@@ -70,12 +72,15 @@ const FinishedPage = () => {
     // otherwise, create a link to the completed signature packet on the Anvil dashboard
     if (results?.nextSignerEid) {
       return (
-        <Button
-          type="cta"
-          onClick={() => generateSignURL()}
-        >
-          Generate Signature Link for Next Signer
-        </Button>
+        <>
+          <Button
+            type="cta"
+            onClick={async () => await redirectToSign()}
+          >
+            Sign Now as Next Signer
+          </Button>
+          <Response color="failure">{generateURLResponse}</Response>
+        </>
       )
     } else {
       return (
@@ -94,26 +99,6 @@ const FinishedPage = () => {
     }
   }
 
-  const renderToSignButton = () => {
-    if (signURL) {
-      return (
-        <>
-          <Response color="success">{generateURLResponse}</Response>
-          <Button
-            type="cta"
-            onClick={() => window.location.assign(signURL)}
-          >
-            Go to Signature Page for Next Signer
-          </Button>
-        </>
-      )
-    } else {
-      return (
-        <Response color="failure">{generateURLResponse}</Response>
-      )
-    }
-  }
-
   return (
     <>
       <Title>Anvil Signature Packets</Title>
@@ -123,7 +108,6 @@ const FinishedPage = () => {
       <Content.Card>
         {renderData()}
         {renderGenerateSignURLButton()}
-        {renderToSignButton()}
       </Content.Card>
       <StyledLink to="/">Return</StyledLink>
     </>

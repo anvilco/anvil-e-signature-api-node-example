@@ -8,7 +8,7 @@ export const createRequest = ({ url, method, callback, myData }) => {
       },
       body: myData ? JSON.stringify(myData) : JSON.stringify(formData),
     })
-    if (callback) callback(result)
+    if (callback) return await callback(result)
   }
 }
 

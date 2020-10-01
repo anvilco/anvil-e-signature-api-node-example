@@ -2,17 +2,17 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import MainPage from './MainPage'
-import OneSignerEmbedded from './OneSignerEmbedded'
-import TwoSignersEmbedded from './TwoSignersEmbedded'
+import EmailPacket from './EmailPacket'
+import EmbeddedPacket from './EmbeddedPacket'
 import FinishedPage from './FinishedPage'
 
 const Routes = () => {
   return (
     <Router>
       <Switch>
+        <Route path="/emailPacket/create" component={EmailPacket} />
+        <Route path="/embeddedPacket/create" component={EmbeddedPacket} />
         <Route path="/finish" component={FinishedPage} />
-        <Route path="/embedded/one" component={OneSignerEmbedded} />
-        <Route path="/embedded/two" component={TwoSignersEmbedded} />
         <Route path="/" component={MainPage} />
       </Switch>
     </Router>

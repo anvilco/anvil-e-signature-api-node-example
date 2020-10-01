@@ -5,9 +5,9 @@ import Form from 'components/Form'
 import FormField from 'components/FormField'
 import Input from 'components/Input'
 
-class TwoSignersForm extends React.Component {
+class SignaturePacketForm extends React.Component {
   render () {
-    const { submitButtonText, onSubmit } = this.props
+    const { submitButtonText = 'Create Signature Packet', onSubmit } = this.props
     return (
       <Form
         onSubmit={onSubmit}
@@ -31,14 +31,12 @@ class TwoSignersForm extends React.Component {
         <FormField name="signerTwoName">
           <Input
             key="signerTwoName"
-            required
             placeholder="Second Signer Name"
           />,
         </FormField>
         <FormField name="signerTwoEmail">
           <Input
             key="signerTwoEmail"
-            required
             placeholder="Second Signer Email"
           />,
         </FormField>
@@ -53,10 +51,10 @@ class TwoSignersForm extends React.Component {
   }
 }
 
-TwoSignersForm.propTypes = {
+SignaturePacketForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  submitButtonText: PropTypes.string.isRequired,
+  submitButtonText: PropTypes.string,
   items: PropTypes.array,
 }
 
-export default TwoSignersForm
+export default SignaturePacketForm

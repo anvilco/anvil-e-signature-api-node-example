@@ -9,33 +9,34 @@ const NameContainer = styled.div``
 
 const Name = styled.div`
   color: ${theme.colors.black};
+  font-weight: bold;
 `
 
 const ItemDescription = styled.div`
   margin-top: 5px;
   font-size: 14px;
-  color: ${theme.colors.greens[80]};
+  color: ${theme.colors.blacks[30]};
 `
 
 const MainPage = () => {
   return (
     <>
-      <Title>Anvil Signatures</Title>
-      <Description>Paperwork without the paper and work.</Description>
+      <Title>Anvil E-Signatures API Example</Title>
+      <Description>These examples will create Anvil Signature Packets with multiple PDFs, then allow you go through the signing process.</Description>
       <Content.Card>
         <Content.List
           items={[
             {
               id: 1,
-              name: 'Create an Anvil signature packet for one signer',
-              description: 'Sign your own documents',
-              to: '/embedded/one',
+              name: 'Create Email Signature Packet',
+              description: 'Anvil controls the signing process by sending an email to each signer',
+              to: '/emailPacket/create',
             },
             {
               id: 2,
-              name: 'Create an Anvil signature packet for two signers',
-              description: 'Sign yourself, then gather signatures',
-              to: '/embedded/two',
+              name: 'Create Embedded Signature Packet',
+              description: 'Your app controls the signing process, no emails are sent from Anvil',
+              to: '/embeddedPacket/create',
             },
           ]}
           renderItem={(item, index) => (
