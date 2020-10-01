@@ -109,7 +109,7 @@ const createSignaturePacketTemplate = ({ title, description, CustomForm = Signat
         <CustomForm onSubmit={createSignaturePacket} />
         {renderCreatePacketResponse()}
       </Content.Card>
-      <StyledLink to="/">Return</StyledLink>
+      <StyledLink size="small" to="/">Back to index</StyledLink>
     </>
   )
 }

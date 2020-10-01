@@ -10,6 +10,14 @@ const StyledInput = styled.input`
   border: 2px solid ${theme.colors.inputBorderColor};
   border-radius: 0;
   font-size: 16px;
+  transition: border .2s ease;
+
+  &:active,
+  &:focus {
+    border: 2px solid ${theme.colors.darkBlue};
+    border-radius: 0;
+    outline: 0;
+  }
 `
 
 class Input extends React.Component {

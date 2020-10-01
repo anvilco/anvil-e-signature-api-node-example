@@ -15,7 +15,14 @@ const Name = styled.div`
 const ItemDescription = styled.div`
   margin-top: 5px;
   font-size: 14px;
-  color: ${theme.colors.blacks[30]};
+  color: ${theme.textColors.subtle};
+`
+
+const Docs = styled.p`
+  margin-top: 30px;
+  font-size: 14px;
+  color: ${theme.textColors.subtle};
+  text-align: center;
 `
 
 const MainPage = () => {
@@ -58,6 +65,13 @@ const MainPage = () => {
           )}
         />
       </Content.Card>
+      <Docs>
+        Check out{' '}
+        <a href="https://www.useanvil.com/docs/api/e-signatures" target="_blank" rel="noreferrer">
+          the e-signature API docs
+        </a>
+        {' '}for more information
+      </Docs>
     </>
   )
 }

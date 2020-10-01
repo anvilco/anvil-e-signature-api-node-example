@@ -5,16 +5,20 @@ import theme from 'theme'
 export const Title = styled.h1`
   margin-bottom: 15px;
   text-align: center;
+  font-size: 22px;
 `
 
 export const Description = styled.h3`
   margin-bottom: 25px;
   text-align: center;
+  font-size: 16px;
+  font-weight: normal;
 `
 
 export const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: ${theme.colors.greens[80]};
+  ${({ size }) => size === 'small' && `
+    font-size: 14px;
+  `}
 `
 
 export const StyledAnchor = styled.a`

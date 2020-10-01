@@ -11,6 +11,17 @@ const GlobalStyle = createGlobalStyle`
     background-color: ${theme.colors.blacks[5]};
     color: ${theme.textColor};
 
+    a {
+      text-decoration: none;
+      color: ${theme.colors.blue};
+
+      &:hover,
+      &:active,
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+
     * {
       box-sizing: border-box;
     }

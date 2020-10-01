@@ -1,6 +1,8 @@
+require('dotenv').config()
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const { apiBaseURL } = require('./src/config')
 
 const outputDirectory = 'dist'
 
@@ -8,6 +10,7 @@ module.exports = {
   entry: ['@babel/polyfill', './src/client/index.js'],
   output: {
     path: path.join(__dirname, outputDirectory),
+    publicPath: '/',
     filename: 'bundle.js',
   },
   module: {
@@ -50,6 +53,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
       favicon: './public/favicon.ico',
+
+      apiBaseURL: JSON.stringify(apiBaseURL),
     }),
   ],
 }

@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Anvil's interview challenge base webapp",
   "main": "src/server/index.js",
+  "engines": {
+    "node": ">=10.0.0"
+  },
   "scripts": {
     "build": "webpack --mode production",
     "start": "npm run build && node src/server/index.js",
