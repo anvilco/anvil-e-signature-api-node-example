@@ -29,30 +29,44 @@ function buildRoutes (router) {
     const streamFile = Anvil.prepareGraphQLFile('src/server/static/test-pdf-nda.pdf')
 
     const variables = {
+      // Indicate the packet is all ready to send to the signers. An email will
+      // be sent to the first signer if the user is type 'email'.
       isDraft: false,
+
+      // Test packets will use development signatures and not count toward your billed packets
       isTest: false,
+
+      // Subject of the emails if signer is type email
       signatureEmailSubject: packetName,
+
+      // Files will be shown to the user in the order they are specified in this array
       files: [
         {
-          id: 'rootCastUSPS1583',
-          castEid: templateCastEID,
-        },
-        {
+          // This is a file we will upload and specify the fields ourselves
           id: 'fileUploadNDA',
           title: 'Anvil Demo NDA',
           file: streamFile,
           fields: getUploadedFileFields(),
         },
+        {
+          // You can also use ready made templates built out in the Anvil UI
+          id: 'templatePdfIrsW4',
+          castEid: templateCastEID,
+        },
       ],
       signers: [
         {
-          id: '1',
+          id: 'signer1',
           name: signerOneName,
           email: signerOneEmail,
           fields: [
             {
-              fileId: 'rootCastUSPS1583',
-              fieldId: 'sigAuth',
+              fileId: 'templatePdfIrsW4',
+              fieldId: 'employeeSignature',
+            },
+            {
+              fileId: 'templatePdfIrsW4',
+              fieldId: 'employeeSignatureDate',
             },
             {
               fileId: 'fileUploadNDA',
@@ -73,18 +87,47 @@ function buildRoutes (router) {
         },
       ],
       data: {
+        // Fill the PDFs with your data before they are sent for signatures
         payloads: {
-          rootCastUSPS1583: {
-            textColor: '#3D4849',
+          templatePdfIrsW4: {
+            textColor: '#0000CC',
             data: {
-              eid2: 'happy days',
+              // You can set up PDF templates for filling in the Anvil UI.
+              // Anyone on your team can build them!
+              name: signerOneName,
+              address: {
+                street1: '123 Main St #234',
+                city: 'San Francisco',
+                state: 'CA',
+                zip: '94106',
+                country: 'US',
+              },
+              ssn: '456454567',
+              filingStatus: 'Joint',
+              under17Cost: 2000,
+              otherDependentsCost: 0,
+              totalDependentsCost: 2000,
+              otherIncome: 0,
+              otherDeductions: 0,
+              extraWithholding: 0,
+              employerName: 'Awesome Co Inc',
+              firstDateEmployment: getTodayISO(),
+              employerEin: '897654321',
+              headOfHousehold: true,
+              employerAddress: {
+                street1: '555 Market St',
+                city: 'San Francisco',
+                state: 'CA',
+                zip: '94103',
+                country: 'US',
+              },
             },
           },
           fileUploadNDA: {
             fontSize: 8,
             textColor: '#0000CC',
             data: {
-              effectiveDate: new Date().toISOString().split('T')[0],
+              effectiveDate: getTodayISO(),
               disclosingPartyName: signerOneName,
               disclosingPartyEmail: signerOneEmail,
               recipientName: signerTwoName,
@@ -101,14 +144,10 @@ function buildRoutes (router) {
 
     if (signerTwoName && signerTwoEmail) {
       variables.signers.push({
-        id: '2',
+        id: 'signer2',
         name: signerTwoName,
         email: signerTwoEmail,
         fields: [
-          {
-            fileId: 'rootCastUSPS1583',
-            fieldId: 'initialApplicant',
-          },
           {
             fileId: 'fileUploadNDA',
             fieldId: 'initials2',
@@ -183,127 +222,101 @@ function buildRoutes (router) {
   return router
 }
 
+function getTodayISO () {
+  return new Date().toISOString().split('T')[0]
+}
+
 function getUploadedFileFields () {
   return [
     {
-      id: 'castd50cf5b0043b11ebb998e5b28fd3ab04',
-      name: 'Effective Date',
-      rect: { x: 326, y: 91, height: 14, width: 112 },
+      id: 'effectiveDate',
       type: 'date',
+      rect: { x: 326, y: 91, height: 14, width: 112 },
       format: 'MM/DD/YYYY',
-      aliasId: 'effectiveDate',
       pageNum: 0,
     },
     {
-      id: 'castd7f79280043b11ebb998e5b28fd3ab04',
-      name: 'Disclosing Party Name',
+      id: 'disclosingPartyName',
+      type: 'fullName',
       rect: { x: 215, y: 106, height: 13, width: 140 },
-      type: 'fullName',
-      aliasId: 'disclosingPartyName',
       pageNum: 0,
     },
     {
-      id: 'castdaa685e0043b11ebb998e5b28fd3ab04',
-      name: 'Disclosing Party Email',
+      id: 'disclosingPartyEmail',
+      type: 'email',
       rect: { x: 360, y: 107, height: 12, width: 166 },
-      type: 'email',
-      aliasId: 'disclosingPartyEmail',
       pageNum: 0,
     },
     {
-      id: 'cast29ef9c90043c11ebb998e5b28fd3ab04',
-      name: 'Recipient Name',
+      id: 'recipientName',
+      type: 'fullName',
       rect: { x: 223, y: 120, height: 11, width: 138 },
-      type: 'fullName',
-      aliasId: 'recipientName',
       pageNum: 0,
     },
     {
-      id: 'cast2bef8b40043c11ebb998e5b28fd3ab04',
-      name: 'Recipient Email',
-      rect: { x: 367, y: 120, height: 13, width: 157 },
+      id: 'recipientEmail',
       type: 'email',
-      aliasId: 'recipientEmail',
+      rect: { x: 367, y: 120, height: 13, width: 157 },
       pageNum: 0,
     },
     {
-      id: 'cast2f989610043c11ebb998e5b28fd3ab04',
-      name: 'Purpose Of Business',
+      id: 'purposeOfBusiness',
+      type: 'shortText',
       rect: { x: 314, y: 155, height: 12, width: 229 },
-      type: 'shortText',
-      aliasId: 'purposeOfBusiness',
       pageNum: 0,
     },
     {
-      id: 'castdfda0bd0043c11ebb998e5b28fd3ab04',
-      name: 'Initials 1',
+      id: 'initials1',
+      type: 'initial',
       rect: { x: 106, y: 729, height: 25, width: 60 },
-      type: 'initial',
-      aliasId: 'initials1',
       pageNum: 0,
     },
     {
-      id: 'castee68b340043c11ebb998e5b28fd3ab04',
-      name: 'Initials 2',
+      id: 'initials2',
+      type: 'initial',
       rect: { x: 171, y: 729, height: 24, width: 67 },
-      type: 'initial',
-      aliasId: 'initials2',
       pageNum: 0,
     },
     {
-      id: 'cast799a5b40043c11ebb998e5b28fd3ab04',
-      name: 'Place Of Gov',
-      rect: { x: 237, y: 236, height: 14, width: 112 },
+      id: 'placeOfGovernance',
       type: 'shortText',
-      aliasId: 'placeOfGovernance',
+      rect: { x: 237, y: 236, height: 14, width: 112 },
       pageNum: 1,
     },
     {
-      id: 'cast84b18f30043c11ebb998e5b28fd3ab04',
-      name: 'Name 1',
+      id: 'name1',
+      type: 'fullName',
       rect: { x: 107, y: 374, height: 22, width: 157 },
-      type: 'fullName',
-      aliasId: 'name1',
       pageNum: 1,
     },
     {
-      id: 'cast8a14a610043c11ebb998e5b28fd3ab04',
-      name: 'Signature 1',
+      id: 'signature1',
+      type: 'signature',
       rect: { x: 270, y: 374, height: 22, width: 142 },
-      type: 'signature',
-      aliasId: 'signature1',
       pageNum: 1,
     },
     {
-      id: 'cast91474cd0043c11ebb998e5b28fd3ab04',
-      name: 'Signature Date 1',
+      id: 'signatureDate1',
+      type: 'signatureDate',
       rect: { x: 419, y: 374, height: 23, width: 80 },
-      type: 'signatureDate',
-      aliasId: 'signatureDate1',
       pageNum: 1,
     },
     {
-      id: 'cast982284c0043c11ebb998e5b28fd3ab04',
-      name: 'Name 2',
-      rect: { x: 107, y: 416, height: 22, width: 159 },
+      id: 'name2',
       type: 'fullName',
-      aliasId: 'name2',
+      rect: { x: 107, y: 416, height: 22, width: 159 },
       pageNum: 1,
     },
     {
-      id: 'castac3ab6d0043c11ebb998e5b28fd3ab04',
-      name: 'Signature 2',
-      rect: { x: 272, y: 415, height: 23, width: 138 },
+      id: 'signature2',
       type: 'signature',
-      aliasId: 'signature2',
+      rect: { x: 272, y: 415, height: 23, width: 138 },
       pageNum: 1,
     },
     {
-      id: 'castb5e75e40043c11ebb998e5b28fd3ab04',
-      name: 'Signature Date 2',
-      rect: { x: 418, y: 414, height: 23, width: 82 },
+      id: 'signatureDate2',
       type: 'signatureDate',
-      aliasId: 'signatureDate2',
+      rect: { x: 418, y: 414, height: 23, width: 82 },
       pageNum: 1,
     },
   ]
