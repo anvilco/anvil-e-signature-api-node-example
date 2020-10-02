@@ -26,12 +26,24 @@ function buildRoutes (router) {
       packetName = 'Sample Form',
     } = req.body
 
-    const streamFile = Anvil.prepareGraphQLFile('src/client/static/testPDF.pdf')
+    const streamFile = Anvil.prepareGraphQLFile('src/server/static/test-pdf-nda.pdf')
 
     const variables = {
       isDraft: false,
       isTest: false,
       signatureEmailSubject: packetName,
+      files: [
+        {
+          id: 'rootCastUSPS1583',
+          castEid: templateCastEID,
+        },
+        {
+          id: 'fileUploadNDA',
+          title: 'Anvil Demo NDA',
+          file: streamFile,
+          fields: getUploadedFileFields(),
+        },
+      ],
       signers: [
         {
           id: '1',
@@ -43,12 +55,16 @@ function buildRoutes (router) {
               fieldId: 'sigAuth',
             },
             {
-              fileId: 'fileUpload',
-              fieldId: 'signer1Signature',
+              fileId: 'fileUploadNDA',
+              fieldId: 'initials1',
             },
             {
-              fileId: 'fileUpload',
-              fieldId: 'signer1Date',
+              fileId: 'fileUploadNDA',
+              fieldId: 'signature1',
+            },
+            {
+              fileId: 'fileUploadNDA',
+              fieldId: 'signatureDate1',
             },
           ],
           signerType: signerOneType,
@@ -64,74 +80,23 @@ function buildRoutes (router) {
               eid2: 'happy days',
             },
           },
-          fileUpload: {
-            textColor: '#231F20',
+          fileUploadNDA: {
+            fontSize: 8,
+            textColor: '#0000CC',
             data: {
-              customShortText: 'lorem ipsum',
+              effectiveDate: new Date().toISOString().split('T')[0],
+              disclosingPartyName: signerOneName,
+              disclosingPartyEmail: signerOneEmail,
+              recipientName: signerTwoName,
+              recipientEmail: signerTwoEmail,
+              purposeOfBusiness: 'DEMO!!',
+              placeOfGovernance: 'The Land',
+              name1: signerOneName,
+              name2: signerTwoName,
             },
           },
         },
       },
-      files: [
-        {
-          id: 'rootCastUSPS1583',
-          castEid: templateCastEID,
-        },
-        {
-          id: 'fileUpload',
-          title: 'Simple Anvil Finovate Form',
-          file: streamFile,
-          fields: [
-            {
-              id: 'customShortText',
-              type: 'shortText',
-              pageNum: 0,
-              rect: {
-                x: 350,
-                y: 500,
-                width: 100,
-                height: 30,
-              },
-            },
-            {
-              id: 'signer1Signature',
-              type: 'signature',
-              pageNum: 1,
-              name: 'Signer 1 Signature',
-              rect: {
-                x: 100,
-                y: 300,
-                width: 100,
-                height: 30,
-              },
-            },
-            {
-              id: 'signer1Date',
-              type: 'signatureDate',
-              pageNum: 1,
-              name: 'Signer 1 Date',
-              rect: {
-                x: 200,
-                y: 300,
-                width: 100,
-                height: 30,
-              },
-            },
-            {
-              id: 'signer2Initials',
-              type: 'initial',
-              pageNum: 2,
-              name: 'Signer 2 Initials',
-              rect: {
-                x: 300,
-                y: 300,
-                width: 100,
-                height: 30,
-              },
-            },
-          ],
-        },
-      ],
     }
 
     if (signerTwoName && signerTwoEmail) {
@@ -145,8 +110,16 @@ function buildRoutes (router) {
             fieldId: 'initialApplicant',
           },
           {
-            fileId: 'fileUpload',
-            fieldId: 'signer2Initials',
+            fileId: 'fileUploadNDA',
+            fieldId: 'initials2',
+          },
+          {
+            fileId: 'fileUploadNDA',
+            fieldId: 'signature2',
+          },
+          {
+            fileId: 'fileUploadNDA',
+            fieldId: 'signatureDate2',
           },
         ],
         signerType: signerTwoType,
@@ -208,6 +181,132 @@ function buildRoutes (router) {
   })
 
   return router
+}
+
+function getUploadedFileFields () {
+  return [
+    {
+      id: 'castd50cf5b0043b11ebb998e5b28fd3ab04',
+      name: 'Effective Date',
+      rect: { x: 326, y: 91, height: 14, width: 112 },
+      type: 'date',
+      format: 'MM/DD/YYYY',
+      aliasId: 'effectiveDate',
+      pageNum: 0,
+    },
+    {
+      id: 'castd7f79280043b11ebb998e5b28fd3ab04',
+      name: 'Disclosing Party Name',
+      rect: { x: 215, y: 106, height: 13, width: 140 },
+      type: 'fullName',
+      aliasId: 'disclosingPartyName',
+      pageNum: 0,
+    },
+    {
+      id: 'castdaa685e0043b11ebb998e5b28fd3ab04',
+      name: 'Disclosing Party Email',
+      rect: { x: 360, y: 107, height: 12, width: 166 },
+      type: 'email',
+      aliasId: 'disclosingPartyEmail',
+      pageNum: 0,
+    },
+    {
+      id: 'cast29ef9c90043c11ebb998e5b28fd3ab04',
+      name: 'Recipient Name',
+      rect: { x: 223, y: 120, height: 11, width: 138 },
+      type: 'fullName',
+      aliasId: 'recipientName',
+      pageNum: 0,
+    },
+    {
+      id: 'cast2bef8b40043c11ebb998e5b28fd3ab04',
+      name: 'Recipient Email',
+      rect: { x: 367, y: 120, height: 13, width: 157 },
+      type: 'email',
+      aliasId: 'recipientEmail',
+      pageNum: 0,
+    },
+    {
+      id: 'cast2f989610043c11ebb998e5b28fd3ab04',
+      name: 'Purpose Of Business',
+      rect: { x: 314, y: 155, height: 12, width: 229 },
+      type: 'shortText',
+      aliasId: 'purposeOfBusiness',
+      pageNum: 0,
+    },
+    {
+      id: 'castdfda0bd0043c11ebb998e5b28fd3ab04',
+      name: 'Initials 1',
+      rect: { x: 106, y: 729, height: 25, width: 60 },
+      type: 'initial',
+      aliasId: 'initials1',
+      pageNum: 0,
+    },
+    {
+      id: 'castee68b340043c11ebb998e5b28fd3ab04',
+      name: 'Initials 2',
+      rect: { x: 171, y: 729, height: 24, width: 67 },
+      type: 'initial',
+      aliasId: 'initials2',
+      pageNum: 0,
+    },
+    {
+      id: 'cast799a5b40043c11ebb998e5b28fd3ab04',
+      name: 'Place Of Gov',
+      rect: { x: 237, y: 236, height: 14, width: 112 },
+      type: 'shortText',
+      aliasId: 'placeOfGovernance',
+      pageNum: 1,
+    },
+    {
+      id: 'cast84b18f30043c11ebb998e5b28fd3ab04',
+      name: 'Name 1',
+      rect: { x: 107, y: 374, height: 22, width: 157 },
+      type: 'fullName',
+      aliasId: 'name1',
+      pageNum: 1,
+    },
+    {
+      id: 'cast8a14a610043c11ebb998e5b28fd3ab04',
+      name: 'Signature 1',
+      rect: { x: 270, y: 374, height: 22, width: 142 },
+      type: 'signature',
+      aliasId: 'signature1',
+      pageNum: 1,
+    },
+    {
+      id: 'cast91474cd0043c11ebb998e5b28fd3ab04',
+      name: 'Signature Date 1',
+      rect: { x: 419, y: 374, height: 23, width: 80 },
+      type: 'signatureDate',
+      aliasId: 'signatureDate1',
+      pageNum: 1,
+    },
+    {
+      id: 'cast982284c0043c11ebb998e5b28fd3ab04',
+      name: 'Name 2',
+      rect: { x: 107, y: 416, height: 22, width: 159 },
+      type: 'fullName',
+      aliasId: 'name2',
+      pageNum: 1,
+    },
+    {
+      id: 'castac3ab6d0043c11ebb998e5b28fd3ab04',
+      name: 'Signature 2',
+      rect: { x: 272, y: 415, height: 23, width: 138 },
+      type: 'signature',
+      aliasId: 'signature2',
+      pageNum: 1,
+    },
+    {
+      id: 'castb5e75e40043c11ebb998e5b28fd3ab04',
+      name: 'Signature Date 2',
+      rect: { x: 418, y: 414, height: 23, width: 82 },
+      type: 'signatureDate',
+      aliasId: 'signatureDate2',
+      pageNum: 1,
+    },
+  ]
 }
 
 module.exports = buildRoutes
