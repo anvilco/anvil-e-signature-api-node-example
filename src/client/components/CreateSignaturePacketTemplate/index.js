@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import Button from 'components/Button'
 import Content from 'components/Content'
 import { createRequest } from 'helpers'
-import { Title, Description, StyledLink, StyledAnchor, Response } from 'components/styled'
+import { Title, TitleBar, Description, StyledLink, StyledAnchor, Response } from 'components/styled'
 import SignaturePacketForm from './SignaturePacketForm'
+import EtchStamp from 'static/etch-stamp.png'
 
-const createSignaturePacketTemplate = ({ title, description, CustomForm = SignaturePacketForm }) => {
+const createSignaturePacketTemplate = ({ title, description, secondaryDescription, CustomForm = SignaturePacketForm }) => {
+  const history = useHistory()
   const [createPacketResponse, setCreatePacketResponse] = useState(undefined)
   const [packetDetails, setPacketDetails] = useState(undefined)
   const [generateURLResponse, setGenerateURLResponse] = useState(undefined)
@@ -20,6 +23,7 @@ const createSignaturePacketTemplate = ({ title, description, CustomForm = Signat
       if (statusCode === 200) {
         setCreatePacketResponse('Signature packet created!')
         setPacketDetails(data?.data?.createEtchPacket)
+        history.push(data?.data?.createEtchPacket?.eid)
       } else {
         setCreatePacketResponse(`Error: ${error?.message}`)
         setPacketDetails(undefined)
@@ -44,11 +48,6 @@ const createSignaturePacketTemplate = ({ title, description, CustomForm = Signat
       }
     },
   })
-
-  const redirectToSign = async () => {
-    const signURL = await generateSignURL()
-    window.location.assign(signURL)
-  }
 
   const renderCreatePacketResponse = () => {
     if (packetDetails) {
@@ -75,7 +74,10 @@ const createSignaturePacketTemplate = ({ title, description, CustomForm = Signat
           <br />
           <Button
             type="cta"
-            onClick={async () => await redirectToSign()}
+            onClick={async () => {
+              const signURL = await generateSignURL()
+              window.location.assign(signURL)
+            }}
           >
             Sign Now
           </Button>
@@ -103,8 +105,12 @@ const createSignaturePacketTemplate = ({ title, description, CustomForm = Signat
 
   return (
     <>
-      <Title>{title}</Title>
+      <TitleBar>
+        <Title>{title}</Title>
+        <img src={EtchStamp} alt="Anvil Etch e-signatures" width={50} height={50} />
+      </TitleBar>
       <Description>{description}</Description>
+      {secondaryDescription}
       <Content.Card>
         <CustomForm onSubmit={createSignaturePacket} />
         {renderCreatePacketResponse()}
@@ -117,6 +123,7 @@ const createSignaturePacketTemplate = ({ title, description, CustomForm = Signat
 createSignaturePacketTemplate.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  secondaryDescription: PropTypes.element,
   CustomForm: PropTypes.elementType,
 }
 

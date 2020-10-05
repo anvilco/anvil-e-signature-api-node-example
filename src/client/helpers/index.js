@@ -1,4 +1,4 @@
-export const createRequest = ({ url, method, callback, myData }) => {
+export function createRequest ({ url, method, callback, myData }) {
   return async (formData) => {
     const result = await fetch(url, {
       method: method || 'POST',
@@ -12,7 +12,7 @@ export const createRequest = ({ url, method, callback, myData }) => {
   }
 }
 
-export const parseQueryString = () => {
+export function parseQueryString () {
   const queryString = window.location.search.replace('?', '')
 
   const items = queryString.split('&')
@@ -30,4 +30,8 @@ export const parseQueryString = () => {
     }
     return data
   }, {})
+}
+
+export function buildAnvilURL (url) {
+  return window.apiBaseURL + url
 }

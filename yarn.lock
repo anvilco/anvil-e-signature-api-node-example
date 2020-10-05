@@ -2,10 +2,9 @@
 # yarn lockfile v1
 
 
-"@anvilco/anvil@^2.2.0":
+"@anvilco/anvil@https://github.com/anvilco/node-anvil.git#wt/getEtchPacket":
   version "2.2.0"
-  resolved "https://registry.npmjs.org/@anvilco/anvil/-/anvil-2.2.0.tgz#186215af972f19e7a839875383853956d9e39452"
-  integrity sha512-+5TzEJKMTDXY3HBg7C3Ssowx2xZB2VHdroErhHHYT5T//kF1GqcjQ+5C1F1/MEZCdvIwF4Kg1F2GIpgOhRRXgQ==
+  resolved "https://github.com/anvilco/node-anvil.git#a5220e4b6291e772ed90dfa14e9018a2b4c107c0"
   dependencies:
     abort-controller "^3.0.0"
     extract-files "^6"
@@ -1190,7 +1189,7 @@ abbrev@1:
 
 abort-controller@^3.0.0:
   version "3.0.0"
-  resolved "https://registry.npmjs.org/abort-controller/-/abort-controller-3.0.0.tgz#eaf54d53b62bae4138e809ca225c8439a6efb392"
+  resolved "https://registry.yarnpkg.com/abort-controller/-/abort-controller-3.0.0.tgz#eaf54d53b62bae4138e809ca225c8439a6efb392"
   integrity sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==
   dependencies:
     event-target-shim "^5.0.0"
@@ -2180,7 +2179,7 @@ color-name@~1.1.4:
 
 combined-stream@^1.0.6, combined-stream@^1.0.8, combined-stream@~1.0.6:
   version "1.0.8"
-  resolved "https://registry.npmjs.org/combined-stream/-/combined-stream-1.0.8.tgz#c3d45a8b34fd730631a110a8a2520682b31d5a7f"
+  resolved "https://registry.yarnpkg.com/combined-stream/-/combined-stream-1.0.8.tgz#c3d45a8b34fd730631a110a8a2520682b31d5a7f"
   integrity sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==
   dependencies:
     delayed-stream "~1.0.0"
@@ -3326,7 +3325,7 @@ etag@~1.8.1:
 
 event-target-shim@^5.0.0:
   version "5.0.1"
-  resolved "https://registry.npmjs.org/event-target-shim/-/event-target-shim-5.0.1.tgz#5d4d3ebdf9583d63a5333ce2deb7480ab2b05789"
+  resolved "https://registry.yarnpkg.com/event-target-shim/-/event-target-shim-5.0.1.tgz#5d4d3ebdf9583d63a5333ce2deb7480ab2b05789"
   integrity sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==
 
 eventemitter3@^4.0.0:
@@ -3481,7 +3480,7 @@ extglob@^2.0.4:
 
 extract-files@^6:
   version "6.0.0"
-  resolved "https://registry.npmjs.org/extract-files/-/extract-files-6.0.0.tgz#a273fd666aac97fd32e788b62d72d978bf43bb71"
+  resolved "https://registry.yarnpkg.com/extract-files/-/extract-files-6.0.0.tgz#a273fd666aac97fd32e788b62d72d978bf43bb71"
   integrity sha512-v9UVTPkERZR1NjEOIPvmbzLFdh8YZFEGjRdSJraop6HJe9PQ8HU9iv6eRMuF06CXXXO/R5OBmnWMixZHuZ8CsA==
 
 extsprintf@1.3.0:
@@ -3671,7 +3670,7 @@ forever-agent@~0.6.1:
 
 form-data@^3.0.0:
   version "3.0.0"
-  resolved "https://registry.npmjs.org/form-data/-/form-data-3.0.0.tgz#31b7e39c85f1355b7139ee0c647cf0de7f83c682"
+  resolved "https://registry.yarnpkg.com/form-data/-/form-data-3.0.0.tgz#31b7e39c85f1355b7139ee0c647cf0de7f83c682"
   integrity sha512-CKMFDglpbMi6PyN+brwB9Q/GOw0eAnsrEZDgcsH5Krhz5Od/haKHAX0NmQfha2zPPz0JpWzA7GJHGSnvCRLWsg==
   dependencies:
     asynckit "^0.4.0"
@@ -4927,7 +4926,7 @@ levn@^0.3.0, levn@~0.3.0:
 
 limiter@^1.1.5:
   version "1.1.5"
-  resolved "https://registry.npmjs.org/limiter/-/limiter-1.1.5.tgz#8f92a25b3b16c6131293a0cc834b4a838a2aa7c2"
+  resolved "https://registry.yarnpkg.com/limiter/-/limiter-1.1.5.tgz#8f92a25b3b16c6131293a0cc834b4a838a2aa7c2"
   integrity sha512-FWWMIEOxz3GwUI4Ts/IvgVy6LPvoMPgjMdQ185nN6psJyBJ4yOpzqm695/h5umdLJg2vW3GR5iG11MAkR2AzJA==
 
 load-json-file@^2.0.0:
@@ -4994,6 +4993,11 @@ lodash.isequal@^4.5.0:
   version "4.5.0"
   resolved "https://registry.npmjs.org/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
   integrity sha1-QVxEePK8wwEgwizhDtMib30+GOA=
+
+lodash.pickby@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/lodash.pickby/-/lodash.pickby-4.6.0.tgz#7dea21d8c18d7703a27c704c15d3b84a67e33aff"
+  integrity sha1-feoh2MGNdwOifHBMFdO4SmfjOv8=
 
 lodash.sortby@^4.7.0:
   version "4.7.0"
@@ -5402,7 +5406,7 @@ node-environment-flags@1.0.6:
 
 node-fetch@^2.6.0:
   version "2.6.1"
-  resolved "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
   integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
 
 node-forge@^0.10.0:
@@ -6208,6 +6212,11 @@ qs@6.7.0:
   version "6.7.0"
   resolved "https://registry.npmjs.org/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
+
+qs@^6.9.4:
+  version "6.9.4"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.4.tgz#9090b290d1f91728d3c22e54843ca44aea5ab687"
+  integrity sha512-A1kFqHekCTM7cz0udomYUoYNWjBebHm/5wzU/XqrBRBNWectVH0QIiN+NEcZ0Dte5hvzHwbr8+XQmguPhJ6WdQ==
 
 qs@~6.5.2:
   version "6.5.2"

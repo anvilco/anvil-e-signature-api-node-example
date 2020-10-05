@@ -1,5 +1,5 @@
 const Anvil = require('@anvilco/anvil')
-const { logError } = require('../helpers')
+const { buildURL, logError } = require('../helpers')
 const { apiKey, apiBaseURL, templateCastEID } = require('../../config')
 
 if (!apiKey) {
@@ -9,18 +9,54 @@ if (!apiKey) {
 }
 
 function buildRoutes (router) {
+  router.get('/packet/finish', async (req, res) => {
+    // Redirect with query string
+    const baseURL = `http://localhost:3001/embeddedPacket/${req.query.etchPacketEid}`
+    const baseURLWithQueryString = buildURL(baseURL, req.query)
+    return res.redirect(baseURLWithQueryString)
+  })
+
+  router.get('/api/packet/:packetEid', async (req, res) => {
+    const variables = {
+      eid: req.params.packetEid,
+    }
+
+    try {
+      const client = new Anvil({
+        apiKey,
+        baseURL: apiBaseURL,
+      })
+
+      const { statusCode, data, errors } = await client.getEtchPacket({ variables })
+
+      // Node-anvil to Anvil server communication errors
+      if (statusCode !== 200) return res.jsonp({ statusCode, error: errors[0] })
+      // Packet query errors
+      if (data.errors) return res.jsonp({ statusCode: data.errors[0].status, error: data.errors[0] })
+
+      return res.jsonp({ statusCode, data })
+    } catch (e) {
+      if (e.message === 'apiKey or accessToken required') {
+        return res.jsonp({ statusCode: 403, error: { message: 'API key required. Please create an Anvil account and enter your API Key into your `.env` file following the format of `.env.example`. More details can also be found in the README.' } })
+      }
+
+      // Anvil server related errors
+      return res.jsonp({ statusCode: 504, error: e })
+    }
+  })
+
   router.post('/api/packet/create', async (req, res) => {
     const {
       signerOneName,
       signerOneEmail,
       signerOneType = 'embedded',
-      signerOneRedirectURL = 'http://localhost:3001/finish',
+      signerOneRedirectURL = 'http://localhost:8080/packet/finish',
       signerOneEnableEmails = false,
 
       signerTwoName,
       signerTwoEmail,
       signerTwoType = 'embedded',
-      signerTwoRedirectURL = 'http://localhost:3001/finish',
+      signerTwoRedirectURL = 'http://localhost:8080/packet/finish',
       signerTwoEnableEmails = false,
 
       packetName = 'Sample Form',

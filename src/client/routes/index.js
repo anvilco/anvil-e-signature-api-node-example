@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import MainPage from './MainPage'
 import EmailPacket from './EmailPacket'
 import EmbeddedPacket from './EmbeddedPacket'
-import FinishedPage from './FinishedPage'
+import EmbeddedPacketDetails from './EmbeddedPacketDetails'
 
 const Routes = () => {
   return (
@@ -12,7 +12,7 @@ const Routes = () => {
       <Switch>
         <Route path="/emailPacket/create" component={EmailPacket} />
         <Route path="/embeddedPacket/create" component={EmbeddedPacket} />
-        <Route path="/finish" component={FinishedPage} />
+        <Route path="/embeddedPacket/:packetEid" component={EmbeddedPacketDetails} />
         <Route path="/" component={MainPage} />
       </Switch>
     </Router>

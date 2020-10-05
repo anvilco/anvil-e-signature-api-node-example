@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Button from 'components/Button'
 import Content from 'components/Content'
 import { Title, Description, StyledLink, StyledAnchor, Response } from 'components/styled'
-import { createRequest, parseQueryString } from 'helpers'
+import { buildAnvilURL, createRequest, parseQueryString } from 'helpers'
 
 const FinishedPage = () => {
   const [results, setResults] = useState(undefined)
@@ -51,17 +51,14 @@ const FinishedPage = () => {
           <b>Signer eID:</b> {results?.signerEid}
         </p>
         <p>
-          <Button
-            type="orange"
+          <StyledAnchor
+            href={buildAnvilURL(`/org/${results?.organizationSlug}/etch/${results?.etchPacketEid}`)}
+            target="_blank"
+            rel="noreferrer"
+            size="small"
           >
-            <StyledAnchor
-              href={buildAnvilURL(`/org/${results?.organizationSlug}/etch/${results?.etchPacketEid}`)}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Signature Packet Details
-            </StyledAnchor>
-          </Button>
+            View packet on your Anvil dashboard →
+          </StyledAnchor>
         </p>
       </>
     )
@@ -72,7 +69,7 @@ const FinishedPage = () => {
     // otherwise, create a link to the completed signature packet on the Anvil dashboard
     if (results?.nextSignerEid) {
       return (
-        <>
+        <p>
           <Button
             type="cta"
             onClick={async () => await redirectToSign()}
@@ -80,7 +77,7 @@ const FinishedPage = () => {
             Sign Now as Next Signer
           </Button>
           <Response color="failure">{generateURLResponse}</Response>
-        </>
+        </p>
       )
     } else {
       return (
@@ -91,7 +88,7 @@ const FinishedPage = () => {
             <StyledAnchor
               href={buildAnvilURL(`/api/etch/download/${results?.documentGroupEid}/${results?.etchTemplateEid}.zip`)}
             >
-              Download Documents as Zip File
+              Download Signed Documents as Zip
             </StyledAnchor>
           </Button>
         </p>
@@ -112,10 +109,6 @@ const FinishedPage = () => {
       <StyledLink size="small" to="/">Back to index</StyledLink>
     </>
   )
-}
-
-function buildAnvilURL (url) {
-  return window.apiBaseURL + url
 }
 
 export default FinishedPage

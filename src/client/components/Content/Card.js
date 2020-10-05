@@ -4,10 +4,13 @@ import theme from 'theme'
 import { ListContainer } from './List'
 
 const Card = styled.div`
-  background: white;
+  background: ${({ layout }) => layout ? '#fdfdfd' : 'white'};
+  max-width: ${({ layout }) => layout ? '1000px' : ''};
+  min-height: ${({ layout }) => layout ? '1000px' : ''};
+  margin: ${({ layout }) => layout ? '0 auto' : ''};
+  padding: ${({ layout }) => layout ? '130px' : `${theme.paddings[20]}px`};
   box-shadow: ${theme.shadows[50]};
 
-  padding: ${theme.paddings[20]}px;
   margin-bottom: ${theme.paddings[20]}px;
 
   > * {

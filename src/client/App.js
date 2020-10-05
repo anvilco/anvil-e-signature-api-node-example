@@ -1,13 +1,14 @@
 import React from 'react'
-import styled, { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components'
 
+import Content from 'components/Content'
 import theme from 'theme'
 import Routes from 'routes'
 
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
-    font-family: Sans-Serif;
+    font-family: Tahoma;
     background-color: ${theme.colors.blacks[5]};
     color: ${theme.textColor};
 
@@ -28,18 +29,12 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-const AppContainer = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 50px 20px;
-`
-
 const App = () => {
   return (
-    <AppContainer>
+    <Content.Card layout>
       <Routes />
       <GlobalStyle />
-    </AppContainer>
+    </Content.Card>
   )
 }
 
