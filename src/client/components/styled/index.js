@@ -29,6 +29,9 @@ export const StyledAnchor = styled.a`
   ${({ size }) => size === 'small' && `
     font-size: 14px;
   `}
+  ${({ size }) => size === 'large' && `
+    font-size: 18px;
+  `}
 `
 
 const handleColorType = (color) => {
