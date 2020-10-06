@@ -18,7 +18,7 @@ const createSignaturePacketTemplate = ({ title, description, secondaryDescriptio
       const responseText = await response.text()
       const { statusCode, data, error } = JSON.parse(responseText)
       if (statusCode === 200 && data?.data?.createEtchPacket?.eid) {
-        history.push(data?.data?.createEtchPacket?.eid)
+        history.push(data.data.createEtchPacket.eid)
       } else {
         setCreatePacketResponse(`Error: ${error?.message}`)
       }

@@ -58,7 +58,7 @@ const EmbeddedPacketDetails = () => {
   })
 
   const handlePacketDownload = () => (
-    window.location.assign(buildAnvilURL(`/api/etch/download/${packetDetails?.documentGroup?.eid}/${packetDetails?.documentGroup?.providerConfig?.etchTemplateEid}.zip`))
+    window.location.assign(buildAnvilURL(packetDetails.documentGroup.downloadZipURL))
   )
 
   const renderQueryParamData = () => {
@@ -95,7 +95,7 @@ const EmbeddedPacketDetails = () => {
 
   const renderPacketDetails = () => {
     if (packetDetails && typeof packetDetails !== 'string') {
-      const { name: packetName, documentGroup, eid: packetEid } = packetDetails
+      const { name: packetName, documentGroup, eid: packetEid, etchPacketDetailsURL } = packetDetails
       const { eid: docEid, signers, status: docStatus } = documentGroup
       return (
         <>
@@ -117,7 +117,7 @@ const EmbeddedPacketDetails = () => {
             </p>
           ))}
           <StyledAnchor
-            href={buildAnvilURL(`/org/${packetDetails.documentGroup.providerConfig.organizationSlug}/etch/${packetDetails.eid}`)}
+            href={buildAnvilURL(etchPacketDetailsURL)}
             target="_blank"
             rel="noreferrer"
             size="small"
