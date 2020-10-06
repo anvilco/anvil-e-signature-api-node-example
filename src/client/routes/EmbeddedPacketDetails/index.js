@@ -57,6 +57,10 @@ const EmbeddedPacketDetails = () => {
     },
   })
 
+  const handlePacketDownload = () => (
+    window.location.assign(buildAnvilURL(`/api/etch/download/${packetDetails?.documentGroup?.eid}/${packetDetails?.documentGroup?.providerConfig?.etchTemplateEid}.zip`))
+  )
+
   const renderQueryParamData = () => {
     if (queryStringData?.signerEid) {
       const { documentGroupEid, documentGroupStatus, etchPacketEid, etchPacketName, signerEid, signerStatus } = queryStringData
@@ -136,7 +140,7 @@ const EmbeddedPacketDetails = () => {
           <Response color="success">Your signature packet is complete! Your signed documents are available here for download.</Response>
           <Button
             type="cta"
-            onClick={() => window.location.assign(buildAnvilURL(`/api/etch/download/${packetDetails?.documentGroup?.eid}/${packetDetails?.documentGroup?.providerConfig?.etchTemplateEid}.zip`))}
+            onClick={handlePacketDownload}
           >
             Download Signed Documents as Zip
           </Button>

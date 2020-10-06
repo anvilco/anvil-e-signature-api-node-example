@@ -2,7 +2,7 @@ const Anvil = require('@anvilco/anvil')
 const { buildURL, logError } = require('../helpers')
 const { apiKey, apiBaseURL, templateCastEID } = require('../../config')
 
-if (!apiKey) {
+if (!apiKey && process.env.NODE_ENV !== 'test') {
   setTimeout(() => {
     logError('ANVIL_API_KEY has not been defined. See .env.example at the root of the project')
   }, 3000)
