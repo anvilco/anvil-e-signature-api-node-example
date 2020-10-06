@@ -13,4 +13,7 @@ module.exports = {
     queryStr = queryStr ? `?${queryStr}` : ''
     return queryStr ? `${path}${queryStr}` : path
   },
+  getTodayISO () {
+    return new Date().toISOString().split('T')[0]
+  },
 }

@@ -57,9 +57,9 @@ const EmbeddedPacketDetails = () => {
     },
   })
 
-  const handlePacketDownload = () => (
+  const handlePacketDownload = () => {
     window.location.assign(buildAnvilURL(packetDetails.documentGroup.downloadZipURL))
-  )
+  }
 
   const renderQueryParamData = () => {
     if (queryStringData?.signerEid) {
@@ -95,7 +95,7 @@ const EmbeddedPacketDetails = () => {
 
   const renderPacketDetails = () => {
     if (packetDetails && typeof packetDetails !== 'string') {
-      const { name: packetName, documentGroup, eid: packetEid, etchPacketDetailsURL } = packetDetails
+      const { name: packetName, documentGroup, eid: packetEid, detailsURL } = packetDetails
       const { eid: docEid, signers, status: docStatus } = documentGroup
       return (
         <>
@@ -117,7 +117,7 @@ const EmbeddedPacketDetails = () => {
             </p>
           ))}
           <StyledAnchor
-            href={buildAnvilURL(etchPacketDetailsURL)}
+            href={buildAnvilURL(detailsURL)}
             target="_blank"
             rel="noreferrer"
             size="small"
