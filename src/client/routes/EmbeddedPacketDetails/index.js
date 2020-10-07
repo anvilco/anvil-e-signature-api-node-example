@@ -61,6 +61,34 @@ const EmbeddedPacketDetails = () => {
     window.location.assign(`/api/packet/download/${packetEid}`)
   }
 
+  const handleSignButtonClick = async () => {
+    const signURL = await generateSignURL()
+    if (signURL) window.location.assign(signURL)
+  }
+
+  const renderHeader = () => {
+    if (packetDetails?.documentGroup.signers[0].signActionType === 'email') {
+      return (
+        <>
+          <TitleBar>
+            <Title>Email Signature Packet</Title>
+            <img src={EtchStamp} alt="Anvil Etch e-signatures" width={50} height={50} />
+          </TitleBar>
+          <Description>Anvil is managing the signing process for this packet via email.</Description>
+        </>
+      )
+    }
+    return (
+      <>
+        <TitleBar>
+          <Title>Embedded Signature Packet</Title>
+          <img src={EtchStamp} alt="Anvil Etch e-signatures" width={50} height={50} />
+        </TitleBar>
+        <Description>This app is controlling the signing process, and no emails are sent from Anvil.</Description>
+      </>
+    )
+  }
+
   const renderQueryParamData = () => {
     if (queryStringData?.signerEid) {
       const { documentGroupEid, documentGroupStatus, etchPacketEid, etchPacketName, signerEid, signerStatus } = queryStringData
@@ -113,6 +141,7 @@ const EmbeddedPacketDetails = () => {
               Signer {index + 1} Name: <b>{signer.name}</b><br />
               Signer {index + 1} Email: <b>{signer.email}</b><br />
               Signer {index + 1} Status: <b>{signer.status}</b><br />
+              Signer {index + 1} Type: <b>{signer.signActionType}</b><br />
               Signer {index + 1} EID: <b>{signer.eid}</b><br />
             </p>
           ))}
@@ -146,45 +175,41 @@ const EmbeddedPacketDetails = () => {
           </Button>
         </>
       )
+    } else if (packetDetails?.documentGroup.signers[nextSignerNum - 1].signActionType === 'email') {
+      return (
+        <Response color="failure">Your signature packet is not yet complete. Signer {nextSignerNum} has received an email and has yet to sign!</Response>
+      )
+    } else {
+      return (
+        <>
+          <Response color="failure">Your signature packet is not yet complete. Signer {nextSignerNum} has yet to sign! Signer {nextSignerNum} can sign by clicking the button below.</Response>
+          <Button
+            type="cta"
+            onClick={async () => handleSignButtonClick()}
+          >
+            Sign Now as Signer {nextSignerNum}
+          </Button>
+          <Response color="failure">{generateURLResponse}</Response>
+        </>
+      )
     }
-    return (
-      <>
-        <Response color="failure">Your signature packet is not yet complete. Signer {nextSignerNum} has yet to sign!</Response>
-        <Button
-          type="cta"
-          onClick={async () => {
-            const signURL = await generateSignURL()
-            if (signURL) window.location.assign(signURL)
-          }}
-        >
-          Sign Now as Signer {nextSignerNum}
-        </Button>
-        <Response color="failure">{generateURLResponse}</Response>
-      </>
-    )
   }
 
   const renderDetailsAndAction = () => {
     if (!packetDetails) return <Spinner position="center" />
     return (
-      <>
+      <Content.Card>
         {renderPacketDetails()}
         {renderAction()}
-      </>
+      </Content.Card>
     )
   }
 
   return (
     <>
-      <TitleBar>
-        <Title>Embedded Siganture Packet</Title>
-        <img src={EtchStamp} alt="Anvil Etch e-signatures" width={50} height={50} />
-      </TitleBar>
-      <Description>This app is controlling the signing process, and no emails are sent from Anvil.</Description>
+      {renderHeader()}
       {renderQueryParamData()}
-      <Content.Card>
-        {renderDetailsAndAction()}
-      </Content.Card>
+      {renderDetailsAndAction()}
       <StyledLink size="small" to="/">Back to index</StyledLink>
     </>
   )

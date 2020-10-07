@@ -12,7 +12,7 @@ const Routes = () => {
       <Switch>
         <Route path="/emailPacket/create" component={EmailPacket} />
         <Route path="/embeddedPacket/create" component={EmbeddedPacket} />
-        <Route path="/embeddedPacket/:packetEid" component={EmbeddedPacketDetails} />
+        <Route path="/packet/:packetEid" component={EmbeddedPacketDetails} />
         <Route path="/" component={MainPage} />
       </Switch>
     </Router>

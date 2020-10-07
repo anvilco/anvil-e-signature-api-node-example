@@ -4,7 +4,7 @@
 
 "@anvilco/anvil@https://github.com/anvilco/node-anvil.git#wt/getEtchPacket":
   version "2.2.0"
-  resolved "https://github.com/anvilco/node-anvil.git#368b0aaf66ea009617cf6e3142ce2a313ab4b3e8"
+  resolved "https://github.com/anvilco/node-anvil.git#2c76dc4fbc629e8178117329383dda53b3e58b21"
   dependencies:
     abort-controller "^3.0.0"
     extract-files "^6"

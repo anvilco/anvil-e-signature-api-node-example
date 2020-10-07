@@ -6,6 +6,7 @@ import CreateSignaturePacketTemplate from 'components/CreateSignaturePacketTempl
 const EmbeddedPacket = () => (
   <CreateSignaturePacketTemplate
     title="Create Embedded Signature Packet"
+    packetType="embedded"
     description="Your app will control the signing process and notify signers when it is their turn to sign."
     secondaryDescription={
       <Description>

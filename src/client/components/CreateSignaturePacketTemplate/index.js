@@ -8,17 +8,17 @@ import { Title, TitleBar, Description, StyledLink, StyledAnchor, Response } from
 import SignaturePacketForm from './SignaturePacketForm'
 import EtchStamp from 'static/etch-stamp.png'
 
-const createSignaturePacketTemplate = ({ title, description, secondaryDescription, CustomForm = SignaturePacketForm }) => {
+const createSignaturePacketTemplate = ({ title, description, secondaryDescription, CustomForm = SignaturePacketForm, packetType = 'email' }) => {
   const history = useHistory()
   const [createPacketResponse, setCreatePacketResponse] = useState(undefined)
 
   const createSignaturePacket = createRequest({
-    url: '/api/packet/create',
+    url: packetType === 'email' ? '/api/packet/create?type=email' : '/api/packet/create?type=embedded',
     callback: async (response) => {
       const responseText = await response.text()
       const { statusCode, data, error } = JSON.parse(responseText)
       if (statusCode === 200 && data?.data?.createEtchPacket?.eid) {
-        history.push(data.data.createEtchPacket.eid)
+        history.push(`/packet/${data.data.createEtchPacket.eid}`)
       } else {
         setCreatePacketResponse(`Error: ${error?.message}`)
       }
@@ -65,6 +65,7 @@ createSignaturePacketTemplate.propTypes = {
   description: PropTypes.string.isRequired,
   secondaryDescription: PropTypes.element,
   CustomForm: PropTypes.elementType,
+  packetType: PropTypes.string,
 }
 
 export default createSignaturePacketTemplate

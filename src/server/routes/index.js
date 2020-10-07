@@ -12,7 +12,7 @@ if (!apiKey && process.env.NODE_ENV !== 'test') {
 
 function buildRoutes (router) {
   router.post('/api/packet/create', async (req, res) => {
-    const {
+    let {
       signerOneName,
       signerOneEmail,
       signerOneType = 'embedded',
@@ -27,6 +27,11 @@ function buildRoutes (router) {
 
       packetName = 'Sample Form',
     } = req.body
+
+    if (req.query.type === 'email') {
+      signerOneType = 'email'
+      signerTwoType = 'email'
+    }
 
     // Update variables to use fields submitted from form
     createEtchPacketVars.signatureEmailSubject = packetName
@@ -195,7 +200,7 @@ function buildRoutes (router) {
 
   router.get('/packet/finish', async (req, res) => {
     // Redirect with query string
-    const baseURL = `http://localhost:3001/embeddedPacket/${req.query.etchPacketEid}`
+    const baseURL = `http://localhost:3001/packet/${req.query.etchPacketEid}`
     const baseURLWithQueryString = buildURL(baseURL, req.query)
     return res.redirect(baseURLWithQueryString)
   })
