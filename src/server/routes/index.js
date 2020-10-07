@@ -1,4 +1,5 @@
 const Anvil = require('@anvilco/anvil')
+const fetch = require('node-fetch')
 const { createEtchPacketVars } = require('../apiVariables')
 const { buildURL, logError } = require('../helpers')
 const { apiKey, apiBaseURL } = require('../../config')
@@ -149,9 +150,48 @@ function buildRoutes (router) {
     }
   })
 
-  // router.get('/api/packet/download/:documentGroupEid', async (req, res) => {
+  router.get('/api/packet/download/:packetEid', async (req, res) => {
+    const variables = {
+      eid: req.params.packetEid,
+    }
+    const responseQuery = `{
+      documentGroup {
+        downloadZipURL
+      }
+    }`
 
-  // })
+    try {
+      const client = new Anvil({
+        apiKey,
+        baseURL: apiBaseURL,
+      })
+
+      const { statusCode, data, errors } = await client.getEtchPacket({ variables, responseQuery })
+
+      // Node-anvil to Anvil server communication errors
+      if (statusCode !== 200) return res.jsonp({ statusCode, error: errors[0] })
+      // Packet query errors
+      if (data.errors) return res.jsonp({ statusCode: data.errors[0].status, error: data.errors[0] })
+
+      const downloadZipURL = apiBaseURL + data.data.etchPacket.documentGroup.downloadZipURL
+      const opts = {
+        headers: {
+          cookie: req.headers.cookie,
+        },
+      }
+      const response = await fetch(downloadZipURL, opts)
+      res.header('Content-Disposition', response.headers.get('content-disposition'))
+      res.header('Content-Type', response.headers.get('content-type'))
+      return response.body.pipe(res)
+    } catch (e) {
+      if (e.message === 'apiKey or accessToken required') {
+        return res.jsonp({ statusCode: 403, error: { message: 'API key required. Please create an Anvil account and enter your API Key into your `.env` file following the format of `.env.example`. More details can also be found in the README.' } })
+      }
+
+      // Anvil server related errors
+      return res.jsonp({ statusCode: 504, error: e })
+    }
+  })
 
   router.get('/packet/finish', async (req, res) => {
     // Redirect with query string

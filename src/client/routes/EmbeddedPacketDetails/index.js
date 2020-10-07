@@ -19,8 +19,8 @@ const EmbeddedPacketDetails = () => {
     async function fetchData () {
       setPacketDetails(await getEtchPacket())
     }
-    fetchData()
     setQueryStringData(parseQueryString())
+    fetchData()
   }, [])
 
   const getEtchPacket = createRequest({
@@ -58,7 +58,7 @@ const EmbeddedPacketDetails = () => {
   })
 
   const handlePacketDownload = () => {
-    window.location.assign(buildAnvilURL(packetDetails.documentGroup.downloadZipURL))
+    window.location.assign(`/api/packet/download/${packetEid}`)
   }
 
   const renderQueryParamData = () => {
