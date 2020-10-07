@@ -1,9 +1,15 @@
 import React from 'react'
-import { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 
-import Content from 'components/Content'
 import theme from 'theme'
 import Routes from 'routes'
+
+const Layout = styled.div`
+  max-width: 600px;
+  min-height: 600px;
+  margin: 0 auto;
+  padding: 50px 20px;
+`
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -31,10 +37,10 @@ const GlobalStyle = createGlobalStyle`
 
 const App = () => {
   return (
-    <Content.Card layout>
+    <Layout>
       <Routes />
       <GlobalStyle />
-    </Content.Card>
+    </Layout>
   )
 }
 
