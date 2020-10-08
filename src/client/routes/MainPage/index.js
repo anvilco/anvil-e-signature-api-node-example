@@ -1,6 +1,5 @@
 import React from 'react'
 
-// import Content from 'components/Content'
 import Menu from './Menu'
 import { Title, TitleBar, Description, Docs } from 'components/styled'
 import EtchStamp from 'static/etch-stamp.png'
@@ -10,7 +9,7 @@ const MainPage = () => {
     <>
       <TitleBar>
         <Title>Anvil E-Signatures API Example</Title>
-        <img src={EtchStamp} alt="Anvil Etch e-signatures" width={50} height={50} />
+        <img src={EtchStamp} alt="Anvil Etch e-signatures" width={60} height={60} />
       </TitleBar>
       <Description>These examples will create Anvil Signature Packets with multiple PDFs, then allow you go through the signing process.</Description>
       <Menu />

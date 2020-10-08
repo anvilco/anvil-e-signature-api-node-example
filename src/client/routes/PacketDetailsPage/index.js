@@ -8,7 +8,7 @@ import { Description, Response, StyledAnchor, StyledLink, Title, TitleBar } from
 import { buildAnvilURL, createRequest, parseQueryString } from 'helpers'
 import EtchStamp from 'static/etch-stamp.png'
 
-const EmbeddedPacketDetails = () => {
+const PacketDetailsPage = () => {
   const { packetEid } = useParams()
   const [packetDetails, setPacketDetails] = useState(undefined)
   const [queryStringData, setQueryStringData] = useState(undefined)
@@ -72,7 +72,7 @@ const EmbeddedPacketDetails = () => {
         <>
           <TitleBar>
             <Title>Email Signature Packet</Title>
-            <img src={EtchStamp} alt="Anvil Etch e-signatures" width={50} height={50} />
+            <img src={EtchStamp} alt="Anvil Etch e-signatures" width={60} height={60} />
           </TitleBar>
           <Description>Anvil is managing the signing process for this packet via email.</Description>
         </>
@@ -82,7 +82,7 @@ const EmbeddedPacketDetails = () => {
       <>
         <TitleBar>
           <Title>Embedded Signature Packet</Title>
-          <img src={EtchStamp} alt="Anvil Etch e-signatures" width={50} height={50} />
+          <img src={EtchStamp} alt="Anvil Etch e-signatures" width={60} height={60} />
         </TitleBar>
         <Description>This app is controlling the signing process, and no emails are sent from Anvil.</Description>
       </>
@@ -215,4 +215,4 @@ const EmbeddedPacketDetails = () => {
   )
 }
 
-export default EmbeddedPacketDetails
+export default PacketDetailsPage

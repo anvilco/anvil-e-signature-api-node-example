@@ -3,7 +3,7 @@ import React from 'react'
 import { Description } from 'components/styled'
 import CreateSignaturePacketTemplate from 'components/CreateSignaturePacketTemplate'
 
-const EmbeddedPacket = () => (
+const EmbeddedPacketPage = () => (
   <CreateSignaturePacketTemplate
     title="Create Embedded Signature Packet"
     packetType="embedded"
@@ -18,6 +18,6 @@ const EmbeddedPacket = () => (
   />
 )
 
-EmbeddedPacket.propTypes = {}
+EmbeddedPacketPage.propTypes = {}
 
-export default EmbeddedPacket
+export default EmbeddedPacketPage

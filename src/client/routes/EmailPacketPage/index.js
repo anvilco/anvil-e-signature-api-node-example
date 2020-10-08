@@ -3,7 +3,7 @@ import React from 'react'
 import { Description } from 'components/styled'
 import CreateSignaturePacketTemplate from 'components/CreateSignaturePacketTemplate'
 
-const EmailPacket = () => (
+const EmailPacketPage = () => (
   <CreateSignaturePacketTemplate
     title="Create Email Signature Packet"
     packetType="email"
@@ -17,6 +17,6 @@ const EmailPacket = () => (
   />
 )
 
-EmailPacket.propTypes = {}
+EmailPacketPage.propTypes = {}
 
-export default EmailPacket
+export default EmailPacketPage

@@ -47,7 +47,7 @@ const createSignaturePacketTemplate = ({ title, description, secondaryDescriptio
     <>
       <TitleBar>
         <Title>{title}</Title>
-        <img src={EtchStamp} alt="Anvil Etch e-signatures" width={50} height={50} />
+        <img src={EtchStamp} alt="Anvil Etch e-signatures" width={60} height={60} />
       </TitleBar>
       <Description>{description}</Description>
       {secondaryDescription}
