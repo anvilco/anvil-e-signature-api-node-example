@@ -1,4 +1,3 @@
-const Anvil = require('@anvilco/anvil')
 const { getTodayISO } = require('./helpers')
 const { templateCastEID } = require('../config')
 
@@ -20,7 +19,7 @@ module.exports = {
         // This is a file we will upload and specify the fields ourselves
         id: 'fileUploadNDA',
         title: 'Anvil Demo NDA',
-        file: Anvil.prepareGraphQLFile('src/server/static/test-pdf-nda.pdf'),
+        file: undefined,
         fields: getUploadedFileFields(),
       },
       {

@@ -33,6 +33,9 @@ function buildRoutes (router) {
       signerTwoType = 'email'
     }
 
+    const streamFile = Anvil.prepareGraphQLFile('src/server/static/test-pdf-nda.pdf')
+    createEtchPacketVars.files[0].file = streamFile
+
     // Update variables to use fields submitted from form
     createEtchPacketVars.signatureEmailSubject = packetName
     createEtchPacketVars.signers[0].name = signerOneName
