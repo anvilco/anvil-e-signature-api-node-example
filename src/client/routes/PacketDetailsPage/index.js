@@ -182,7 +182,7 @@ const PacketDetailsPage = () => {
     } else {
       return (
         <>
-          <Response color="failure">Your signature packet is not yet complete. Signer {nextSignerNum} has yet to sign! Signer {nextSignerNum} can sign by clicking the button below.</Response>
+          <Response color="failure">Your signature packet is not yet complete. Signer {nextSignerNum} can sign by clicking the button below.</Response>
           <Button
             type="cta"
             onClick={async () => handleSignButtonClick()}

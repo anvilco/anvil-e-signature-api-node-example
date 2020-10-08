@@ -1,5 +1,6 @@
 const Anvil = require('@anvilco/anvil')
 const fetch = require('node-fetch')
+const cloneDeep = require('lodash/cloneDeep')
 const { createEtchPacketVars } = require('../apiVariables')
 const { buildURL, logError } = require('../helpers')
 const { apiKey, apiBaseURL } = require('../../config')
@@ -33,24 +34,26 @@ function buildRoutes (router) {
       signerTwoType = 'email'
     }
 
+    const variables = cloneDeep(createEtchPacketVars)
+
     const streamFile = Anvil.prepareGraphQLFile('src/server/static/test-pdf-nda.pdf')
-    createEtchPacketVars.files[0].file = streamFile
+    variables.files[0].file = streamFile
 
     // Update variables to use fields submitted from form
-    createEtchPacketVars.signatureEmailSubject = packetName
-    createEtchPacketVars.signers[0].name = signerOneName
-    createEtchPacketVars.signers[0].email = signerOneEmail
-    createEtchPacketVars.signers[0].signerType = signerOneType
-    createEtchPacketVars.signers[0].redirectURL = signerOneRedirectURL
-    createEtchPacketVars.signers[0].enableEmails = signerOneEnableEmails
-    createEtchPacketVars.data.payloads.templatePdfIrsW4.data.name = signerOneName
-    createEtchPacketVars.data.payloads.fileUploadNDA.data.disclosingPartyName = signerOneName
-    createEtchPacketVars.data.payloads.fileUploadNDA.data.disclosingPartyEmail = signerOneEmail
-    createEtchPacketVars.data.payloads.fileUploadNDA.data.name1 = signerOneName
+    variables.signatureEmailSubject = packetName
+    variables.signers[0].name = signerOneName
+    variables.signers[0].email = signerOneEmail
+    variables.signers[0].signerType = signerOneType
+    variables.signers[0].redirectURL = signerOneRedirectURL
+    variables.signers[0].enableEmails = signerOneEnableEmails
+    variables.data.payloads.templatePdfIrsW4.data.name = signerOneName
+    variables.data.payloads.fileUploadNDA.data.disclosingPartyName = signerOneName
+    variables.data.payloads.fileUploadNDA.data.disclosingPartyEmail = signerOneEmail
+    variables.data.payloads.fileUploadNDA.data.name1 = signerOneName
 
     // Add second signer if signer two info is inputted
     if (signerTwoName && signerTwoEmail) {
-      createEtchPacketVars.signers.push({
+      variables.signers.push({
         id: 'signer2',
         name: signerTwoName,
         email: signerTwoEmail,
@@ -72,9 +75,9 @@ function buildRoutes (router) {
         redirectURL: signerTwoRedirectURL,
         enableEmails: signerTwoEnableEmails,
       })
-      createEtchPacketVars.data.payloads.fileUploadNDA.data.recipientName = signerTwoName
-      createEtchPacketVars.data.payloads.fileUploadNDA.data.recipientEmail = signerTwoEmail
-      createEtchPacketVars.data.payloads.fileUploadNDA.data.name2 = signerTwoName
+      variables.data.payloads.fileUploadNDA.data.recipientName = signerTwoName
+      variables.data.payloads.fileUploadNDA.data.recipientEmail = signerTwoEmail
+      variables.data.payloads.fileUploadNDA.data.name2 = signerTwoName
     }
 
     try {
@@ -83,7 +86,7 @@ function buildRoutes (router) {
         baseURL: apiBaseURL,
       })
 
-      const { statusCode, data, errors } = await client.createEtchPacket({ variables: createEtchPacketVars })
+      const { statusCode, data, errors } = await client.createEtchPacket({ variables })
 
       // Node-anvil to Anvil server communication errors
       if (statusCode !== 200) return res.jsonp({ statusCode, error: errors[0] })
