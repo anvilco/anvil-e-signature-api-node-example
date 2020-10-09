@@ -87,7 +87,6 @@ function buildRoutes (router) {
 
       const { statusCode, data, errors } = await client.createEtchPacket({ variables })
 
-      // Node-anvil to Anvil server communication errors
       if (statusCode !== 200) return res.jsonp({ statusCode, error: errors[0] })
       // Packet creation errors
       if (data.errors) return res.jsonp({ statusCode: data.errors[0].status, error: data.errors[0] })
@@ -104,87 +103,50 @@ function buildRoutes (router) {
   })
 
   router.post('/api/packet/sign', async (req, res) => {
-    const { clientUserId, signerEid } = req.body
+    const variables = req.body
+    const client = new Anvil({
+      apiKey,
+      baseURL: apiBaseURL,
+    })
 
-    const variables = { clientUserId, signerEid }
+    const { statusCode, url, errors } = await client.generateEtchSignUrl({ variables })
 
-    try {
-      const client = new Anvil({
-        apiKey,
-        baseURL: apiBaseURL,
-      })
+    if (statusCode !== 200) return res.jsonp({ statusCode, error: errors[0] })
+    // URL generation errors
+    if (url.errors) return res.jsonp({ statusCode: url.errors[0].status, error: url.errors[0] })
 
-      const { statusCode, url, errors } = await client.generateEtchSignUrl({ variables })
-
-      // Node-anvil to Anvil server communication errors
-      if (statusCode !== 200) return res.jsonp({ statusCode, error: errors[0] })
-      // URL generation errors
-      if (url.errors) return res.jsonp({ statusCode: url.errors[0].status, error: url.errors[0] })
-
-      return res.jsonp({ statusCode, url })
-    } catch (e) {
-      if (e.message === 'apiKey or accessToken required') {
-        return res.jsonp({ statusCode: 403, error: { message: 'API key required. Please create a `.env` file following `.env.example` and enter in your API Key. More details can be found in the README.' } })
-      }
-
-      return res.jsonp({ statusCode: 504, error: e })
-    }
+    return res.jsonp({ statusCode, url })
   })
 
   router.get('/api/packet/:packetEid', async (req, res) => {
     const variables = {
       eid: req.params.packetEid,
     }
+    const client = new Anvil({
+      apiKey,
+      baseURL: apiBaseURL,
+    })
 
-    try {
-      const client = new Anvil({
-        apiKey,
-        baseURL: apiBaseURL,
-      })
+    const { statusCode, data, errors } = await client.getEtchPacket({ variables })
 
-      const { statusCode, data, errors } = await client.getEtchPacket({ variables })
+    if (statusCode !== 200) return res.jsonp({ statusCode, error: errors[0] })
+    // Packet query errors
+    if (data.errors) return res.jsonp({ statusCode: data.errors[0].status, error: data.errors[0] })
 
-      // Node-anvil to Anvil server communication errors
-      if (statusCode !== 200) return res.jsonp({ statusCode, error: errors[0] })
-      // Packet query errors
-      if (data.errors) return res.jsonp({ statusCode: data.errors[0].status, error: data.errors[0] })
-
-      return res.jsonp({ statusCode, data })
-    } catch (e) {
-      if (e.message === 'apiKey or accessToken required') {
-        return res.jsonp({ statusCode: 403, error: { message: 'API key required. Please create an Anvil account and enter your API Key into your `.env` file following the format of `.env.example`. More details can also be found in the README.' } })
-      }
-
-      // Anvil server related errors
-      return res.jsonp({ statusCode: 504, error: e })
-    }
+    return res.jsonp({ statusCode, data })
   })
 
   router.get('/api/packet/download/:documentGroupEid', async (req, res) => {
-    try {
-      const client = new Anvil({
-        apiKey,
-        baseURL: apiBaseURL,
-      })
+    const client = new Anvil({
+      apiKey,
+      baseURL: apiBaseURL,
+    })
 
-      const { response, statusCode, data, errors } = await client.downloadDocuments(req.params.documentGroupEid)
+    const { response, statusCode, data, errors } = await client.downloadDocuments(req.params.documentGroupEid)
+    if (statusCode !== 200) return res.jsonp({ statusCode, error: errors[0] })
 
-      // Node-anvil to Anvil server communication errors
-      if (statusCode !== 200) return res.jsonp({ statusCode, error: errors[0] })
-      // Document Group download errors
-      if (data.errors) return res.jsonp({ statusCode: data.errors[0].status, error: data.errors[0] })
-
-      res.header('Content-Disposition', response.headers.get('content-disposition'))
-      res.header('Content-Type', response.headers.get('content-type'))
-      return data.pipe(res)
-    } catch (e) {
-      if (e.message === 'apiKey or accessToken required') {
-        return res.jsonp({ statusCode: 403, error: { message: 'API key required. Please create an Anvil account and enter your API Key into your `.env` file following the format of `.env.example`. More details can also be found in the README.' } })
-      }
-
-      // Anvil server related errors
-      return res.jsonp({ statusCode: 504, error: e })
-    }
+    res.header('Content-Disposition', response.headers.get('content-disposition'))
+    return data.pipe(res)
   })
 
   router.get('/packet/finish', async (req, res) => {
