@@ -4,7 +4,7 @@
 
 "@anvilco/anvil@https://github.com/anvilco/node-anvil.git#wt/getEtchPacket":
   version "2.2.0"
-  resolved "https://github.com/anvilco/node-anvil.git#2c76dc4fbc629e8178117329383dda53b3e58b21"
+  resolved "https://github.com/anvilco/node-anvil.git#507d62226b945fe6b96144e9abd6b7e162f67227"
   dependencies:
     abort-controller "^3.0.0"
     extract-files "^6"
@@ -5404,7 +5404,7 @@ node-environment-flags@1.0.6:
     object.getownpropertydescriptors "^2.0.3"
     semver "^5.7.0"
 
-node-fetch@^2.6.0, node-fetch@^2.6.1:
+node-fetch@^2.6.0:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
   integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==

@@ -27,7 +27,6 @@
     "express": "^4.17.1",
     "lodash": "^4.17.15",
     "lodash.pickby": "^4.6.0",
-    "node-fetch": "^2.6.1",
     "polished": "^3.6.2",
     "qs": "^6.9.4",
     "react": "^16.13.1",
