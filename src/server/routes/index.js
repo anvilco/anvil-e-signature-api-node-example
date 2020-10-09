@@ -184,7 +184,7 @@ function buildRoutes (router) {
       // Packet query errors
       if (data.errors) return res.jsonp({ statusCode: data.errors[0].status, error: data.errors[0] })
 
-      const downloadZipURL = apiBaseURL + data.data.etchPacket.documentGroup.downloadZipURL
+      const downloadZipURL = data.data.etchPacket.documentGroup.downloadZipURL
       const opts = {
         headers: {
           cookie: req.headers.cookie,

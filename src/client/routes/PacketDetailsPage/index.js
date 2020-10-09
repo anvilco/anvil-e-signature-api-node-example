@@ -5,7 +5,7 @@ import Button from 'components/Button'
 import Content from 'components/Content'
 import Spinner from 'components/Spinner'
 import { Description, Response, StyledAnchor, StyledLink, Title, TitleBar } from 'components/styled'
-import { buildAnvilURL, createRequest, parseQueryString } from 'helpers'
+import { createRequest, parseQueryString } from 'helpers'
 import EtchStamp from 'static/etch-stamp.png'
 
 const PacketDetailsPage = () => {
@@ -146,7 +146,7 @@ const PacketDetailsPage = () => {
             </p>
           ))}
           <StyledAnchor
-            href={buildAnvilURL(detailsURL)}
+            href={detailsURL}
             target="_blank"
             rel="noreferrer"
             size="small"
