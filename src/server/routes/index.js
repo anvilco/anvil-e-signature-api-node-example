@@ -161,23 +161,16 @@ function buildRoutes (router) {
     }
   })
 
-  router.get('/api/packet/download/:packetEid', async (req, res) => {
-    const variables = {
-      eid: req.params.packetEid,
-    }
-    const responseQuery = `{
-      documentGroup {
-        downloadZipURL
-      }
-    }`
-
+  router.get('/api/packet/download/:documentGroupEid', async (req, res) => {
     try {
       const client = new Anvil({
         apiKey,
         baseURL: apiBaseURL,
       })
 
-      const { statusCode, data, errors } = await client.getEtchPacket({ variables, responseQuery })
+      // const { statusCode, data, errors } = await client.getEtchPacket({ variables, responseQuery })
+      const docGroupResponse = await client.downloadDocumentGroup(req.params.documentGroupEid)
+      console.log('DEBUG:', docGroupResponse)
 
       // Node-anvil to Anvil server communication errors
       if (statusCode !== 200) return res.jsonp({ statusCode, error: errors[0] })

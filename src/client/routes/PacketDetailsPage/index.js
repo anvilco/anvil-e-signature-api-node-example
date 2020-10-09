@@ -58,7 +58,8 @@ const PacketDetailsPage = () => {
   })
 
   const handlePacketDownload = () => {
-    window.location.assign(`/api/packet/download/${packetEid}`)
+    const { documentGroupEid } = queryStringData
+    window.location.assign(`/api/packet/download/${documentGroupEid}`)
   }
 
   const handleSignButtonClick = async () => {
