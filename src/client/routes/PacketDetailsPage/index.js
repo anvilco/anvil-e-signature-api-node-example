@@ -92,7 +92,7 @@ const PacketDetailsPage = () => {
 
   const renderQueryParamData = () => {
     if (queryStringData?.signerEid) {
-      const { documentGroupEid, documentGroupStatus, etchPacketEid, etchPacketName, signerEid, signerStatus } = queryStringData
+      const { documentGroupEid, documentGroupStatus, etchPacketEid, etchPacketName, signerEid, signerStatus, nextSignerEid } = queryStringData
       return (
         <Content.Card>
           <h3>Signer Finished!</h3>
@@ -111,6 +111,9 @@ const PacketDetailsPage = () => {
           <p>
             Signer Status: <b>{signerStatus}</b><br />
             Signer EID: <b>{signerEid}</b><br />
+          </p>
+          <p>
+            Next Signer EID: <b>{nextSignerEid}</b>
           </p>
         </Content.Card>
       )
