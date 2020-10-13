@@ -19,7 +19,7 @@ const SignaturePacketForm = ({ submitButtonText = 'Create Signature Packet', onS
       onSubmit={onSubmit}
       submitButtonText={submitButtonText}
     >
-      <FormField name="packetName" label="Packet Name">
+      <FormField name="packetName" label="Packet Name" wide>
         <Input
           key="packetName"
           required
@@ -27,45 +27,46 @@ const SignaturePacketForm = ({ submitButtonText = 'Create Signature Packet', onS
           autoFocus
         />,
       </FormField>
-      <FormField name="signerOneName" label="First Signer Name">
+      <FormField name="signerOneName" label="First Signer">
         <Input
           key="signerOneName"
           required
           placeholder="Sally Jones"
         />,
       </FormField>
-      <FormField name="signerOneEmail" label="First Signer Email">
+      <FormField name="signerOneEmail">
         <Input
           key="signerOneEmail"
           required
           placeholder="Sally@example.com"
         />,
       </FormField>
-      <b>First Signer Options</b>
+      <b>Signer Options</b>
       <Checkbox name="signerOneSignatureMode" defaultChecked>
         Signer draws their signatures
       </Checkbox>
       <Checkbox name="signerOneAcceptEachField" defaultChecked>
         Signer must click each signature block
       </Checkbox>
+      <br />
       {renderAddSignerButton()}
       {!singleSigner && <br />}
       {!singleSigner &&
-        <FormField name="signerTwoName" label="Second Signer Name">
+        <FormField name="signerTwoName" label="Second Signer">
           <Input
             key="signerTwoName"
             placeholder="Henry Huxley"
           />,
         </FormField>}
       {!singleSigner &&
-        <FormField name="signerTwoEmail" label="Second Signer Email">
+        <FormField name="signerTwoEmail">
           <Input
             key="signerTwoEmail"
             placeholder="Henry@personal.org"
           />,
         </FormField>}
       {!singleSigner &&
-        <b>Second Signer Options</b>}
+        <b>Signer Options</b>}
       {!singleSigner &&
         <Checkbox name="signerTwoSignatureMode" defaultChecked>
           Signer draws their signatures

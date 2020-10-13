@@ -8,10 +8,10 @@ const StyledCheckbox = styled(Checkbox).withConfig({
     margin-right: 10px;
   }
   &.ant-checkbox-wrapper {
-    line-height: 1.1;
+    line-height: 1.2;
     display: block;
     margin-top: 10px;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
 
     ${({ displayStyle }) => displayStyle === 'compact' && `
       font-size: 14px;
