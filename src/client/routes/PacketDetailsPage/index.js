@@ -93,13 +93,12 @@ const PacketDetailsPage = () => {
   const renderQueryParamData = () => {
     if (queryStringData?.signerEid) {
       const { documentGroupEid, documentGroupStatus, etchPacketEid, etchPacketName, signerEid, signerStatus } = queryStringData
-      const { etchTemplateEid, organizationSlug } = queryStringData
       return (
         <Content.Card>
           <h3>Signer Finished!</h3>
           <h4>
             When a signer finishes signing, the browser will be redirected to the redirectURL attached to the signer.
-            Your redirectURL will get the following query parameters.
+            Your redirectURL will receive the following query parameters.
           </h4>
           <p>
             Signature Packet Name: <b>{etchPacketName}</b><br />
@@ -112,10 +111,6 @@ const PacketDetailsPage = () => {
           <p>
             Signer Status: <b>{signerStatus}</b><br />
             Signer EID: <b>{signerEid}</b><br />
-          </p>
-          <p>
-            Signer Template EID: <b>{etchTemplateEid}</b><br />
-            Organzation Slug: <b>{organizationSlug}</b><br />
           </p>
         </Content.Card>
       )
@@ -141,8 +136,8 @@ const PacketDetailsPage = () => {
             <p key={index}>
               Signer {index + 1} Name: <b>{signer.name}</b><br />
               Signer {index + 1} Email: <b>{signer.email}</b><br />
-              Signer {index + 1} Status: <b>{signer.status}</b><br />
-              Signer {index + 1} Type: <b>{signer.signActionType}</b><br />
+              Signer {index + 1} Sign Status: <b>{signer.status}</b><br />
+              Signer {index + 1} Action Type: <b>{signer.signActionType}</b><br />
               Signer {index + 1} EID: <b>{signer.eid}</b><br />
             </p>
           ))}
