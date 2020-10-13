@@ -7,7 +7,7 @@ import Form from 'components/Form'
 import FormField from 'components/FormField'
 import Input from 'components/Input'
 
-const SignaturePacketForm = ({ submitButtonText = 'Create Signature Packet', onSubmit }) => {
+const PacketForm = ({ submitButtonText = 'Create Signature Packet', onSubmit }) => {
   const [singleSigner, setSingleSigner] = useState(true)
 
   const renderAddSignerButton = () => {
@@ -79,10 +79,9 @@ const SignaturePacketForm = ({ submitButtonText = 'Create Signature Packet', onS
   )
 }
 
-SignaturePacketForm.propTypes = {
+PacketForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   submitButtonText: PropTypes.string,
-  items: PropTypes.array,
 }
 
-export default SignaturePacketForm
+export default PacketForm

@@ -1,10 +1,10 @@
 import React from 'react'
 
 import { Description } from 'components/styled'
-import CreateSignaturePacketTemplate from 'components/CreateSignaturePacketTemplate'
+import CreatePacketTemplate from 'components/CreatePacketTemplate'
 
 const EmbeddedPacketPage = () => (
-  <CreateSignaturePacketTemplate
+  <CreatePacketTemplate
     title="Create Embedded Signature Packet"
     packetType="embedded"
     description="Your app will control the signing process and notify signers when it is their turn to sign."

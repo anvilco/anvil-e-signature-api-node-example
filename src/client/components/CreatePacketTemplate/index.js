@@ -5,10 +5,10 @@ import PropTypes from 'prop-types'
 import Content from 'components/Content'
 import { createRequest } from 'helpers'
 import { Title, TitleBar, Description, StyledLink, StyledAnchor, Response } from 'components/styled'
-import SignaturePacketForm from './SignaturePacketForm'
+import PacketForm from './PacketForm'
 import EtchStamp from 'static/etch-stamp.png'
 
-const createSignaturePacketTemplate = ({ title, description, secondaryDescription, CustomForm = SignaturePacketForm, packetType = 'email' }) => {
+const CreatePacketTemplate = ({ title, description, secondaryDescription, CustomForm = PacketForm, packetType = 'email' }) => {
   const history = useHistory()
   const [createPacketResponse, setCreatePacketResponse] = useState(undefined)
 
@@ -60,7 +60,7 @@ const createSignaturePacketTemplate = ({ title, description, secondaryDescriptio
   )
 }
 
-createSignaturePacketTemplate.propTypes = {
+CreatePacketTemplate.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   secondaryDescription: PropTypes.element,
@@ -68,4 +68,4 @@ createSignaturePacketTemplate.propTypes = {
   packetType: PropTypes.string,
 }
 
-export default createSignaturePacketTemplate
+export default CreatePacketTemplate

@@ -57,4 +57,6 @@ const Menu = () => (
   </Content.Card>
 )
 
+Menu.propTypes = {}
+
 export default Menu

@@ -1,10 +1,10 @@
 import React from 'react'
 
 import { Description } from 'components/styled'
-import CreateSignaturePacketTemplate from 'components/CreateSignaturePacketTemplate'
+import CreatePacketTemplate from 'components/CreatePacketTemplate'
 
 const EmailPacketPage = () => (
-  <CreateSignaturePacketTemplate
+  <CreatePacketTemplate
     title="Create Email Signature Packet"
     packetType="email"
     description="Anvil will send an email to each signer listed when it is their turn to sign."

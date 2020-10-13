@@ -24,4 +24,6 @@ const MainPage = () => {
   )
 }
 
+MainPage.propTypes = {}
+
 export default MainPage

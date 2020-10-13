@@ -216,4 +216,6 @@ const PacketDetailsPage = () => {
   )
 }
 
+PacketDetailsPage.propTypes = {}
+
 export default PacketDetailsPage
