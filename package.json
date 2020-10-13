@@ -1,7 +1,7 @@
 {
-  "name": "anvil-react-full-stack-coding-challenge",
+  "name": "anvil-e-signatures-api-example",
   "version": "1.0.0",
-  "description": "Anvil's interview challenge base webapp",
+  "description": "Anvil's E-Signatures Example App",
   "main": "src/server/index.js",
   "engines": {
     "node": ">=10.0.0"
@@ -22,6 +22,7 @@
   "dependencies": {
     "@anvilco/anvil": "https://github.com/anvilco/node-anvil.git#wt/getEtchPacket",
     "@babel/polyfill": "^7.11.5",
+    "antd": "^4.7.0",
     "app-module-path": "^2.2.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",

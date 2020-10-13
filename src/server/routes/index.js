@@ -13,19 +13,23 @@ if (!apiKey && process.env.NODE_ENV !== 'test') {
 function buildRoutes (router) {
   router.post('/api/packet/create', async (req, res) => {
     let {
+      packetName = 'Sample Signature Packet',
+
       signerOneName,
       signerOneEmail,
       signerOneType = 'embedded',
       signerOneRedirectURL = 'http://localhost:8080/packet/finish',
       signerOneEnableEmails = false,
+      signerOneSignatureMode = 'draw',
+      signerOneAcceptEachField = true,
 
       signerTwoName,
       signerTwoEmail,
       signerTwoType = 'embedded',
       signerTwoRedirectURL = 'http://localhost:8080/packet/finish',
       signerTwoEnableEmails = false,
-
-      packetName = 'Sample Form',
+      signerTwoSignatureMode = 'draw',
+      signerTwoAcceptEachField = true,
     } = req.body
 
     if (req.query.type === 'email') {
@@ -42,6 +46,8 @@ function buildRoutes (router) {
     variables.signatureEmailSubject = packetName
     variables.signers[0].name = signerOneName
     variables.signers[0].email = signerOneEmail
+    variables.signers[0].signatureMode = signerOneSignatureMode
+    variables.signers[0].acceptEachField = signerOneAcceptEachField
     variables.signers[0].signerType = signerOneType
     variables.signers[0].redirectURL = signerOneRedirectURL
     variables.signers[0].enableEmails = signerOneEnableEmails
@@ -70,6 +76,8 @@ function buildRoutes (router) {
             fieldId: 'signatureDate2',
           },
         ],
+        signatureMode: signerTwoSignatureMode,
+        acceptEachField: signerTwoAcceptEachField,
         signerType: signerTwoType,
         redirectURL: signerTwoRedirectURL,
         enableEmails: signerTwoEnableEmails,

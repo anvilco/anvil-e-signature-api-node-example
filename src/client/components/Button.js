@@ -96,7 +96,7 @@ const buttonStyles = ({ size, type, toolbar, colorDisabled }) => `
     backgroundHover: 'white',
   })};
 
-  ${(type === 'link') && `
+  ${(type === 'button') && `
     font-weight: inherit;
     line-height: inherit;
     text-align: inherit;
@@ -195,7 +195,7 @@ Button.defaultProps = {
 
 Button.propTypes = {
   isSubmit: PropTypes.bool,
-  type: PropTypes.oneOf(['link', 'primary', 'default', 'cta', 'danger', 'black']),
+  type: PropTypes.oneOf(['button', 'primary', 'default', 'cta', 'danger', 'black']),
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
 }

@@ -14,6 +14,11 @@ const FieldContainer = styled.div`
   }
 `
 
+const LabelContainer = styled.div`
+  margin-bottom: 10px;
+  font-weight: bold;
+`
+
 class FormField extends React.Component {
   state = {
     isSubmitting: false,
@@ -21,12 +26,13 @@ class FormField extends React.Component {
   }
 
   render () {
-    const { children, value, onChange } = this.props
+    const { children, value, onChange, label } = this.props
     const field = React.cloneElement(children[0], { onChange, value })
     return (
       <FieldContainer
         onSubmit={this.handleSubmit}
       >
+        <LabelContainer>{label}</LabelContainer>
         {field}
       </FieldContainer>
     )
@@ -37,6 +43,7 @@ FormField.defaultProps = {
 }
 
 FormField.propTypes = {
+  label: PropTypes.string,
   onChange: PropTypes.func,
   value: PropTypes.any,
   children: PropTypes.node.isRequired,

@@ -55,6 +55,8 @@ module.exports = {
             fieldId: 'signatureDate1',
           },
         ],
+        signatureMode: 'draw',
+        acceptEachField: true,
         signerType: 'embedded',
         redirectURL: 'http://localhost:8080/packet/finish',
         enableEmails: false,
