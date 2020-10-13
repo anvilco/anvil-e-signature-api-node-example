@@ -112,9 +112,10 @@ const PacketDetailsPage = () => {
             Signer Status: <b>{signerStatus}</b><br />
             Signer EID: <b>{signerEid}</b><br />
           </p>
-          <p>
-            Next Signer EID: <b>{nextSignerEid}</b>
-          </p>
+          {nextSignerEid &&
+            <p>
+              Next Signer EID: <b>{nextSignerEid}</b>
+            </p>}
         </Content.Card>
       )
     }
