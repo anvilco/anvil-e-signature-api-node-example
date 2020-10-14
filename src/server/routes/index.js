@@ -4,10 +4,7 @@ const { createEtchPacketVars } = require('../apiVariables')
 const { buildURL, handleClientErrors } = require('../helpers')
 const { apiKey, apiBaseURL } = require('../../config')
 
-const client = new Anvil({
-  apiKey,
-  baseURL: apiBaseURL,
-})
+const client = (apiKey) ? new Anvil({ apiKey, baseURL: apiBaseURL }) : null
 
 function buildRoutes (router) {
   router.post('/api/packet/create', async (req, res) => {
