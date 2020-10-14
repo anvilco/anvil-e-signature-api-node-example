@@ -29,6 +29,10 @@ const GlobalStyle = createGlobalStyle`
       }
     }
 
+    code {
+      font-size: 16px;
+    }
+
     * {
       box-sizing: border-box;
     }

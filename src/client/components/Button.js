@@ -96,7 +96,7 @@ const buttonStyles = ({ size, type, toolbar, colorDisabled }) => `
     backgroundHover: 'white',
   })};
 
-  ${(type === 'button') && `
+  ${(type === 'link' || type === 'button') && `
     font-weight: inherit;
     line-height: inherit;
     text-align: inherit;

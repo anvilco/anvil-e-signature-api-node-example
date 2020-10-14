@@ -4,11 +4,11 @@ import PropTypes from 'prop-types'
 
 import Content from 'components/Content'
 import { createRequest } from 'helpers'
-import { Title, TitleBar, Description, StyledLink, StyledAnchor, Response } from 'components/styled'
-import PacketForm from './PacketForm'
+import { Title, TitleBar, StyledLink, StyledAnchor, Response } from 'components/styled'
+import DefaultForm from './PacketForm'
 import EtchStamp from 'static/etch-stamp.png'
 
-const CreatePacketTemplate = ({ title, description, secondaryDescription, CustomForm = PacketForm, packetType = 'email' }) => {
+const CreatePacketTemplate = ({ title, description, packetType, PacketForm = DefaultForm }) => {
   const history = useHistory()
   const [createPacketResponse, setCreatePacketResponse] = useState(undefined)
 
@@ -49,10 +49,9 @@ const CreatePacketTemplate = ({ title, description, secondaryDescription, Custom
         <Title>{title}</Title>
         <img src={EtchStamp} alt="Anvil Etch e-signatures" width={60} height={60} />
       </TitleBar>
-      <Description>{description}</Description>
-      {secondaryDescription}
+      {description}
       <Content.Card>
-        <CustomForm onSubmit={createSignaturePacket} />
+        <PacketForm onSubmit={createSignaturePacket} />
         {renderCreatePacketResponse()}
       </Content.Card>
       <StyledLink size="small" to="/">Back to index</StyledLink>
@@ -62,10 +61,9 @@ const CreatePacketTemplate = ({ title, description, secondaryDescription, Custom
 
 CreatePacketTemplate.propTypes = {
   title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  secondaryDescription: PropTypes.element,
-  CustomForm: PropTypes.elementType,
-  packetType: PropTypes.string,
+  description: PropTypes.node.isRequired,
+  packetType: PropTypes.string.isRequired,
+  PacketForm: PropTypes.elementType,
 }
 
 export default CreatePacketTemplate

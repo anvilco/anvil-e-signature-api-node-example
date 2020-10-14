@@ -13,7 +13,7 @@ export const TitleBar = styled.div`
   justify-content: space-between;
 `
 
-export const Description = styled.h3`
+export const Description = styled.div`
   margin-bottom: 25px;
   font-size: 16px;
   font-weight: normal;
