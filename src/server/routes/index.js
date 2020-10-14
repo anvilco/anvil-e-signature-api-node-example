@@ -4,7 +4,7 @@ const { createEtchPacketVars } = require('../apiVariables')
 const { buildURL, handleClientErrors } = require('../helpers')
 const { apiKey, apiBaseURL } = require('../../config')
 
-const client = (apiKey) ? new Anvil({ apiKey, baseURL: apiBaseURL }) : null
+const client = new Anvil({ apiKey, baseURL: apiBaseURL })
 
 function buildRoutes (router) {
   router.post('/api/packet/create', async (req, res) => {
@@ -84,14 +84,12 @@ function buildRoutes (router) {
     }
 
     const { statusCode, data, errors } = await client.createEtchPacket({ variables })
-    handleClientErrors(res, statusCode, data, errors)
-    return res.jsonp({ statusCode, data })
+    return handleClientErrors(res, statusCode, data, errors) || res.jsonp({ statusCode, data })
   })
 
   router.post('/api/packet/sign', async (req, res) => {
     const { statusCode, url, errors } = await client.generateEtchSignUrl({ variables: req.body })
-    handleClientErrors(res, statusCode, url, errors)
-    return res.jsonp({ statusCode, url })
+    return handleClientErrors(res, statusCode, url, errors) || res.jsonp({ statusCode, url })
   })
 
   router.get('/api/packet/:packetEid', async (req, res) => {
@@ -100,15 +98,13 @@ function buildRoutes (router) {
         eid: req.params.packetEid,
       },
     })
-    handleClientErrors(res, statusCode, data, errors)
-    return res.jsonp({ statusCode, data })
+    return handleClientErrors(res, statusCode, data, errors) || res.jsonp({ statusCode, data })
   })
 
   router.get('/api/packet/download/:documentGroupEid', async (req, res) => {
     const { response, statusCode, data, errors } = await client.downloadDocuments(req.params.documentGroupEid)
-    handleClientErrors(res, statusCode, data, errors)
     res.header('Content-Disposition', response.headers.get('content-disposition'))
-    return data.pipe(res)
+    return handleClientErrors(res, statusCode, data, errors) || data.pipe(res)
   })
 
   router.get('/packet/finish', async (req, res) => {
