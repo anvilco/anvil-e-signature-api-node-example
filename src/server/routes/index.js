@@ -102,7 +102,9 @@ function buildRoutes (router) {
   })
 
   router.get('/api/packet/download/:documentGroupEid', async (req, res) => {
-    const { response, statusCode, data, errors } = await client.downloadDocuments(req.params.documentGroupEid)
+    const { response, statusCode, data, errors } = await client.downloadDocuments(req.params.documentGroupEid, {
+      dataType: 'stream',
+    })
     res.header('Content-Disposition', response.headers.get('content-disposition'))
     return handleClientErrors(res, statusCode, data, errors) || data.pipe(res)
   })
