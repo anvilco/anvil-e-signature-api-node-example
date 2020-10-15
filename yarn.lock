@@ -49,9 +49,9 @@
     lodash "^4.17.15"
     resize-observer-polyfill "^1.5.0"
 
-"@anvilco/anvil@https://github.com/anvilco/node-anvil.git#wt/getEtchPacket":
+"@anvilco/anvil@https://github.com/anvilco/node-anvil.git#master":
   version "2.2.0"
-  resolved "https://github.com/anvilco/node-anvil.git#760ea4b8389dcc2e9734e1c3bc4525879a52a3cf"
+  resolved "https://github.com/anvilco/node-anvil.git#f12ea9080df10654518b539e5d9c6fbf45b7ec3e"
   dependencies:
     abort-controller "^3.0.0"
     extract-files "^6"
