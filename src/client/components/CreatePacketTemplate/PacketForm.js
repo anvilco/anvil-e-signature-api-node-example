@@ -48,6 +48,9 @@ const PacketForm = ({ submitButtonText = 'Create Signature Packet', onSubmit }) 
       <Checkbox name="signerOneAcceptEachField" defaultChecked>
         Signer must click each signature block
       </Checkbox>
+      <Checkbox name="signerOneEnableEmails">
+        Signer receives workflow complete notification email
+      </Checkbox>
       <br />
       {renderAddSignerButton()}
       {!singleSigner && <br />}
@@ -74,6 +77,10 @@ const PacketForm = ({ submitButtonText = 'Create Signature Packet', onSubmit }) 
       {!singleSigner &&
         <Checkbox name="signerTwoAcceptEachField" defaultChecked>
           Signer must click each signature block
+        </Checkbox>}
+      {!singleSigner &&
+        <Checkbox name="signerTwoEnableEmails">
+          Signer receives workflow complete notification email
         </Checkbox>}
     </Form>
   )

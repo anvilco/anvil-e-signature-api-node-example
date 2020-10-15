@@ -5,6 +5,7 @@ import Button from 'components/Button'
 import Content from 'components/Content'
 import Spinner from 'components/Spinner'
 import { Description, Response, StyledAnchor, StyledLink, Title, TitleBar } from 'components/styled'
+
 import { createRequest, parseQueryString } from 'helpers'
 import EtchStamp from 'static/etch-stamp.png'
 
@@ -57,14 +58,14 @@ const PacketDetailsPage = () => {
     },
   })
 
-  const handlePacketDownload = () => {
-    const { documentGroupEid } = queryStringData
-    window.location.assign(`/api/packet/download/${documentGroupEid}`)
-  }
-
   const handleSignButtonClick = async () => {
     const signURL = await generateSignURL()
     if (signURL) window.location.assign(signURL)
+  }
+
+  const handlePacketDownload = () => {
+    const { documentGroupEid } = queryStringData
+    window.location.assign(`/api/packet/download/${documentGroupEid}`)
   }
 
   const renderHeader = () => {

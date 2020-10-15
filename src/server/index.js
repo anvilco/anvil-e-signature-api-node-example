@@ -27,6 +27,6 @@ if (!apiKey && process.env.NODE_ENV !== 'test') {
   logError('ANVIL_API_KEY has not been defined. See .env.example at the root of the project')
 }
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT} 🚀!`))
