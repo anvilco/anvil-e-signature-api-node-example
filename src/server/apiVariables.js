@@ -29,12 +29,16 @@ module.exports = {
       },
     ],
     signers: [
+      // Signers will be signing in the order they are specified in this array
+      // signer2 will be signing after signer1 has finished signing, and so on
       {
         id: 'signer1',
         name: 'Sally Signer',
         email: 'Sally@example.com',
+        // These fields will be present when this signer signs
         fields: [
           {
+            // This particular 'employee signature' field will be placed on the IRS-W4 file
             fileId: 'templatePdfIrsW4',
             fieldId: 'employeeSignature',
           },
@@ -55,16 +59,22 @@ module.exports = {
             fieldId: 'signatureDate1',
           },
         ],
+        // (Optional) This signer will be drawing their signature, options are 'draw' (default) and 'text'
         signatureMode: 'draw',
+        // (Optional) The sign UI will walk through the signer through each signature & initial field when true (default)
         acceptEachField: true,
+        // (Optional) Options are 'email' and 'embedded', defaults to 'email'
         signerType: 'embedded',
+        // (Optional) The signer will be redirected to the redirectURL when finished signing, the url should begin with 'http://' or 'https://'
         redirectURL: 'http://localhost:8080/packet/finish',
+        // (Optional) The signer will receive email notifications throughout the signature process, default is true
         enableEmails: false,
       },
     ],
     data: {
       // Fill the PDFs with your data before they are sent for signatures
       payloads: {
+        // 'templatePdfIrsW4' is the fileId of the 2nd file
         templatePdfIrsW4: {
           textColor: '#0000CC',
           data: {
@@ -99,6 +109,7 @@ module.exports = {
             },
           },
         },
+        // 'fileUploadNDA' is the fileId of the 1st file
         fileUploadNDA: {
           fontSize: 8,
           textColor: '#0000CC',
@@ -119,6 +130,7 @@ module.exports = {
   },
 }
 
+// Below are all the fields used to fill the NDA PDF (file 1)
 function getUploadedFileFields () {
   return [
     {

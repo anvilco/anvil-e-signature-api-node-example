@@ -12,7 +12,7 @@ const client = new Anvil({
 
 function buildRoutes (router) {
   router.post('/api/packet/create', async (req, res) => {
-    // Fields submitted from form
+    // Collect user information and preferences submitted from form
     let {
       packetName = 'Sample Signature Packet',
 
@@ -39,13 +39,13 @@ function buildRoutes (router) {
       signerTwoType = 'email'
     }
 
-    // Clone the predefined createEtchPacket config variables
+    // Use the predefined createEtchPacket config variables on how documents should be filled
     const variables = cloneDeep(createEtchPacketVars)
 
-    // Prepare file for upload to be used in signature packet
+    // Prepare NDA PDF to be used as file 1 in signature packet
     variables.files[0].file = Anvil.prepareGraphQLFile('src/server/static/test-pdf-nda.pdf')
 
-    // Update variables to use fields submitted from form
+    // Update config variables to use fields submitted from form
     variables.signatureEmailSubject = packetName
     variables.signers[0].name = signerOneName
     variables.signers[0].email = signerOneEmail
@@ -90,19 +90,19 @@ function buildRoutes (router) {
       variables.data.payloads.fileUploadNDA.data.name2 = signerTwoName
     }
 
-    // Call the Node-anvil client to create a signature packet
+    // Use the Node-anvil client to create a signature packet
     const { statusCode, data, errors } = await client.createEtchPacket({ variables })
     return handleClientErrors(res, statusCode, data, errors) || res.jsonp({ statusCode, data })
   })
 
   router.post('/api/packet/sign', async (req, res) => {
-    // Call the Node-anvil client to generate a URL for a signer to sign
+    // Use the Node-anvil client to generate a signature URL for a signer
     const { statusCode, url, errors } = await client.generateEtchSignUrl({ variables: req.body })
     return handleClientErrors(res, statusCode, url, errors) || res.jsonp({ statusCode, url })
   })
 
   router.get('/api/packet/:packetEid', async (req, res) => {
-    // Get status and details of a specific signature packet
+    // Use the Node-anvil client to get the status and details of a specific signature packet
     const { statusCode, data, errors } = await client.getEtchPacket({
       variables: {
         eid: req.params.packetEid,
@@ -112,7 +112,7 @@ function buildRoutes (router) {
   })
 
   router.get('/api/packet/download/:documentGroupEid', async (req, res) => {
-    // Download the documents in stream or buffer format
+    // Use the Node-anvil client to ownload the documents in stream or buffer format
     const { statusCode, response, data, errors } = await client.downloadDocuments(req.params.documentGroupEid, {
       dataType: 'stream',
     })
@@ -121,7 +121,8 @@ function buildRoutes (router) {
   })
 
   router.get('/packet/finish', async (req, res) => {
-    // Redirect along with query string attached to redirectURL
+    // After signer finishes signing, redirect them to your packet details page
+    // Also attach the query params appended onto the redirectURL
     const baseURL = `http://localhost:3001/packet/${req.query.etchPacketEid}`
     const baseURLWithQueryString = buildURL(baseURL, req.query)
     return res.redirect(baseURLWithQueryString)
