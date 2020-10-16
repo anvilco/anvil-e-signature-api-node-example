@@ -20,7 +20,7 @@
   "author": "Anvil Foundry Inc.",
   "license": "ISC",
   "dependencies": {
-    "@anvilco/anvil": "https://github.com/anvilco/node-anvil.git#master",
+    "@anvilco/anvil": "^2.3.0",
     "@babel/polyfill": "^7.11.5",
     "antd": "^4.7.0",
     "app-module-path": "^2.2.0",
