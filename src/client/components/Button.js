@@ -186,6 +186,11 @@ const Button = ({ type, children, isSubmit, className, ...others }) => {
   )
 }
 
+export const ButtonBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
 Button.defaultProps = {
   to: null,
   href: null,
@@ -195,7 +200,7 @@ Button.defaultProps = {
 
 Button.propTypes = {
   isSubmit: PropTypes.bool,
-  type: PropTypes.oneOf(['button', 'primary', 'default', 'cta', 'danger', 'black']),
+  type: PropTypes.oneOf(['button', 'primary', 'default', 'cta', 'danger', 'black', 'orange']),
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
 }

@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Button from 'components/Button'
 import Spinner from 'components/Spinner'
 
-const ButtonBar = styled.div`
+const FormButtonBar = styled.div`
   display: flex;
   margin-top: 25px;
 `
@@ -73,7 +73,7 @@ class Form extends React.Component {
         onSubmit={this.handleSubmit}
       >
         {fields}
-        <ButtonBar>
+        <FormButtonBar>
           <Button
             isSubmit
             type="cta"
@@ -82,7 +82,7 @@ class Form extends React.Component {
             {submitButtonText}
           </Button>
           {isSubmitting && <Spinner />}
-        </ButtonBar>
+        </FormButtonBar>
       </form>
     )
   }

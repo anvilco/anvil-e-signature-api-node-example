@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import Button from 'components/Button'
+import AnvilSignatureModal from 'components/AnvilSignatureModal'
+import Button, { ButtonBar } from 'components/Button'
 import Content from 'components/Content'
 import Spinner from 'components/Spinner'
-import { Description, Response, StyledAnchor, StyledLink, Title, TitleBar } from 'components/styled'
+import { Description, Docs, Response, StyledAnchor, StyledLink, Title, TitleBar } from 'components/styled'
 
 import { createRequest, parseQueryString } from 'helpers'
 import EtchStamp from 'static/etch-stamp.png'
@@ -15,6 +16,8 @@ const PacketDetailsPage = () => {
   const [queryStringData, setQueryStringData] = useState(undefined)
   const [generateURLResponse, setGenerateURLResponse] = useState(undefined)
   const [nextSignerNum, setNextSignerNum] = useState(1)
+  const [signURL, setSignURL] = useState(undefined)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
     async function fetchData () {
@@ -58,9 +61,14 @@ const PacketDetailsPage = () => {
     },
   })
 
-  const handleSignButtonClick = async () => {
+  const handleToSignPageClick = async () => {
     const signURL = await generateSignURL()
     if (signURL) window.location.assign(signURL)
+  }
+
+  const handleToSignIFrameClick = async () => {
+    setSignURL(await generateSignURL())
+    setIsModalOpen(true)
   }
 
   const handlePacketDownload = () => {
@@ -183,13 +191,21 @@ const PacketDetailsPage = () => {
     } else {
       return (
         <>
-          <Response color="failure">Your signature packet is not yet complete. Signer {nextSignerNum} can sign by clicking the button below.</Response>
-          <Button
-            type="cta"
-            onClick={async () => handleSignButtonClick()}
-          >
-            Sign Now as Signer {nextSignerNum}
-          </Button>
+          <Response color="failure">Your signature packet is not yet complete. Signer {nextSignerNum} can sign by choosing an action below.</Response>
+          <ButtonBar>
+            <Button
+              type="cta"
+              onClick={async () => handleToSignPageClick()}
+            >
+              Go to Signing Page
+            </Button>
+            <Button
+              type="orange"
+              onClick={async () => handleToSignIFrameClick()}
+            >
+              Alternatively, sign from within an Iframe
+            </Button>
+          </ButtonBar>
           <Response color="failure">{generateURLResponse}</Response>
         </>
       )
@@ -206,11 +222,30 @@ const PacketDetailsPage = () => {
     )
   }
 
+  const renderIframe = () => {
+    if (isModalOpen) {
+      return (
+        <>
+          <AnvilSignatureModal
+            signURL={signURL}
+            show={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+          />
+          <Docs>
+            Your Anvil organization must have <code>'allowFormEmbed'</code> set to true under configurations to allow embedding
+            the signing page within an iframe.
+          </Docs>
+        </>
+      )
+    }
+  }
+
   return (
     <>
       {renderHeader()}
       {renderQueryParamData()}
       {renderDetailsAndAction()}
+      {renderIframe()}
       <StyledLink size="small" to="/">Back to index</StyledLink>
     </>
   )
