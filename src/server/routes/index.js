@@ -1,5 +1,5 @@
 const Anvil = require('@anvilco/anvil')
-const cloneDeep = require('lodash/cloneDeep')
+const cloneDeep = require('lodash.clonedeep')
 const { createEtchPacketVars } = require('../apiVariables')
 const { apiKey, apiBaseURL } = require('../../config')
 const { buildURL, handleClientErrors } = require('../helpers')

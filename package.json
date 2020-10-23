@@ -22,11 +22,10 @@
   "dependencies": {
     "@anvilco/anvil": "^2.3.0",
     "@babel/polyfill": "^7.11.5",
-    "antd": "^4.7.0",
     "app-module-path": "^2.2.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "lodash": "^4.17.15",
+    "lodash.clonedeep": "^4.5.0",
     "lodash.pickby": "^4.6.0",
     "polished": "^3.6.2",
     "qs": "^6.9.4",
