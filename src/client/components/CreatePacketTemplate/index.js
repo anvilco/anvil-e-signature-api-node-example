@@ -28,9 +28,9 @@ const CreatePacketTemplate = ({ title, description, packetType, PacketForm = Def
   const renderCreatePacketResponse = () => {
     return (
       <>
-        <Response color="failure">
-          {createPacketResponse}
-        </Response>
+        {createPacketResponse
+          ? (<Response color="failure">{createPacketResponse}</Response>)
+          : null}
         {(createPacketResponse && createPacketResponse.startsWith('Error: API key required.')) &&
           <StyledAnchor
             size="large"
