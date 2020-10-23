@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 
 import Content from 'components/Content'
 import { createRequest } from 'helpers'
-import { Title, TitleBar, StyledLink, StyledAnchor, Response } from 'components/styled'
+import { StyledLink, StyledAnchor, Response, Description } from 'components/styled'
 import DefaultForm from './PacketForm'
-import EtchStamp from 'static/etch-stamp.png'
+import PageTitle from 'components/PageTitle'
 
 const CreatePacketTemplate = ({ title, description, packetType, PacketForm = DefaultForm }) => {
   const history = useHistory()
@@ -45,11 +45,8 @@ const CreatePacketTemplate = ({ title, description, packetType, PacketForm = Def
 
   return (
     <>
-      <TitleBar>
-        <Title>{title}</Title>
-        <img src={EtchStamp} alt="Anvil Etch e-signatures" width={60} height={60} />
-      </TitleBar>
-      {description}
+      <PageTitle>{title}</PageTitle>
+      <Description>{description}</Description>
       <Content.Card>
         <PacketForm onSubmit={createSignaturePacket} />
         {renderCreatePacketResponse()}

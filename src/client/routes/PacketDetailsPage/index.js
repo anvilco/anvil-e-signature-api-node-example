@@ -4,10 +4,10 @@ import { useParams } from 'react-router-dom'
 import Button from 'components/Button'
 import Content from 'components/Content'
 import Spinner from 'components/Spinner'
-import { Description, Response, StyledAnchor, StyledLink, Title, TitleBar } from 'components/styled'
+import { Description, Response, StyledAnchor, StyledLink } from 'components/styled'
+import { PageTitle } from 'components/PageTitle'
 
 import { createRequest, parseQueryString } from 'helpers'
-import EtchStamp from 'static/etch-stamp.png'
 
 const PacketDetailsPage = () => {
   const { packetEid } = useParams()
@@ -72,20 +72,14 @@ const PacketDetailsPage = () => {
     if (packetDetails?.documentGroup.signers[0].signActionType === 'email') {
       return (
         <>
-          <TitleBar>
-            <Title>Email Signature Packet</Title>
-            <img src={EtchStamp} alt="Anvil Etch e-signatures" width={60} height={60} />
-          </TitleBar>
+          <PageTitle>Email Signature Packet</PageTitle>
           <Description>Anvil is managing the signing process for this packet via email.</Description>
         </>
       )
     }
     return (
       <>
-        <TitleBar>
-          <Title>Embedded Signature Packet</Title>
-          <img src={EtchStamp} alt="Anvil Etch e-signatures" width={60} height={60} />
-        </TitleBar>
+        <PageTitle>Embedded Signature Packet</PageTitle>
         <Description>This app is controlling the signing process, and no emails are sent from Anvil.</Description>
       </>
     )
