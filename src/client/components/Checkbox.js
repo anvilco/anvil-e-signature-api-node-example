@@ -1,9 +1,7 @@
 import Checkbox from 'antd/lib/checkbox'
 import styled from 'styled-components'
 
-const StyledCheckbox = styled(Checkbox).withConfig({
-  shouldForwardProp: (prop) => !['displayStyle'].includes(prop),
-})`
+const StyledCheckbox = styled(Checkbox)`
   .ant-checkbox {
     margin-right: 10px;
   }
@@ -12,11 +10,11 @@ const StyledCheckbox = styled(Checkbox).withConfig({
     display: block;
     margin-top: 10px;
     margin-bottom: 14px;
-
-    ${({ displayStyle }) => displayStyle === 'compact' && `
-      font-size: 14px;
-      padding: 5px 0;
-    `}
+  }
+  .ant-checkbox-input {
+    position: relative;
+    top: 1px;
+    margin: 0;
   }
 `
 
