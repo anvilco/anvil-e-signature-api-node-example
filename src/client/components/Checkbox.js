@@ -1,21 +1,32 @@
-import Checkbox from 'antd/lib/checkbox'
+import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-const StyledCheckbox = styled(Checkbox)`
-  .ant-checkbox {
-    margin-right: 10px;
-  }
-  &.ant-checkbox-wrapper {
-    line-height: 1.2;
-    display: block;
-    margin-top: 10px;
-    margin-bottom: 14px;
-  }
-  .ant-checkbox-input {
-    position: relative;
-    top: 1px;
-    margin: 0;
-  }
+const Container = styled.div`
+  line-height: 1.6;
 `
 
-export default StyledCheckbox
+const StyledCheckbox = styled.input.attrs({
+  type: 'checkbox',
+})`
+  position: relative;
+  top: 1px;
+  margin: 0 10px 0 0;
+`
+
+const Checkbox = (props) => {
+  const { name, children, ...others } = props
+  return (
+    <Container>
+      <StyledCheckbox id={name} name={name} {...others} />
+      <label htmlFor={name}>{children}</label>
+    </Container>
+  )
+}
+
+Checkbox.propTypes = {
+  name: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+}
+
+export default Checkbox
