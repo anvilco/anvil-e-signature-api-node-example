@@ -7,12 +7,19 @@ import Spinner from 'components/Spinner'
 
 const ButtonBar = styled.div`
   display: flex;
+  margin-top: 25px;
 `
+const checkboxNames = ['signerOneSignatureMode', 'signerOneAcceptEachField', 'signerTwoSignatureMode', 'signerTwoAcceptEachField']
 
 class Form extends React.Component {
   state = {
     isSubmitting: false,
-    values: {},
+    values: {
+      signerOneSignatureMode: 'draw',
+      signerOneAcceptEachField: true,
+      signerTwoSignatureMode: 'draw',
+      signerTwoAcceptEachField: true,
+    },
   }
 
   handleSubmit = async (e) => {
@@ -26,17 +33,31 @@ class Form extends React.Component {
 
   handleChange = async (fieldName, value) => {
     const { values } = this.state
-    this.setState({
-      values: {
-        ...values,
-        [fieldName]: value,
-      },
-    })
+    if (['signerOneSignatureMode', 'signerTwoSignatureMode'].includes(fieldName)) {
+      this.setState({
+        values: {
+          ...values,
+          [fieldName]: (value.target.checked === true) ? 'draw' : 'text',
+        },
+      })
+    } else {
+      this.setState({
+        values: {
+          ...values,
+          [fieldName]: (value.target?.checked !== undefined) ? value.target.checked : value,
+        },
+      })
+    }
   }
 
   renderField = (field) => {
     const { values } = this.state
     const name = field.props.name
+    if (checkboxNames.includes(name)) {
+      return React.cloneElement(field, {
+        onChange: (val) => this.handleChange(name, val),
+      })
+    }
     return React.cloneElement(field, {
       value: values[name],
       onChange: (val) => this.handleChange(name, val),
@@ -46,7 +67,7 @@ class Form extends React.Component {
   render () {
     const { submitButtonText, children } = this.props
     const { isSubmitting } = this.state
-    const fields = React.Children.map(children, this.renderField)
+    const fields = React.Children.map(children.filter((child) => child), this.renderField)
     return (
       <form
         onSubmit={this.handleSubmit}

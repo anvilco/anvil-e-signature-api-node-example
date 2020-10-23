@@ -1,8 +1,9 @@
+require('dotenv').config()
 const path = require('path')
 const express = require('express')
 const appModulePath = require('app-module-path')
-
-require('dotenv').config()
+const { logError } = require('./helpers')
+const { apiKey } = require('../config')
 
 appModulePath.addPath(path.join(__dirname, '..', '..', 'src'))
 
@@ -22,6 +23,10 @@ app.use(express.json({
 const router = express.Router()
 app.use(routes(router))
 
-const PORT = process.env.PORT || 8080
+if (!apiKey && process.env.NODE_ENV !== 'test') {
+  logError('ANVIL_API_KEY has not been defined. See .env.example at the root of the project')
+}
+
+const PORT = process.env.PORT
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT} 🚀!`))

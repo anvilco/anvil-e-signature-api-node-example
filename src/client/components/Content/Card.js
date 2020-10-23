@@ -5,9 +5,9 @@ import { ListContainer } from './List'
 
 const Card = styled.div`
   background: white;
+  padding: ${theme.paddings[20]}px;
   box-shadow: ${theme.shadows[50]};
 
-  padding: ${theme.paddings[20]}px;
   margin-bottom: ${theme.paddings[20]}px;
 
   > * {

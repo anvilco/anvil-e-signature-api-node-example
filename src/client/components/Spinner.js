@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 import theme from 'theme'
 
@@ -9,7 +10,7 @@ const Dot1 = styled.div`
   display: inline-block;
   position: absolute;
   top: 0;
-  background-color: ${theme.colors.greens[80]};
+  background-color: ${theme.colors.blues[50]};
   border-radius: 100%;
   
   -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
@@ -39,7 +40,7 @@ const Dot2 = styled.div`
   display: inline-block;
   position: absolute;
   top: 0;
-  background-color: ${theme.colors.greens[80]};
+  background-color: ${theme.colors.blues[50]};
   border-radius: 100%;
   
   -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
@@ -69,9 +70,17 @@ const Dot2 = styled.div`
   }
 `
 
+const handlePosition = (position) => {
+  switch (position) {
+    case 'center':
+      return 'auto'
+    default:
+      return '0px 10px 0px 10px'
+  }
+}
+
 const StyledSpinner = styled.div`
-  margin-left: 10px;
-  margin-right: 10px;
+  margin: ${({ position }) => handlePosition(position)};
   width: 30px;
   height: 30px;
   position: relative;
@@ -81,11 +90,15 @@ const StyledSpinner = styled.div`
   animation: sk-rotate 2.0s infinite linear;
 `
 
-const Spinner = () => (
-  <StyledSpinner>
+const Spinner = ({ position }) => (
+  <StyledSpinner position={position}>
     <Dot1 />
     <Dot2 />
   </StyledSpinner>
 )
+
+Spinner.propTypes = {
+  position: PropTypes.string,
+}
 
 export default Spinner

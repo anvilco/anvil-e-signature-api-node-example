@@ -1,69 +1,18 @@
 import React from 'react'
-import styled from 'styled-components'
-import Content from 'components/Content'
-import IconPlus from 'components/icons/IconPlus'
-import theme from 'theme'
-import { Title, Description, StyledLink } from 'components/styled'
 
-const NameContainer = styled.div``
-
-const Name = styled.div`
-  color: ${theme.colors.black};
-`
-
-const ItemDescription = styled.div`
-  margin-top: 5px;
-  font-size: 14px;
-  color: ${theme.textColors.subtle};
-`
-
-const Docs = styled.p`
-  margin-top: 30px;
-  font-size: 14px;
-  color: ${theme.textColors.subtle};
-  text-align: center;
-`
+import Menu from './Menu'
+import { Title, TitleBar, Description, Docs } from 'components/styled'
+import EtchStamp from 'static/etch-stamp.png'
 
 const MainPage = () => {
   return (
     <>
-      <Title>Anvil E-Signature API Example</Title>
-      <Description>Create a signature packet below</Description>
-      <Content.Card>
-        <Content.List
-          items={[
-            {
-              id: 1,
-              name: 'Embedded signature packet with one signer',
-              description: 'Embedded signing: your app controls the signing process for all signers.',
-              to: '/embedded/one',
-            },
-            {
-              id: 2,
-              name: 'Embedded signature packet with two signers',
-              description: 'Embedded signing: your app controls the signing process for all signers.',
-              to: '/embedded/two',
-            },
-          ]}
-          renderItem={(item, index) => (
-            <React.Fragment key={index}>
-              <NameContainer>
-                <Name as={StyledLink} to={item.to}>
-                  {item.name}
-                </Name>
-                {item.description
-                  ? (
-                    <ItemDescription>{item.description}</ItemDescription>
-                  )
-                  : null}
-              </NameContainer>
-              <Content.List.Actions as={StyledLink} to={item.to}>
-                <IconPlus />
-              </Content.List.Actions>
-            </React.Fragment>
-          )}
-        />
-      </Content.Card>
+      <TitleBar>
+        <Title>Anvil E-Signatures API Example</Title>
+        <img src={EtchStamp} alt="Anvil Etch e-signatures" width={60} height={60} />
+      </TitleBar>
+      <Description>These examples will create Anvil Signature Packets with multiple PDFs, then allow you go through the signing process.</Description>
+      <Menu />
       <Docs>
         Check out{' '}
         <a href="https://www.useanvil.com/docs/api/e-signatures" target="_blank" rel="noreferrer">
@@ -74,5 +23,7 @@ const MainPage = () => {
     </>
   )
 }
+
+MainPage.propTypes = {}
 
 export default MainPage
