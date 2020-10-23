@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { FormLabel } from 'components/styled'
 
 import Button from 'components/Button'
 import Checkbox from 'components/Checkbox'
@@ -8,22 +9,22 @@ import Form from 'components/Form'
 import FormField from 'components/FormField'
 import Input from 'components/Input'
 
-const SignerFieldsContainer = styled.div`
-  margin-bottom: 20px;
-`
-
 const PacketForm = ({ submitButtonText = 'Create Signature Packet', onSubmit }) => {
   const [hasTwoSigners, setHasTwoSigners] = useState(false)
 
   const renderAddSignerButton = () => (
-    <p>
-      <Button
-        onClick={() => setHasTwoSigners(!hasTwoSigners)}
-        type="button"
-      >
-        {hasTwoSigners ? 'Remove' : 'Add'} Second Signer
-      </Button>
-    </p>
+    hasTwoSigners
+      ? null
+      : (
+        <p>
+          <Button
+            onClick={() => setHasTwoSigners(!hasTwoSigners)}
+            type="button"
+          >
+            {hasTwoSigners ? 'Remove' : 'Add'} Second Signer
+          </Button>
+        </p>
+      )
   )
 
   return (
@@ -47,6 +48,10 @@ const PacketForm = ({ submitButtonText = 'Create Signature Packet', onSubmit }) 
       })}
 
       {hasTwoSigners
+        ? <p />
+        : null}
+
+      {hasTwoSigners
         ? renderSignerFields({
           prefix: 'signerTwo',
           signerLabel: 'Second Signer',
@@ -60,34 +65,48 @@ const PacketForm = ({ submitButtonText = 'Create Signature Packet', onSubmit }) 
   )
 }
 
-const renderSignerFields = ({ prefix, signerLabel, namePlaceholder, emailPlaceholder }) => (
-  <SignerFieldsContainer>
-    <FormField name={`${prefix}Name`} label={signerLabel}>
-      <Input
-        key={`${prefix}Name`}
-        required
-        placeholder={namePlaceholder}
-      />,
-    </FormField>
-    <FormField name={`${prefix}Email`}>
-      <Input
-        key={`${prefix}Email`}
-        required
-        placeholder={emailPlaceholder}
-      />,
-    </FormField>
-    <b>{signerLabel} Options</b>
-    <Checkbox name={`${prefix}SignatureMode`} defaultChecked>
-      Signer draws their signatures
-    </Checkbox>
-    <Checkbox name={`${prefix}AcceptEachField`} defaultChecked>
-      Signer must click each signature block
-    </Checkbox>
-    <Checkbox name={`${prefix}EnableEmails`}>
-      Signer receives complete notification email
-    </Checkbox>
-  </SignerFieldsContainer>
-)
+const renderSignerFields = ({ prefix, signerLabel, namePlaceholder, emailPlaceholder }) => [
+  <FormField
+    key={`${prefix}Name`}
+    name={`${prefix}Name`}
+    label={signerLabel}
+  >
+    <Input
+      required
+      placeholder={namePlaceholder}
+    />,
+  </FormField>,
+  <FormField
+    name={`${prefix}Email`}
+    key={`${prefix}Email`}
+  >
+    <Input
+      required
+      placeholder={emailPlaceholder}
+    />,
+  </FormField>,
+  <FormLabel key={`${signerLabel}Options`}>{signerLabel} Options</FormLabel>,
+  <Checkbox
+    key={`${prefix}SignatureMode`}
+    name={`${prefix}SignatureMode`}
+    defaultChecked
+  >
+    Signer draws their signatures
+  </Checkbox>,
+  <Checkbox
+    key={`${prefix}AcceptEachField`}
+    name={`${prefix}AcceptEachField`}
+    defaultChecked
+  >
+    Signer must click each signature block
+  </Checkbox>,
+  <Checkbox
+    key={`${prefix}EnableEmails`}
+    name={`${prefix}EnableEmails`}
+  >
+    Signer receives complete notification email
+  </Checkbox>,
+]
 
 PacketForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
