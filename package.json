@@ -20,7 +20,7 @@
   "author": "Anvil Foundry Inc.",
   "license": "ISC",
   "dependencies": {
-    "@anvilco/anvil": "^2.3.0",
+    "@anvilco/anvil": "https://github.com/anvilco/node-anvil.git#wt/add-sig-provider",
     "@babel/polyfill": "^7.11.5",
     "antd": "^4.7.0",
     "app-module-path": "^2.2.0",

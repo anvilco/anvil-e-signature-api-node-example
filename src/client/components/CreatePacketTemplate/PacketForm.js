@@ -80,7 +80,7 @@ const PacketForm = ({ submitButtonText = 'Create Signature Packet', onSubmit }) 
         </Checkbox>}
       {!singleSigner &&
         <Checkbox name="signerTwoEnableEmails">
-          Signer receives workflow complete notification email
+          Signer receives complete notification email
         </Checkbox>}
     </Form>
   )

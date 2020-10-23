@@ -49,10 +49,9 @@
     lodash "^4.17.15"
     resize-observer-polyfill "^1.5.0"
 
-"@anvilco/anvil@^2.3.0":
+"@anvilco/anvil@https://github.com/anvilco/node-anvil.git#wt/add-sig-provider":
   version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@anvilco/anvil/-/anvil-2.3.0.tgz#46bfc9c6263b744976eaa4c819d96b37d81af35e"
-  integrity sha512-Iheb5BtE7ku8eKJst2HLpJBoMxZErZO5zzRzBX4+zBG8hQrF5OXAgYEPTB0yF7oJ3rUGZ5PzA921o7SC8J6bHQ==
+  resolved "https://github.com/anvilco/node-anvil.git#b599638202a3fa7d1a739d82f32a1c19ee01f7fc"
   dependencies:
     abort-controller "^3.0.0"
     extract-files "^6"

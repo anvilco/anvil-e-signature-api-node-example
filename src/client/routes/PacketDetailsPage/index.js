@@ -47,8 +47,8 @@ const PacketDetailsPage = () => {
   const generateSignURL = createRequest({
     url: '/api/packet/sign',
     myData: {
-      clientUserId: packetEid,
-      signerEid: queryStringData?.nextSignerEid || packetDetails?.documentGroup.signers[0].eid,
+      clientUserId: packetDetails?.documentGroup?.signers[nextSignerNum - 1]?.aliasId,
+      signerEid: queryStringData?.nextSignerEid || packetDetails?.documentGroup?.signers[0]?.eid,
     },
     callback: async (response) => {
       const responseText = await response.text()
@@ -77,7 +77,7 @@ const PacketDetailsPage = () => {
   }
 
   const renderHeader = () => {
-    if (packetDetails?.documentGroup.signers[0].signActionType === 'email') {
+    if (packetDetails?.documentGroup?.signers[0]?.signActionType === 'email') {
       return (
         <>
           <TitleBar>
@@ -101,7 +101,7 @@ const PacketDetailsPage = () => {
 
   const renderQueryParamData = () => {
     if (queryStringData?.signerEid) {
-      const { documentGroupEid, documentGroupStatus, etchPacketEid, etchPacketName, signerEid, signerStatus, nextSignerEid } = queryStringData
+      const { documentGroupEid, documentGroupStatus, etchPacketEid, signerEid, signerStatus, nextSignerEid } = queryStringData
       return (
         <Content.Card>
           <h3>Signer Finished!</h3>
@@ -110,7 +110,6 @@ const PacketDetailsPage = () => {
             Your redirectURL will receive the following query parameters.
           </h4>
           <p>
-            Signature Packet Name: <b>{etchPacketName}</b><br />
             Signature Packet EID: <b>{etchPacketEid}</b>
           </p>
           <p>
@@ -184,7 +183,7 @@ const PacketDetailsPage = () => {
           </Button>
         </>
       )
-    } else if (packetDetails?.documentGroup.signers[nextSignerNum - 1].signActionType === 'email') {
+    } else if (packetDetails?.documentGroup?.signers[nextSignerNum - 1]?.signActionType === 'email') {
       return (
         <Response color="failure">Your signature packet is not yet complete. Signer {nextSignerNum} has received an email and has yet to sign!</Response>
       )
