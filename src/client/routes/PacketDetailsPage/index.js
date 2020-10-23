@@ -64,7 +64,9 @@ const PacketDetailsPage = () => {
   }
 
   const handlePacketDownload = () => {
-    const { documentGroupEid } = queryStringData
+    const { documentGroup } = packetDetails
+    const { eid: documentGroupEid } = documentGroup || {}
+    console.log(documentGroupEid)
     window.location.assign(`/api/packet/download/${documentGroupEid}`)
   }
 

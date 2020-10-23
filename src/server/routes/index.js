@@ -116,8 +116,10 @@ function buildRoutes (router) {
     const { statusCode, response, data, errors } = await client.downloadDocuments(req.params.documentGroupEid, {
       dataType: 'stream',
     })
+    if (statusCode >= 300) return handleClientErrors(res, statusCode, data, errors)
+
     res.header('Content-Disposition', response.headers.get('content-disposition'))
-    return handleClientErrors(res, statusCode, data, errors) || data.pipe(res)
+    return data.pipe(res)
   })
 
   router.get('/packet/finish', async (req, res) => {
