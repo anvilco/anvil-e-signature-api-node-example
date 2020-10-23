@@ -5,7 +5,7 @@ import Button from 'components/Button'
 import Content from 'components/Content'
 import Spinner from 'components/Spinner'
 import { Description, Response, StyledAnchor, StyledLink } from 'components/styled'
-import { PageTitle } from 'components/PageTitle'
+import PageTitle from 'components/PageTitle'
 
 import { createRequest, parseQueryString } from 'helpers'
 
