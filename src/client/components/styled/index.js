@@ -61,6 +61,10 @@ export const Response = styled.p`
   color: ${({ color }) => handleColorType(color)};
 `
 
+export const FormLabel = styled.div`
+  margin-bottom: 10px;
+  font-weight: bold;
+`
 export const Footer = styled.p`
   margin-top: 30px;
   font-size: 14px;

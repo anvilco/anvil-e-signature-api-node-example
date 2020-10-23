@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { FormLabel } from 'components/styled'
 
 const FieldContainer = styled.div`
   display: inline-block;
@@ -17,11 +18,6 @@ const FieldContainer = styled.div`
   }
 `
 
-const LabelContainer = styled.div`
-  margin-bottom: 10px;
-  font-weight: bold;
-`
-
 class FormField extends React.Component {
   state = {
     isSubmitting: false,
@@ -36,7 +32,7 @@ class FormField extends React.Component {
         onSubmit={this.handleSubmit}
         wide={wide}
       >
-        <LabelContainer>{label}</LabelContainer>
+        <FormLabel>{label}</FormLabel>
         {field}
       </FieldContainer>
     )

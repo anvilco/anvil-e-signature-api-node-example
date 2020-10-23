@@ -10,6 +10,7 @@ const StyledInput = styled.input`
   border: 2px solid ${theme.colors.inputBorderColor};
   border-radius: 0;
   font-size: 16px;
+  line-height: 17px;
   transition: border .2s ease;
 
   &:active,
