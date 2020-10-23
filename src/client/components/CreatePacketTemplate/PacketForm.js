@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 import { FormLabel } from 'components/styled'
 
 import Button from 'components/Button'
@@ -91,20 +90,20 @@ const renderSignerFields = ({ prefix, signerLabel, namePlaceholder, emailPlaceho
     name={`${prefix}SignatureMode`}
     defaultChecked
   >
-    Signer draws their signatures
+    Signer draws their signatures <br /><code>signatureMode: 'draw' || 'text'</code>
   </Checkbox>,
   <Checkbox
     key={`${prefix}AcceptEachField`}
     name={`${prefix}AcceptEachField`}
     defaultChecked
   >
-    Signer must click each signature block
+    Signer must click each signature block <br /><code>acceptEachField: true || false</code>
   </Checkbox>,
   <Checkbox
     key={`${prefix}EnableEmails`}
     name={`${prefix}EnableEmails`}
   >
-    Signer receives complete notification email
+    Signer receives complete notification email <br /><code>enableEmails: ['etchComplete'] || true || false</code>
   </Checkbox>,
 ]
 

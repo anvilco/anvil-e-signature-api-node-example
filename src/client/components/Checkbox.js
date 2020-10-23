@@ -3,15 +3,19 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const Container = styled.div`
-  line-height: 1.6;
+  display: flex;
+  margin-bottom: 5px;
+
+  code {
+    font-size: 14px;
+  }
 `
 
 const StyledCheckbox = styled.input.attrs({
   type: 'checkbox',
 })`
-  position: relative;
-  top: 1px;
-  margin: 0 10px 0 0;
+  display: block;
+  margin: 6px 10px 0 0;
 `
 
 const Checkbox = (props) => {
