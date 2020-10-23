@@ -24,6 +24,11 @@ export const Description = styled.div`
   p:last-child {
     margin-bottom: 0;
   }
+
+  code {
+    padding: 2px 5px;
+    background: #e0e0e0;
+  }
 `
 
 export const StyledLink = styled(Link)`
@@ -56,7 +61,7 @@ export const Response = styled.p`
   color: ${({ color }) => handleColorType(color)};
 `
 
-export const Docs = styled.p`
+export const Footer = styled.p`
   margin-top: 30px;
   font-size: 14px;
   color: ${theme.textColors.subtle};

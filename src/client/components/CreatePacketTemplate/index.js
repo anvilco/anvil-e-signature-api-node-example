@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import Content from 'components/Content'
 import { createRequest } from 'helpers'
-import { StyledLink, StyledAnchor, Response, Description } from 'components/styled'
+import { Footer, StyledLink, StyledAnchor, Response, Description } from 'components/styled'
 import DefaultForm from './PacketForm'
 import PageTitle from 'components/PageTitle'
 
@@ -51,7 +51,9 @@ const CreatePacketTemplate = ({ title, description, packetType, PacketForm = Def
         <PacketForm onSubmit={createSignaturePacket} />
         {renderCreatePacketResponse()}
       </Content.Card>
-      <StyledLink size="small" to="/">Back to index</StyledLink>
+      <Footer>
+        <StyledLink size="small" to="/">Back to index</StyledLink>
+      </Footer>
     </>
   )
 }
