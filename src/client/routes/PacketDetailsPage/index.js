@@ -172,12 +172,18 @@ const PacketDetailsPage = () => {
       )
     } else if (packetDetails?.documentGroup.signers[nextSignerNum - 1].signActionType === 'email') {
       return (
-        <Response color="failure">Your signature packet is not yet complete. Signer {nextSignerNum} has received an email and has yet to sign!</Response>
+        <Response color="failure">
+          Your signature packet is not yet complete. Signer {nextSignerNum} has
+          received an email and has yet to sign. Check your email!
+        </Response>
       )
     } else {
       return (
         <>
-          <Response color="failure">Your signature packet is not yet complete. Signer {nextSignerNum} can sign by clicking the button below.</Response>
+          <Response color="failure">
+            Your signature packet is not yet complete. Signer {nextSignerNum}
+            can sign by clicking the button below.
+          </Response>
           <Button
             type="cta"
             onClick={async () => handleSignButtonClick()}
