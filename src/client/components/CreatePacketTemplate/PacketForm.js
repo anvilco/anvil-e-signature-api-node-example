@@ -49,7 +49,7 @@ const PacketForm = ({ submitButtonText = 'Create Signature Packet', onSubmit }) 
         Signer must click each signature block
       </Checkbox>
       <Checkbox name="signerOneEnableEmails">
-        Signer receives workflow complete notification email
+        Signer receives complete notification email
       </Checkbox>
       <br />
       {renderAddSignerButton()}
