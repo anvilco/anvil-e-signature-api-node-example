@@ -102,6 +102,7 @@ const renderSignerFields = ({ prefix, signerLabel, namePlaceholder, emailPlaceho
   <Checkbox
     key={`${prefix}EnableEmails`}
     name={`${prefix}EnableEmails`}
+    defaultChecked
   >
     Signer receives complete notification email <br /><code>enableEmails: ['etchComplete'] || true || false</code>
   </Checkbox>,
