@@ -135,6 +135,10 @@ function buildRoutes (router) {
     return handleClientErrors(res, statusCode, data, errors) || res.jsonp({ statusCode, data })
   })
 
+  //  You must either save the documents from to your own object store (see
+  //  etchPacketComplete webhook), or you // can proxy the download for the user
+  //  as we are doing here. Anvil does not // provide an API-accessible download
+  //  URL for an end user.
   router.get('/api/packet/download/:documentGroupEid', async (req, res) => {
     // Use the Node-anvil client to ownload the documents in stream or buffer format
     const { statusCode, response, data, errors } = await client.downloadDocuments(req.params.documentGroupEid, {
