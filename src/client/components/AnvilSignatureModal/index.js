@@ -1,63 +1,47 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import Spinner from './Spinner'
-import IconDelete from 'components/icons/IconDelete'
+import { DeleteIcon, Docs, Iframe, ModalBackdrop, ModalContainer, Spinner } from './styled'
 
-const AnvilSignatureModal = ({ signURL, show, width, height, onClose, style }) => {
+function AnvilSignatureModal ({ signURL, isOpen, onFinish, width, height }) {
   const [loading, setLoading] = useState(true)
 
-  if (!show) return null
+  if (!isOpen) return null
   return (
     <>
-      <div
-        id="signatureModalContainer"
-        style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          border: '1px solid #ccc',
-          background: '#fbfbfb',
-          zIndex: '9999',
-          ...style,
-        }}
-      >
-        {loading && <Spinner />}
-        <IconDelete style={{ position: 'fixed', top: '5px', right: '5px' }} onClick={() => onClose()} />
-        <iframe
+      <ModalContainer id="signatureModalContainer">
+        {loading && <Spinner id="signatureModalSpinner" />}
+        <DeleteIcon
+          id="signatureModalClose"
+          style={{ position: 'fixed', top: '10px', right: '10px' }}
+          onClick={() => onFinish()}
+        />
+        <Iframe
+          id="signatureFrame"
           src={signURL}
+          name="Anvil E-Signatures"
           title="Anvil E-Signatures"
           width={width}
           height={height}
-          style={{ borderStyle: 'none' }}
           onLoad={() => setLoading(false)}
-        />
-      </div>
-      <div
-        id="signatureModalBackdrop"
-        style={{
-          position: 'absolute',
-          width: '100%',
-          height: '100%',
-          top: '0px',
-          left: '0px',
-          zIndex: '9998',
-          background: 'rgba(0, 0, 0, 0.3)',
-        }}
-      />
+        >
+          <Docs>Your browser does not support iframes.</Docs>
+        </Iframe>
+      </ModalContainer>
+      <ModalBackdrop id="signatureModalBackdrop" />
     </>
   )
 }
 
 AnvilSignatureModal.defaultProps = {
+  isOpen: false,
   width: 900,
-  height: 1000,
+  height: 1100,
 }
 
 AnvilSignatureModal.propTypes = {
   signURL: PropTypes.string,
-  show: PropTypes.bool,
+  isOpen: PropTypes.bool,
   width: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
@@ -66,8 +50,7 @@ AnvilSignatureModal.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
-  onClose: PropTypes.func,
-  style: PropTypes.object,
+  onFinish: PropTypes.func,
 }
 
 export default AnvilSignatureModal

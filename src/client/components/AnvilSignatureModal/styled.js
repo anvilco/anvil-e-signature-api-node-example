@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { rgba } from 'polished'
+import IconDelete from 'components/icons/IconDelete'
 
 const size = '28px'
 const sizeSmall = '18px'
@@ -10,7 +10,52 @@ const duration = '1.2s'
 const background = rgba('black', 0.1)
 const foreground = '#F83877'
 
-const Spinner = styled.div`
+export const ModalContainer = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #d8d8d8;
+  background: #fbfbfb;
+  z-index: 9999;
+`
+
+export const ModalBackdrop = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  zIndex: 9998;
+  background: rgba(0, 0, 0, 0.3);
+`
+
+export const DeleteIcon = styled(IconDelete)`
+  position: fixed;
+  top: 10px;
+  right: 10px;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.75;
+  }
+`
+
+export const Iframe = styled.iframe`
+  border-style: none;
+`
+
+export const Docs = styled.p`
+  margin: 10px 10px 10px 10px;
+  font-size: 14px;
+  color: #bbb;
+
+  code {
+    font-size: 16px;
+  }
+`
+
+export const Spinner = styled.div`
   border-top: ${thickness} solid ${background};
   border-right: ${thickness} solid ${background};
   border-bottom: ${thickness} solid ${background};
@@ -50,15 +95,3 @@ const Spinner = styled.div`
     }
   }
 `
-
-Spinner.defaultProps = {
-  small: false,
-  block: false,
-}
-
-Spinner.propTypes = {
-  small: PropTypes.bool,
-  block: PropTypes.bool,
-}
-
-export default Spinner
