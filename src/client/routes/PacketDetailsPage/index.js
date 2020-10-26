@@ -206,6 +206,10 @@ const PacketDetailsPage = () => {
             </Button>
           </ButtonBar>
           <Response color="failure">{generateURLResponse}</Response>
+          <Docs>
+            Your Anvil organization must have <code>'allowFormEmbed'</code> set to true under configurations to allow embedding
+            the signing page.
+          </Docs>
         </>
       )
     }
@@ -217,10 +221,6 @@ const PacketDetailsPage = () => {
       <Content.Card>
         {renderPacketDetails()}
         {renderAction()}
-        <Docs>
-          Your Anvil organization must have <code>'allowFormEmbed'</code> set to true under configurations to allow embedding
-          the signing page.
-        </Docs>
       </Content.Card>
     )
   }
