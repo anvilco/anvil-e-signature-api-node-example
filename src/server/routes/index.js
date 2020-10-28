@@ -40,7 +40,7 @@ function buildRoutes (router) {
       signerTwoType = 'email'
     }
 
-    // Use the predefined createEtchPacket config variables on how documents should be filled
+    // Use the predefined createEtchPacket config variables for filling
     const variables = cloneDeep(createEtchPacketVars)
 
     // Prepare NDA PDF to be used as file 1 in signature packet
@@ -91,11 +91,15 @@ function buildRoutes (router) {
       variables.data.payloads.fileUploadNDA.data.name2 = signerTwoName
     }
 
-    logRouteInfo(`Creating packet for name ${packetName}`)
+    logRouteInfo(`Creating packet for name "${packetName}"`)
     logJSON(variables)
 
     // Use the Node-anvil client to create a signature packet
     const { statusCode, data, errors } = await client.createEtchPacket({ variables })
+
+    logRouteInfo(`Packet "${packetName}" response: ${statusCode}`)
+    logJSON(data)
+
     return handleClientErrors(res, statusCode, data, errors) || res.jsonp({ statusCode, data })
   })
 
