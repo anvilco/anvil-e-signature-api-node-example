@@ -1,7 +1,7 @@
 {
-  "name": "anvil-e-signatures-api-example",
+  "name": "anvil-signature-api-example",
   "version": "1.0.0",
-  "description": "Anvil's E-Signatures Example App",
+  "description": "Anvil Etch E-Sign API Example App",
   "main": "src/server/index.js",
   "engines": {
     "node": ">=10.0.0"
@@ -18,7 +18,13 @@
     "test": "yarn lint && yarn test:server && yarn test:client"
   },
   "author": "Anvil Foundry Inc.",
-  "license": "ISC",
+  "license": "MIT",
+  "repository": "https://github.com/anvilco/anvil-signature-api-example",
+  "homepage": "https://github.com/anvilco/anvil-signature-api-example#readme",
+  "bugs": {
+    "url" : "https://github.com/anvilco/anvil-signature-api-example/issues",
+    "email" : "support@useanvil.com"
+  },
   "dependencies": {
     "@anvilco/anvil": "^2.3.0",
     "@babel/polyfill": "^7.11.5",

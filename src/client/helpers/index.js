@@ -1,8 +1,11 @@
+const repoURL = 'https://github.com/anvilco/anvil-signature-api-example'
+
 export const DocURLs = {
   createEtchPacket: 'https://www.useanvil.com/docs/api/e-signatures#creating-a-signature-packet',
   generateEtchSignURL: 'https://www.useanvil.com/docs/api/e-signatures#controlling-the-signature-process-with-embedded-signers',
-  routesIndex: 'https://github.com/anvilco/anvil-signature-api-example/blob/master/src/server/routes/index.js',
   signerOptions: 'https://www.useanvil.com/docs/api/e-signatures#adding-signers',
+  routesIndex: `${repoURL}/blob/master/src/server/routes/index.js`,
+  repository: repoURL,
 }
 
 export function createRequest ({ url, method, callback, myData }) {
