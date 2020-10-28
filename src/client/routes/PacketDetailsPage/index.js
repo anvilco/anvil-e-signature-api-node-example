@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import Button from 'components/Button'
 import Content from 'components/Content'
 import Spinner from 'components/Spinner'
+import DocsLink from 'components/DocsLink'
 import { Description, Response, StyledAnchor, StyledLink } from 'components/styled'
 import PageTitle from 'components/PageTitle'
 
@@ -70,18 +71,38 @@ const PacketDetailsPage = () => {
   }
 
   const renderHeader = () => {
+    const redirectDescription = (
+      <p>
+        When a signer finishes signing, the browser will be redirected back
+        to this page via the signer's
+        <DocsLink href="signerOptions">redirectURL</DocsLink> option.
+      </p>
+    )
     if (packetDetails?.documentGroup.signers[0].signActionType === 'email') {
       return (
         <>
           <PageTitle>Email Signature Packet</PageTitle>
-          <Description>Anvil is managing the signing process for this packet via email.</Description>
+          <Description>
+            <p>
+              Anvil is managing the signing process for this packet via email.
+            </p>
+            {redirectDescription}
+          </Description>
         </>
       )
     }
     return (
       <>
         <PageTitle>Embedded Signature Packet</PageTitle>
-        <Description>This app is controlling the signing process, and no emails are sent from Anvil.</Description>
+        <Description>
+          <p>
+            This app is controlling the signing process. It will generate sign
+            URLs for each signer via
+            the <DocsLink href="generateEtchSignURL">generateEtchSignURL</DocsLink> GraphQL
+            mutation.
+          </p>
+          {redirectDescription}
+        </Description>
       </>
     )
   }
@@ -92,10 +113,9 @@ const PacketDetailsPage = () => {
       return (
         <Content.Card>
           <h3>Signer Finished!</h3>
-          <h4>
-            When a signer finishes signing, the browser will be redirected to the redirectURL attached to the signer.
-            Your redirectURL will receive the following query parameters.
-          </h4>
+          <Description>
+            The <code>redirectURL</code> received the following query parameters.
+          </Description>
           <p>
             Signature Packet Name: <b>{etchPacketName}</b><br />
             Signature Packet EID: <b>{etchPacketEid}</b>
@@ -175,15 +195,17 @@ const PacketDetailsPage = () => {
       return (
         <Response color="failure">
           Your signature packet is not yet complete. Signer {nextSignerNum} has
-          received an email and has yet to sign. Check your email!
+          received an email to sign. Check your email!
         </Response>
       )
     } else {
       return (
         <>
           <Response color="failure">
-            Your signature packet is not yet complete. Signer {nextSignerNum}
-            can sign by clicking the button below.
+            This signature packet is not yet complete. Sign for
+            Signer {nextSignerNum} by clicking the button below. See
+            the <code>/api/packet/sign</code> route
+            in <code>server/routes/index.js</code> for details.
           </Response>
           <Button
             type="cta"
