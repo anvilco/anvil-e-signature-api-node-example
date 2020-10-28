@@ -117,8 +117,10 @@ function buildRoutes (router) {
     return handleClientErrors(res, statusCode, url, errors) || res.jsonp({ statusCode, url })
   })
 
-  // You can specifiy a finish URL for each signer. After they are done signing,
-  // the signer will be directed to the specified URL by the browser.
+  // You can specifiy a finish URL for each signer with the signer's redirectURL
+  // option. After they are done signing, the signer will be directed to the
+  // specified URL by the browser. This route is set as both signers'
+  // redirectURL.
   router.get('/packet/finish', async (req, res) => {
     logRouteInfo('Signer finished! Query params supplied to redirectURL')
     logJSON(qs.parse(req.query))
@@ -139,12 +141,13 @@ function buildRoutes (router) {
     return handleClientErrors(res, statusCode, data, errors) || res.jsonp({ statusCode, data })
   })
 
-  //  You must either save the documents from to your own object store (see
-  //  etchPacketComplete webhook), or you // can proxy the download for the user
-  //  as we are doing here. Anvil does not // provide an API-accessible download
-  //  URL for an end user.
+  // You must either save the completed documents to your own object store (see
+  // etchPacketComplete webhook in the docs), or you  can proxy the download for
+  // the user as we are doing here.
   router.get('/api/packet/download/:documentGroupEid', async (req, res) => {
-    // Use the Node-anvil client to ownload the documents in stream or buffer format
+    // Anvil does not provide an API-accessible download URL for an end user.
+    // Use the Node-anvil client to download the documents in stream or buffer
+    // format
     const { statusCode, response, data, errors } = await client.downloadDocuments(req.params.documentGroupEid, {
       dataType: 'stream',
     })
