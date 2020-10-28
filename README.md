@@ -1,4 +1,4 @@
-# Anvil Signatures Example App
+# Anvil Etch E-Sign API Example App (Node)
 
 This is an example full stack Node / Express / React web app showcasing the [Anvil Etch E-Sign API](https://www.useanvil.com/docs/api/e-signatures) implemented with the [node-anvil](https://www.npmjs.com/package/@anvilco/anvil) client.
 
