@@ -14,7 +14,7 @@ Data input by the user will be used to fill both PDFs before signing. Then the u
 
 ## Where are the bits?
 
-The meat of the integration is on the server in [server/routes/index.js](https://github.com/anvilco/anvil-signature-api-example/blob/master/src/server/routes/index.js).
+The meat of the integration is on the server in [server/routes/index.js](https://github.com/anvilco/anvil-e-signature-api-node-example/blob/master/src/server/routes/index.js).
 
 ## Set it up
 
@@ -32,7 +32,7 @@ Now you are ready to set this example up!
 # Fork this project + clone your fork, or just clone this repo
 git clone https://github.com/...
 
-cd anvil-signature-api-example
+cd anvil-e-signature-api-node-example
 ```
 
 1. Create a `.env` file at the root of this project. There is a `.env.example` file at the root of this project

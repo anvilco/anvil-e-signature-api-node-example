@@ -1,4 +1,4 @@
-const repoURL = 'https://github.com/anvilco/anvil-signature-api-example'
+const repoURL = 'https://github.com/anvilco/anvil-e-signature-api-node-example'
 
 export const DocURLs = {
   createEtchPacket: 'https://www.useanvil.com/docs/api/e-signatures#creating-a-signature-packet',

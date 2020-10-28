@@ -1,5 +1,5 @@
 {
-  "name": "anvil-signature-api-example",
+  "name": "anvil-e-signature-api-node-example",
   "version": "1.0.0",
   "description": "Anvil Etch E-Sign API Example App",
   "main": "src/server/index.js",
@@ -19,10 +19,10 @@
   },
   "author": "Anvil Foundry Inc.",
   "license": "MIT",
-  "repository": "https://github.com/anvilco/anvil-signature-api-example",
-  "homepage": "https://github.com/anvilco/anvil-signature-api-example#readme",
+  "repository": "https://github.com/anvilco/anvil-e-signature-api-node-example",
+  "homepage": "https://github.com/anvilco/anvil-e-signature-api-node-example#readme",
   "bugs": {
-    "url" : "https://github.com/anvilco/anvil-signature-api-example/issues",
+    "url" : "https://github.com/anvilco/anvil-e-signature-api-node-example/issues",
     "email" : "support@useanvil.com"
   },
   "dependencies": {
