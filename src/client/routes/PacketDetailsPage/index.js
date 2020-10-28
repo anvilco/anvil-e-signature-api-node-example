@@ -225,6 +225,10 @@ const PacketDetailsPage = () => {
     )
   }
 
+  function handleOnFinish (url) {
+    window.location.assign(url)
+  }
+
   const renderIframe = () => {
     if (isModalOpen) {
       return (
@@ -232,6 +236,7 @@ const PacketDetailsPage = () => {
           signURL={signURL}
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
+          onFinish={(url) => handleOnFinish(url)}
         />
       )
     }

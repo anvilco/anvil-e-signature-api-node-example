@@ -1,10 +1,20 @@
-import React, { useState } from 'react'
+/* global apiBaseURL */
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { DeleteIcon, Docs, Iframe, ModalBackdrop, ModalContainer, Spinner } from './styled'
 
-function AnvilSignatureModal ({ signURL, isOpen, onClose, width, height }) {
+function AnvilSignatureModal ({ signURL, isOpen, onClose, onFinish, width, height }) {
   const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    if (isOpen) {
+      window.addEventListener('message', ({ origin, data: url }) => {
+        if (origin !== apiBaseURL) return
+        onFinish(url)
+      })
+    }
+  }, [isOpen])
 
   if (!isOpen) return null
   return (
@@ -51,6 +61,7 @@ AnvilSignatureModal.propTypes = {
     PropTypes.number,
   ]),
   onClose: PropTypes.func,
+  onFinish: PropTypes.func,
 }
 
 export default AnvilSignatureModal
