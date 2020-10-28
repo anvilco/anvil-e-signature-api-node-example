@@ -14,7 +14,8 @@ Data input by the user will be used to fill both PDFs before signing. Then the u
 
 ## Where are the bits?
 
-The meat of the integration is on the server in [server/routes/index.js](https://github.com/anvilco/anvil-e-signature-api-node-example/blob/master/src/server/routes/index.js).
+* The meat of the integration is on the server in [src/server/routes/index.js](https://github.com/anvilco/anvil-e-signature-api-node-example/blob/master/src/server/routes/index.js)
+* The majority of an example `createEtchPacket` payload is in [src/server/apiVariables.js](https://github.com/anvilco/anvil-e-signature-api-node-example/blob/master/src/server/apiVariables.js)
 
 ## Set it up
 
@@ -44,7 +45,11 @@ yarn install # Get all the deps
 yarn dev     # Start the server
 ```
 
-Now visit http://localhost:3001
+Visit http://localhost:3001
+
+Watch the server logs. The logs will show pertinent JSON payloads being sent & received via the API.
+
+<img width="880" alt="Screen Shot 2020-10-28 at 3 12 30 PM" src="https://user-images.githubusercontent.com/69169/97502485-70693600-1930-11eb-82cc-3bfe8e80ab62.png">
 
 ## Other app scripts
 
