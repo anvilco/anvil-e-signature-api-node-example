@@ -1,14 +1,24 @@
 # Anvil Signatures Example App
 
-This is an example full stack web app showcasing [Anvil E-Signature API](https://www.useanvil.com/docs/api/e-signatures) implemented with the [node-anvil](https://www.npmjs.com/package/@anvilco/anvil) client.
+This is an example full stack Node / Express / React web app showcasing the [Anvil Etch E-Sign API](https://www.useanvil.com/docs/api/e-signatures) implemented with the [node-anvil](https://www.npmjs.com/package/@anvilco/anvil) client.
 
-## What even is it?
+<img src="https://user-images.githubusercontent.com/69169/97480978-63891a00-1911-11eb-80ee-395e82d893a4.png">
 
-The Anvil [E-Signature API](https://www.useanvil.com/docs/api/e-signatures) allows you to collect e-signatures from within your app. Send a signature packet including multiple PDFs, images, and other uploads to one or more signers. Templatize your common PDFs then fill them with your user's information before sending out the signature packet.
+## What is it?
+
+The Anvil Etch [E-Signature API](https://www.useanvil.com/docs/api/e-signatures) allows you to collect e-signatures from within your app. Send a signature packet including multiple PDFs, images, and other uploads to one or more signers. Templatize your common PDFs then fill them with your user's information before sending out the signature packet.
+
+The app will create Signature Packets with up to two signers on two PDFs: both a templatized IRS W-4 PDF, and an adhoc NDA PDF that is uploaded for each new packet.
+
+Data input by the user will be used to fill both PDFs before signing. Then the user will go through the signing process via email or the embedded signing process.
+
+## Where are the bits?
+
+The meat of the integration is on the server in [server/routes/index.js](https://github.com/anvilco/anvil-signature-api-example/blob/master/src/server/routes/index.js).
 
 ## Set it up
 
-This example will create signature packets on your own Anvil account via the API.
+Clone this repo and set it up locally to create signature packets on your own Anvil account via the API.
 
 1. First [create your own Anvil account](https://app.useanvil.com/signup/etch-api)
 2. The app will ask you to verify your email before continuing
@@ -35,7 +45,7 @@ yarn dev     # Start the development server
 
 Now visit http://localhost:3001
 
-## Other helpful things
+## Other app scripts
 
 ```bash
 # Start production server
