@@ -231,7 +231,7 @@ const PacketDetailsPage = () => {
         <AnvilSignatureModal
           signURL={signURL}
           isOpen={isModalOpen}
-          onFinish={() => setIsModalOpen(false)}
+          onClose={() => setIsModalOpen(false)}
         />
       )
     }
