@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { DocURLs } from '../helpers'
+import { DocURLs } from 'helpers'
 
 const DocsLink = ({ children, href, isCode }) => {
   const link = <a href={DocURLs[href] || href} target="_blank" rel="noreferrer">{children}</a>
