@@ -47,10 +47,11 @@ AnvilSignatureModal.defaultProps = {
   isOpen: false,
   width: 900,
   height: 1100,
+  onFinish: (url) => window.location.assign(url),
 }
 
 AnvilSignatureModal.propTypes = {
-  signURL: PropTypes.string,
+  signURL: PropTypes.string.isRequired,
   isOpen: PropTypes.bool,
   width: PropTypes.oneOfType([
     PropTypes.string,
@@ -60,7 +61,7 @@ AnvilSignatureModal.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
-  onClose: PropTypes.func,
+  onClose: PropTypes.func.isRequired,
   onFinish: PropTypes.func,
 }
 

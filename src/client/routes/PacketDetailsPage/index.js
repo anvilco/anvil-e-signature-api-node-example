@@ -225,18 +225,13 @@ const PacketDetailsPage = () => {
     )
   }
 
-  function handleOnFinish (url) {
-    window.location.assign(url)
-  }
-
-  const renderIframe = () => {
-    if (isModalOpen) {
+  const renderIframeModal = () => {
+    if (signURL) {
       return (
         <AnvilSignatureModal
           signURL={signURL}
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          onFinish={(url) => handleOnFinish(url)}
         />
       )
     }
@@ -247,7 +242,7 @@ const PacketDetailsPage = () => {
       {renderHeader()}
       {renderQueryParamData()}
       {renderDetailsAndAction()}
-      {renderIframe()}
+      {renderIframeModal()}
       <StyledLink size="small" to="/">Back to index</StyledLink>
     </>
   )
