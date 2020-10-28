@@ -2,7 +2,7 @@ require('dotenv').config()
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const { apiBaseURL } = require('./src/config')
+const { apiBaseURL, environment } = require('./src/config')
 
 const outputDirectory = 'dist'
 
@@ -55,6 +55,7 @@ module.exports = {
       favicon: './public/favicon.ico',
 
       apiBaseURL: JSON.stringify(apiBaseURL),
+      environment: JSON.stringify(environment),
     }),
   ],
 }

@@ -7,6 +7,7 @@ const Card = styled.div`
   background: white;
   padding: ${theme.paddings[20]}px;
   box-shadow: ${theme.shadows[50]};
+  line-height: 1.6;
 
   margin-bottom: ${theme.paddings[20]}px;
 
@@ -22,6 +23,10 @@ const Card = styled.div`
 
   > ${ListContainer}:last-child {
     margin-bottom: -20px;
+  }
+
+  > h3:first-child {
+    margin-top: 0;
   }
 `
 

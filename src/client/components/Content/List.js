@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
@@ -66,19 +65,15 @@ class List extends React.Component {
   }
 
   cacheSort (props) {
-    const { sortBy, items } = props
-    if (sortBy) {
-      this.cachedItems = _.sortBy(items, sortBy)
-    } else {
-      this.cachedItems = items
-    }
+    const { items } = props
+    this.cachedItems = items
   }
 
   render () {
     const { renderItem, items, ...others } = this.props
     return (
       <ListContainer {...others}>
-        {_.map(items, (item, i) => (
+        {items.map((item, i) => (
           <ListItem key={i}>
             {renderItem(item, i)}
           </ListItem>

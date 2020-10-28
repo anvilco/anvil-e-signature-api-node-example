@@ -42,11 +42,7 @@ const Menu = () => (
             <Name as={StyledLink} to={item.to}>
               {item.name}
             </Name>
-            {item.description
-              ? (
-                <ItemDescription>{item.description}</ItemDescription>
-              )
-              : null}
+            <ItemDescription>{item.description}</ItemDescription>
           </NameContainer>
           <Content.List.Actions as={StyledLink} to={item.to}>
             <IconPlus />

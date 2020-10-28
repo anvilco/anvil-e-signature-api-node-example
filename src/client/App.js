@@ -17,6 +17,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: Tahoma;
     background-color: ${theme.colors.blacks[5]};
     color: ${theme.textColor};
+    line-height: 1.6;
 
     a {
       text-decoration: none;
@@ -36,6 +37,11 @@ const GlobalStyle = createGlobalStyle`
     * {
       box-sizing: border-box;
     }
+  }
+
+  code {
+    padding: 2px 5px;
+    background: #eee;
   }
 `
 

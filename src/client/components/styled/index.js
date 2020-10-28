@@ -4,19 +4,30 @@ import { Link } from 'react-router-dom'
 import theme from 'theme'
 
 export const Title = styled.h1`
-  margin-bottom: 15px;
   font-size: 26px;
+  margin: 0;
 `
 
 export const TitleBar = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
 `
 
 export const Description = styled.div`
-  margin-bottom: 25px;
-  font-size: 16px;
+  margin-bottom: 30px;
+  font-size: 14px;
   font-weight: normal;
+  line-height: 1.6;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  code {
+    font-size: 14px;
+  }
 `
 
 export const StyledLink = styled(Link)`
@@ -49,7 +60,11 @@ export const Response = styled.p`
   color: ${({ color }) => handleColorType(color)};
 `
 
-export const Docs = styled.p`
+export const FormLabel = styled.div`
+  margin-bottom: 10px;
+  font-weight: bold;
+`
+export const Footer = styled.p`
   margin-top: 30px;
   font-size: 14px;
   color: ${theme.textColors.subtle};
