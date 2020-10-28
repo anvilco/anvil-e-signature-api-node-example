@@ -5,6 +5,8 @@ import { Description, Footer } from 'components/styled'
 import PageTitle from 'components/PageTitle'
 import DocsLink from 'components/DocsLink'
 
+import { isDevelopment } from 'helpers'
+
 const MainPage = () => {
   return (
     <>
@@ -17,6 +19,14 @@ const MainPage = () => {
         <p>
           See this project's <DocsLink href="routesIndex">server/routes/index.js</DocsLink> for the meat of the integration.
         </p>
+        {!isDevelopment()
+          ? (
+            <p>
+              <DocsLink href="repository" isCode={false}>Clone this project</DocsLink> to
+              experiment with our e-sign API in your own Anvil account.
+            </p>
+          )
+          : null}
       </Description>
       <Menu />
       <Footer>
