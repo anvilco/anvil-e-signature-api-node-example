@@ -8,7 +8,7 @@ import DocsLink from 'components/DocsLink'
 import { Description, Response, StyledAnchor, StyledLink } from 'components/styled'
 import PageTitle from 'components/PageTitle'
 
-import { createRequest, parseQueryString } from 'helpers'
+import { createRequest, parseQueryString, isDevelopment } from 'helpers'
 
 const PacketDetailsPage = () => {
   const { packetEid } = useParams()
@@ -161,14 +161,18 @@ const PacketDetailsPage = () => {
               Signer {index + 1} EID: <b>{signer.eid}</b><br />
             </p>
           ))}
-          <StyledAnchor
-            href={detailsURL}
-            target="_blank"
-            rel="noreferrer"
-            size="small"
-          >
-            View packet on your Anvil dashboard →
-          </StyledAnchor>
+          {isDevelopment()
+            ? (
+              <StyledAnchor
+                href={detailsURL}
+                target="_blank"
+                rel="noreferrer"
+                size="small"
+              >
+                View packet on your Anvil dashboard →
+              </StyledAnchor>
+            )
+            : null}
         </>
       )
     } else {

@@ -42,3 +42,7 @@ export function parseQueryString () {
 export function buildAnvilURL (url) {
   return window.apiBaseURL + url
 }
+
+export function isDevelopment () {
+  return window.environment === 'development'
+}
