@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import AnvilSignatureModal from 'components/AnvilSignatureModal'
-import Button, { ButtonBar } from 'components/Button'
+import Button from 'components/Button'
 import Content from 'components/Content'
 import Spinner from 'components/Spinner'
 import DocsLink from 'components/DocsLink'
-import { Description, Response, StyledAnchor, StyledLink, Footer } from 'components/styled'
+import { Description, Response, StyledAnchor, StyledLink, Flex, Footer } from 'components/styled'
 import PageTitle from 'components/PageTitle'
 
 import { createRequest, parseQueryString, isDevelopment } from 'helpers'
@@ -218,7 +218,7 @@ const PacketDetailsPage = () => {
             the <code>/api/packet/sign</code> route
             in <code>server/routes/index.js</code> for details.
           </Response>
-          <ButtonBar>
+          <Flex>
             <Button
               type="cta"
               onClick={async () => handleSignButtonClick()}
@@ -231,7 +231,7 @@ const PacketDetailsPage = () => {
             >
               Alternatively, sign from within an Iframe
             </Button>
-          </ButtonBar>
+          </Flex>
           <Response color="failure">{generateURLResponse}</Response>
         </>
       )
