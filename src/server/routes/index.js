@@ -23,7 +23,7 @@ function buildRoutes (router) {
       signerOneRedirectURL = 'http://localhost:8080/packet/finish', // see the /packet/finish route below
       signerOneSignatureMode = 'draw',
       signerOneAcceptEachField = true,
-      signerOneEnableEmails = false,
+      signerOneEnableEmails = true,
 
       signerTwoName,
       signerTwoEmail,
@@ -31,7 +31,7 @@ function buildRoutes (router) {
       signerTwoRedirectURL = 'http://localhost:8080/packet/finish', // see the /packet/finish route below
       signerTwoSignatureMode = 'draw',
       signerTwoAcceptEachField = true,
-      signerTwoEnableEmails = false,
+      signerTwoEnableEmails = true,
     } = req.body
 
     // Modify signer type config depending on query params
