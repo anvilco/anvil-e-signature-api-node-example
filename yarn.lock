@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@anvilco/anvil@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@anvilco/anvil/-/anvil-2.3.0.tgz#46bfc9c6263b744976eaa4c819d96b37d81af35e"
-  integrity sha512-Iheb5BtE7ku8eKJst2HLpJBoMxZErZO5zzRzBX4+zBG8hQrF5OXAgYEPTB0yF7oJ3rUGZ5PzA921o7SC8J6bHQ==
+"@anvilco/anvil@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@anvilco/anvil/-/anvil-2.4.0.tgz#75055037f3547f87da91735109b9cfc0efc9a19a"
+  integrity sha512-jGwPzN49egnxaLdWbQ86lecK87AuuW/XWt3tvNSxRQtBnQG/NiwSAib05iqwnvibKfRIWXV70EjITK/rJYXaFw==
   dependencies:
     abort-controller "^3.0.0"
     extract-files "^6"
