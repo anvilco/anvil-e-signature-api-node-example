@@ -1,7 +1,7 @@
 {
-  "name": "anvil-e-signatures-api-example",
+  "name": "anvil-e-signature-api-node-example",
   "version": "1.0.0",
-  "description": "Anvil's E-Signatures Example App",
+  "description": "Anvil Etch E-Sign API Example App",
   "main": "src/server/index.js",
   "engines": {
     "node": ">=10.0.0"
@@ -18,21 +18,25 @@
     "test": "yarn lint && yarn test:server && yarn test:client"
   },
   "author": "Anvil Foundry Inc.",
-  "license": "ISC",
+  "license": "MIT",
+  "repository": "https://github.com/anvilco/anvil-e-signature-api-node-example",
+  "homepage": "https://github.com/anvilco/anvil-e-signature-api-node-example#readme",
+  "bugs": {
+    "url" : "https://github.com/anvilco/anvil-e-signature-api-node-example/issues",
+    "email" : "support@useanvil.com"
+  },
   "dependencies": {
     "@anvilco/anvil": "^2.3.0",
     "@babel/polyfill": "^7.11.5",
-    "antd": "^4.7.0",
     "app-module-path": "^2.2.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "lodash": "^4.17.15",
+    "lodash.clonedeep": "^4.5.0",
     "lodash.pickby": "^4.6.0",
     "polished": "^3.6.2",
     "qs": "^6.9.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-dropzone": "^11.0.1",
     "react-router-dom": "^5.2.0",
     "styled-components": "^5.1.0"
   },

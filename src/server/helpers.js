@@ -16,8 +16,13 @@ module.exports = {
     if (payload?.errors) return response.jsonp({ statusCode: payload.errors[0].status, error: payload.errors[0] })
   },
   logError (str) {
-    const red = '\x1b[41m'
+    const color = '\x1b[41m'
     const reset = '\x1b[0m'
-    console.error(`${red}${str}${reset}`)
+    console.error(`${color}${str}${reset}`)
+  },
+  logInfo (str) {
+    const color = '\x1b[36m'
+    const reset = '\x1b[0m'
+    console.info(`${color}${str}${reset}`)
   },
 }

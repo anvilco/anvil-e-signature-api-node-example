@@ -17,8 +17,10 @@ class Form extends React.Component {
     values: {
       signerOneSignatureMode: 'draw',
       signerOneAcceptEachField: true,
+      signerOneEnableEmails: true,
       signerTwoSignatureMode: 'draw',
       signerTwoAcceptEachField: true,
+      signerTwoEnableEmails: true,
     },
   }
 

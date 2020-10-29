@@ -5,10 +5,11 @@ import AnvilSignatureModal from 'components/AnvilSignatureModal'
 import Button, { ButtonBar } from 'components/Button'
 import Content from 'components/Content'
 import Spinner from 'components/Spinner'
-import { Description, Docs, Response, StyledAnchor, StyledLink, Title, TitleBar } from 'components/styled'
+import DocsLink from 'components/DocsLink'
+import { Description, Response, StyledAnchor, StyledLink } from 'components/styled'
+import PageTitle from 'components/PageTitle'
 
-import { createRequest, parseQueryString } from 'helpers'
-import EtchStamp from 'static/etch-stamp.png'
+import { createRequest, parseQueryString, isDevelopment } from 'helpers'
 
 const PacketDetailsPage = () => {
   const { packetEid } = useParams()
@@ -61,40 +62,55 @@ const PacketDetailsPage = () => {
     },
   })
 
-  const handleToSignPageClick = async () => {
+  const handleSignButtonClick = async () => {
     const signURL = await generateSignURL()
     if (signURL) window.location.assign(signURL)
   }
 
-  const handleToSignIFrameClick = async () => {
+  const handleSignIFrameClick = async () => {
     setSignURL(await generateSignURL())
     setIsModalOpen(true)
   }
 
   const handlePacketDownload = () => {
-    const { documentGroupEid } = queryStringData
+    const { documentGroup } = packetDetails
+    const { eid: documentGroupEid } = documentGroup || {}
     window.location.assign(`/api/packet/download/${documentGroupEid}`)
   }
 
   const renderHeader = () => {
-    if (packetDetails?.documentGroup?.signers[0]?.signActionType === 'email') {
+    const redirectDescription = (
+      <p>
+        When a signer finishes signing, the browser will be redirected back
+        to this page via the signer's
+        <DocsLink href="signerOptions">redirectURL</DocsLink> option.
+      </p>
+    )
+    if (packetDetails?.documentGroup.signers[0].signActionType === 'email') {
       return (
         <>
-          <TitleBar>
-            <Title>Email Signature Packet</Title>
-            <img src={EtchStamp} alt="Anvil Etch e-signatures" width={60} height={60} />
-          </TitleBar>
-          <Description>Anvil is managing the signing process for this packet via email.</Description>
+          <PageTitle>Email Signature Packet</PageTitle>
+          <Description>
+            <p>
+              Anvil is managing the signing process for this packet via email.
+            </p>
+            {redirectDescription}
+          </Description>
         </>
       )
     }
     return (
       <>
-        <TitleBar>
-          <Title>Embedded Signature Packet</Title>
-          <img src={EtchStamp} alt="Anvil Etch e-signatures" width={60} height={60} />
-        </TitleBar>
-        <Description>This app is controlling the signing process, and no emails are sent from Anvil.</Description>
+        <PageTitle>Embedded Signature Packet</PageTitle>
+        <Description>
+          <p>
+            This app is controlling the signing process. It will generate sign
+            URLs for each signer via
+            the <DocsLink href="generateEtchSignURL">generateEtchSignURL</DocsLink> GraphQL
+            mutation.
+          </p>
+          {redirectDescription}
+        </Description>
       </>
     )
   }
@@ -105,10 +121,9 @@ const PacketDetailsPage = () => {
       return (
         <Content.Card>
           <h3>Signer Finished!</h3>
-          <h4>
-            When a signer finishes signing, the browser will be redirected to the redirectURL attached to the signer.
-            Your redirectURL will receive the following query parameters.
-          </h4>
+          <Description>
+            The <code>redirectURL</code> received the following query parameters.
+          </Description>
           <p>
             Signature Packet EID: <b>{etchPacketEid}</b>
           </p>
@@ -153,14 +168,18 @@ const PacketDetailsPage = () => {
               Signer {index + 1} EID: <b>{signer.eid}</b><br />
             </p>
           ))}
-          <StyledAnchor
-            href={detailsURL}
-            target="_blank"
-            rel="noreferrer"
-            size="small"
-          >
-            View packet on your Anvil dashboard →
-          </StyledAnchor>
+          {isDevelopment()
+            ? (
+              <StyledAnchor
+                href={detailsURL}
+                target="_blank"
+                rel="noreferrer"
+                size="small"
+              >
+                View packet on your Anvil dashboard →
+              </StyledAnchor>
+            )
+            : null}
         </>
       )
     } else {
@@ -185,31 +204,37 @@ const PacketDetailsPage = () => {
       )
     } else if (packetDetails?.documentGroup?.signers[nextSignerNum - 1]?.signActionType === 'email') {
       return (
-        <Response color="failure">Your signature packet is not yet complete. Signer {nextSignerNum} has received an email and has yet to sign!</Response>
+        <Response color="failure">
+          Your signature packet is not yet complete. Signer {nextSignerNum} has
+          received an email to sign. Check your email!
+        </Response>
       )
     } else {
       return (
         <>
-          <Response color="failure">Your signature packet is not yet complete. Signer {nextSignerNum} can sign by choosing an action below.</Response>
-          <ButtonBar>
-            <Button
-              type="cta"
-              onClick={async () => handleToSignPageClick()}
-            >
-              Go to Signing Page
-            </Button>
-            <Button
-              type="orange"
-              onClick={async () => handleToSignIFrameClick()}
-            >
-              Alternatively, sign from within an Iframe
-            </Button>
-          </ButtonBar>
+          <Response color="failure">
+            This signature packet is not yet complete. Sign for
+            Signer {nextSignerNum} by clicking the button below. See
+            the <code>/api/packet/sign</code> route
+            in <code>server/routes/index.js</code> for details.
+          </Response>
+          <Button
+            type="cta"
+            onClick={async () => handleSignButtonClick()}
+          >
+            Sign Now as Signer {nextSignerNum}
+          </Button>
+          <Button
+            type="orange"
+            onClick={async () => handleSignIFrameClick()}
+          >
+            Alternatively, sign from within an Iframe
+          </Button>
           <Response color="failure">{generateURLResponse}</Response>
-          <Docs>
+          {/* <Docs>
             Your Anvil organization must have <code>'allowFormEmbed'</code> set to true under configurations to allow embedding
             the signing page.
-          </Docs>
+          </Docs> */}
         </>
       )
     }

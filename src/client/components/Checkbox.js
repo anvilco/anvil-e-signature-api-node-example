@@ -1,23 +1,36 @@
-import Checkbox from 'antd/lib/checkbox'
+import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-const StyledCheckbox = styled(Checkbox).withConfig({
-  shouldForwardProp: (prop) => !['displayStyle'].includes(prop),
-})`
-  .ant-checkbox {
-    margin-right: 10px;
-  }
-  &.ant-checkbox-wrapper {
-    line-height: 1.2;
-    display: block;
-    margin-top: 10px;
-    margin-bottom: 14px;
+const Container = styled.div`
+  display: flex;
+  margin-bottom: 5px;
 
-    ${({ displayStyle }) => displayStyle === 'compact' && `
-      font-size: 14px;
-      padding: 5px 0;
-    `}
+  code {
+    font-size: 14px;
   }
 `
 
-export default StyledCheckbox
+const StyledCheckbox = styled.input.attrs({
+  type: 'checkbox',
+})`
+  display: block;
+  margin: 6px 10px 0 0;
+`
+
+const Checkbox = (props) => {
+  const { name, children, ...others } = props
+  return (
+    <Container>
+      <StyledCheckbox id={name} name={name} {...others} />
+      <label htmlFor={name}>{children}</label>
+    </Container>
+  )
+}
+
+Checkbox.propTypes = {
+  name: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+}
+
+export default Checkbox

@@ -1,8 +1,9 @@
+const qs = require('qs')
 const Anvil = require('@anvilco/anvil')
-const cloneDeep = require('lodash/cloneDeep')
+const cloneDeep = require('lodash.clonedeep')
 const { createEtchPacketVars } = require('../apiVariables')
 const { apiKey, apiBaseURL } = require('../../config')
-const { buildURL, handleClientErrors } = require('../helpers')
+const { buildURL, handleClientErrors, logInfo } = require('../helpers')
 
 // Initialize Node-anvil client
 const client = new Anvil({
@@ -19,7 +20,7 @@ function buildRoutes (router) {
       signerOneName,
       signerOneEmail,
       signerOneType = 'embedded',
-      signerOneRedirectURL = 'http://localhost:8080/packet/finish',
+      signerOneRedirectURL = 'http://localhost:8080/packet/finish', // see the /packet/finish route below
       signerOneSignatureMode = 'draw',
       signerOneAcceptEachField = true,
       signerOneEnableEmails = false,
@@ -27,7 +28,7 @@ function buildRoutes (router) {
       signerTwoName,
       signerTwoEmail,
       signerTwoType = 'embedded',
-      signerTwoRedirectURL = 'http://localhost:8080/packet/finish',
+      signerTwoRedirectURL = 'http://localhost:8080/packet/finish', // see the /packet/finish route below
       signerTwoSignatureMode = 'draw',
       signerTwoAcceptEachField = true,
       signerTwoEnableEmails = false,
@@ -39,7 +40,7 @@ function buildRoutes (router) {
       signerTwoType = 'email'
     }
 
-    // Use the predefined createEtchPacket config variables on how documents should be filled
+    // Use the predefined createEtchPacket config variables for filling
     const variables = cloneDeep(createEtchPacketVars)
 
     // Prepare NDA PDF to be used as file 1 in signature packet
@@ -90,17 +91,46 @@ function buildRoutes (router) {
       variables.data.payloads.fileUploadNDA.data.name2 = signerTwoName
     }
 
+    logRouteInfo(`Creating packet for name "${packetName}"`)
+    logJSON(variables)
+
     // Use the Node-anvil client to create a signature packet
     const { statusCode, data, errors } = await client.createEtchPacket({ variables })
+
+    logRouteInfo(`Packet "${packetName}" response: ${statusCode}`)
+    logJSON(data)
+
     return handleClientErrors(res, statusCode, data, errors) || res.jsonp({ statusCode, data })
   })
 
+  // For an embedded signer, the sign button will hit this route. We will
+  // generate a special signature URL with a token, then redirect the signer to
+  // the genenerated URL.
+  // See https://www.useanvil.com/docs/api/e-signatures#controlling-the-signature-process-with-embedded-signers
   router.post('/api/packet/sign', async (req, res) => {
-    // Use the Node-anvil client to generate a signature URL for a signer
     const { statusCode, url, errors } = await client.generateEtchSignUrl({ variables: req.body })
+
+    logRouteInfo('Creating signer URL for embedded signer')
+    logJSON(req.body)
+    console.log('Generated URL:', url)
+
     return handleClientErrors(res, statusCode, url, errors) || res.jsonp({ statusCode, url })
   })
 
+  // You can specifiy a finish URL for each signer with the signer's redirectURL
+  // option. After they are done signing, the signer will be directed to the
+  // specified URL by the browser. This route is set as both signers'
+  // redirectURL.
+  router.get('/packet/finish', async (req, res) => {
+    logRouteInfo('Signer finished! Query params supplied to redirectURL')
+    logJSON(qs.parse(req.query))
+
+    const baseURL = `http://localhost:3001/packet/${req.query.etchPacketEid}`
+    const baseURLWithQueryString = buildURL(baseURL, req.query)
+    return res.redirect(baseURLWithQueryString)
+  })
+
+  // The packet details page uses this to display packet information
   router.get('/api/packet/:packetEid', async (req, res) => {
     // Use the Node-anvil client to get the status and details of a specific signature packet
     const { statusCode, data, errors } = await client.getEtchPacket({
@@ -111,24 +141,32 @@ function buildRoutes (router) {
     return handleClientErrors(res, statusCode, data, errors) || res.jsonp({ statusCode, data })
   })
 
+  // You must either save the completed documents to your own object store (see
+  // etchPacketComplete webhook in the docs), or you  can proxy the download for
+  // the user as we are doing here.
   router.get('/api/packet/download/:documentGroupEid', async (req, res) => {
-    // Use the Node-anvil client to ownload the documents in stream or buffer format
+    // Anvil does not provide an API-accessible download URL for an end user.
+    // Use the Node-anvil client to download the documents in stream or buffer
+    // format
     const { statusCode, response, data, errors } = await client.downloadDocuments(req.params.documentGroupEid, {
       dataType: 'stream',
     })
-    res.header('Content-Disposition', response.headers.get('content-disposition'))
-    return handleClientErrors(res, statusCode, data, errors) || data.pipe(res)
-  })
+    if (statusCode >= 300) return handleClientErrors(res, statusCode, data, errors)
 
-  router.get('/packet/finish', async (req, res) => {
-    // After signer finishes signing, redirect them to your packet details page
-    // Also attach the query params appended onto the redirectURL
-    const baseURL = `http://localhost:3001/packet/${req.query.etchPacketEid}`
-    const baseURLWithQueryString = buildURL(baseURL, req.query)
-    return res.redirect(baseURLWithQueryString)
+    res.header('Content-Disposition', response.headers.get('content-disposition'))
+    return data.pipe(res)
   })
 
   return router
+}
+
+function logRouteInfo (str) {
+  console.log()
+  logInfo(str)
+}
+
+function logJSON (obj) {
+  console.log(JSON.stringify(obj, null, 2))
 }
 
 module.exports = buildRoutes

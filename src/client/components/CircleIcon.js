@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
@@ -72,7 +71,7 @@ CircleIcon.defaultProps = {
 
 CircleIcon.propTypes = {
   children: PropTypes.node,
-  size: PropTypes.oneOf(_.keys(sizes)),
+  size: PropTypes.oneOf(Object.keys(sizes)),
   type: PropTypes.oneOf(['default', 'success']),
 }
 
