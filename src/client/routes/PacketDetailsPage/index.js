@@ -109,7 +109,7 @@ const PacketDetailsPage = () => {
 
   const renderQueryParamData = () => {
     if (queryStringData?.signerEid) {
-      const { documentGroupEid, documentGroupStatus, etchPacketEid, etchPacketName, signerEid, signerStatus, nextSignerEid } = queryStringData
+      const { documentGroupEid, documentGroupStatus, etchPacketEid, signerEid, signerStatus, nextSignerEid } = queryStringData
       return (
         <Content.Card>
           <h3>Signer Finished!</h3>
@@ -117,7 +117,6 @@ const PacketDetailsPage = () => {
             The <code>redirectURL</code> received the following query parameters.
           </Description>
           <p>
-            Signature Packet Name: <b>{etchPacketName}</b><br />
             Signature Packet EID: <b>{etchPacketEid}</b>
           </p>
           <p>
