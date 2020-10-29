@@ -229,10 +229,14 @@ const PacketDetailsPage = () => {
               type="orange"
               onClick={async () => handleSignIFrameClick()}
             >
-              Alternatively, sign from within an Iframe
+              Alternatively, sign with Anvil E-Sign Modal
             </Button>
           </Flex>
           <Response color="failure">{generateURLResponse}</Response>
+          <Footer>
+            Your Anvil organization must have <code>allowFormEmbed</code> set to true to
+            embed a signing page within an iframe.
+          </Footer>
         </>
       )
     }
@@ -266,10 +270,6 @@ const PacketDetailsPage = () => {
       {renderQueryParamData()}
       {renderDetailsAndAction()}
       {renderIframeModal()}
-      <Footer>
-        Your Anvil organization must have <code>allowFormEmbed</code> set to true to
-        embed a signing page within an iframe.
-      </Footer>
       <StyledLink size="small" to="/">Back to index</StyledLink>
     </>
   )

@@ -1,14 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 
 import Button from 'components/Button'
 import Spinner from 'components/Spinner'
+import { Flex } from 'components/styled'
 
-const FormButtonBar = styled.div`
-  display: flex;
-  margin-top: 25px;
-`
 const checkboxNames = ['signerOneSignatureMode', 'signerOneAcceptEachField', 'signerTwoSignatureMode', 'signerTwoAcceptEachField']
 
 class Form extends React.Component {
@@ -75,7 +71,7 @@ class Form extends React.Component {
         onSubmit={this.handleSubmit}
       >
         {fields}
-        <FormButtonBar>
+        <Flex spacing="start">
           <Button
             isSubmit
             type="cta"
@@ -84,7 +80,7 @@ class Form extends React.Component {
             {submitButtonText}
           </Button>
           {isSubmitting && <Spinner />}
-        </FormButtonBar>
+        </Flex>
       </form>
     )
   }

@@ -59,6 +59,10 @@ const PacketForm = ({ submitButtonText = 'Create Signature Packet', onSubmit }) 
         })
         : null}
 
+      {hasTwoSigners
+        ? <p />
+        : null}
+
       {renderAddSignerButton()}
     </Form>
   )

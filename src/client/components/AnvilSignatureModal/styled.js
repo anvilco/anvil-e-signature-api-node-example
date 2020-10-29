@@ -21,12 +21,12 @@ export const ModalContainer = styled.div`
 `
 
 export const ModalBackdrop = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
+  position: fixed;
   top: 0px;
   left: 0px;
-  zIndex: 9998;
+  right: 0px;
+  bottom: 0px;
+  z-index: 9998;
   background: rgba(0, 0, 0, 0.3);
 `
 
@@ -94,9 +94,4 @@ export const Spinner = styled.div`
       transform: rotate(360deg);
     }
   }
-`
-
-export const Flex = styled.div`
-  display: flex;
-  justify-content: space-between;
 `
