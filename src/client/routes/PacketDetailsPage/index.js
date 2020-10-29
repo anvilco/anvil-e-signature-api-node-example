@@ -6,7 +6,7 @@ import Button, { ButtonBar } from 'components/Button'
 import Content from 'components/Content'
 import Spinner from 'components/Spinner'
 import DocsLink from 'components/DocsLink'
-import { Description, Response, StyledAnchor, StyledLink } from 'components/styled'
+import { Description, Response, StyledAnchor, StyledLink, Footer } from 'components/styled'
 import PageTitle from 'components/PageTitle'
 
 import { createRequest, parseQueryString, isDevelopment } from 'helpers'
@@ -218,23 +218,21 @@ const PacketDetailsPage = () => {
             the <code>/api/packet/sign</code> route
             in <code>server/routes/index.js</code> for details.
           </Response>
-          <Button
-            type="cta"
-            onClick={async () => handleSignButtonClick()}
-          >
-            Sign Now as Signer {nextSignerNum}
-          </Button>
-          <Button
-            type="orange"
-            onClick={async () => handleSignIFrameClick()}
-          >
-            Alternatively, sign from within an Iframe
-          </Button>
+          <ButtonBar>
+            <Button
+              type="cta"
+              onClick={async () => handleSignButtonClick()}
+            >
+              Sign Now as Signer {nextSignerNum}
+            </Button>
+            <Button
+              type="orange"
+              onClick={async () => handleSignIFrameClick()}
+            >
+              Alternatively, sign from within an Iframe
+            </Button>
+          </ButtonBar>
           <Response color="failure">{generateURLResponse}</Response>
-          {/* <Docs>
-            Your Anvil organization must have <code>'allowFormEmbed'</code> set to true under configurations to allow embedding
-            the signing page.
-          </Docs> */}
         </>
       )
     }
@@ -268,6 +266,10 @@ const PacketDetailsPage = () => {
       {renderQueryParamData()}
       {renderDetailsAndAction()}
       {renderIframeModal()}
+      <Footer>
+        Your Anvil organization must have <code>allowFormEmbed</code> set to true to
+        embed a signing page within an iframe.
+      </Footer>
       <StyledLink size="small" to="/">Back to index</StyledLink>
     </>
   )
