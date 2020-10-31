@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import { DeleteIcon, Docs, Iframe, ModalBackdrop, ModalContainer, Spinner } from './styled'
 
-function AnvilSignatureModal ({ signURL, isOpen, onClose, onFinish, width, height }) {
+function AnvilSignatureFrame ({ signURL, isOpen, onClose, onFinish, width, height }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -43,14 +43,14 @@ function AnvilSignatureModal ({ signURL, isOpen, onClose, onFinish, width, heigh
   )
 }
 
-AnvilSignatureModal.defaultProps = {
+AnvilSignatureFrame.defaultProps = {
   isOpen: false,
   width: 900,
   height: 1100,
   onFinish: (url) => window.location.assign(url),
 }
 
-AnvilSignatureModal.propTypes = {
+AnvilSignatureFrame.propTypes = {
   signURL: PropTypes.string.isRequired,
   isOpen: PropTypes.bool,
   width: PropTypes.oneOfType([
@@ -65,4 +65,4 @@ AnvilSignatureModal.propTypes = {
   onFinish: PropTypes.func,
 }
 
-export default AnvilSignatureModal
+export default AnvilSignatureFrame

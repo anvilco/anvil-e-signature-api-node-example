@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import AnvilSignatureModal from 'components/AnvilSignatureModal'
+import AnvilSignatureFrame from 'components/AnvilSignatureFrame'
 import Button from 'components/Button'
 import Content from 'components/Content'
 import Spinner from 'components/Spinner'
@@ -229,7 +229,7 @@ const PacketDetailsPage = () => {
               type="orange"
               onClick={async () => handleSignIFrameClick()}
             >
-              Alternatively, sign with Anvil E-Sign Modal
+              Alternatively, sign with Anvil E-Sign Frame
             </Button>
           </Flex>
           <Response color="failure">{generateURLResponse}</Response>
@@ -255,7 +255,7 @@ const PacketDetailsPage = () => {
   const renderIframeModal = () => {
     if (signURL) {
       return (
-        <AnvilSignatureModal
+        <AnvilSignatureFrame
           signURL={signURL}
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
