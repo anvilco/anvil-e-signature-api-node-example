@@ -1,0 +1,5 @@
+runtime: nodejs12
+
+env_variables:
+  # This is templated so you can replace prior to a deploy
+  ANVIL_API_KEY: {{apiKey}}
