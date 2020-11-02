@@ -1,4 +1,4 @@
-const { templateCastEID } = require('../config')
+const { templateCastEID, apiBaseURL } = require('../config')
 const { getTodayISO } = require('./helpers')
 
 module.exports = {
@@ -66,7 +66,7 @@ module.exports = {
         // (Optional) Options are 'email' and 'embedded', defaults to 'email'
         signerType: 'embedded',
         // (Optional) The signer will be redirected to the redirectURL when finished signing, the url should begin with 'http://' or 'https://'
-        redirectURL: 'http://localhost:8080/packet/finish',
+        redirectURL: `${apiBaseURL}/packet/finish`,
         // (Optional) The signer will receive email notifications throughout the signature process, default is true
         enableEmails: false,
       },

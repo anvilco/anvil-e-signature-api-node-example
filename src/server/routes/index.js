@@ -2,7 +2,7 @@ const qs = require('qs')
 const Anvil = require('@anvilco/anvil')
 const cloneDeep = require('lodash.clonedeep')
 const { createEtchPacketVars } = require('../apiVariables')
-const { apiKey, apiBaseURL } = require('../../config')
+const { apiKey, apiBaseURL, baseURL } = require('../../config')
 const { buildURL, handleClientErrors, logInfo } = require('../helpers')
 
 // Initialize Node-anvil client
@@ -20,7 +20,7 @@ function buildRoutes (router) {
       signerOneName,
       signerOneEmail,
       signerOneType = 'embedded',
-      signerOneRedirectURL = 'http://localhost:8080/packet/finish', // see the /packet/finish route below
+      signerOneRedirectURL = `${apiBaseURL}/packet/finish`, // see the /packet/finish route below
       signerOneSignatureMode = 'draw',
       signerOneAcceptEachField = true,
       signerOneEnableEmails = false,
@@ -28,7 +28,7 @@ function buildRoutes (router) {
       signerTwoName,
       signerTwoEmail,
       signerTwoType = 'embedded',
-      signerTwoRedirectURL = 'http://localhost:8080/packet/finish', // see the /packet/finish route below
+      signerTwoRedirectURL = `${apiBaseURL}/packet/finish`, // see the /packet/finish route below
       signerTwoSignatureMode = 'draw',
       signerTwoAcceptEachField = true,
       signerTwoEnableEmails = false,
@@ -125,8 +125,8 @@ function buildRoutes (router) {
     logRouteInfo('Signer finished! Query params supplied to redirectURL')
     logJSON(qs.parse(req.query))
 
-    const baseURL = `http://localhost:3001/packet/${req.query.etchPacketEid}`
-    const baseURLWithQueryString = buildURL(baseURL, req.query)
+    const basePacketURL = `${baseURL}/packet/${req.query.etchPacketEid}`
+    const baseURLWithQueryString = buildURL(basePacketURL, req.query)
     return res.redirect(baseURLWithQueryString)
   })
 
