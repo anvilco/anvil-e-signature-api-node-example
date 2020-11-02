@@ -20,7 +20,7 @@ function buildRoutes (router) {
       signerOneName,
       signerOneEmail,
       signerOneType = 'embedded',
-      signerOneRedirectURL = `${apiBaseURL}/packet/finish`, // see the /packet/finish route below
+      signerOneRedirectURL = `${baseURL}/packet/finish`, // see the /packet/finish route below
       signerOneSignatureMode = 'draw',
       signerOneAcceptEachField = true,
       signerOneEnableEmails = false,
@@ -28,7 +28,7 @@ function buildRoutes (router) {
       signerTwoName,
       signerTwoEmail,
       signerTwoType = 'embedded',
-      signerTwoRedirectURL = `${apiBaseURL}/packet/finish`, // see the /packet/finish route below
+      signerTwoRedirectURL = `${baseURL}/packet/finish`, // see the /packet/finish route below
       signerTwoSignatureMode = 'draw',
       signerTwoAcceptEachField = true,
       signerTwoEnableEmails = false,
