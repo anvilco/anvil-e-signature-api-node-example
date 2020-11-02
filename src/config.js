@@ -5,5 +5,5 @@ module.exports = {
   baseURL: process.env.BASE_URL || 'https://esign-demo.useanvil.com',
   templateCastEID: process.env.TEMPLATE_CAST_EID || 'XnuTZKVZg1Mljsu999od',
   environment: process.env.NODE_ENV || 'development',
-  port: process.env.PORT || 3000,
+  port: process.env.PORT || 8080,
 }
