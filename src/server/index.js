@@ -3,7 +3,7 @@ const path = require('path')
 const express = require('express')
 const appModulePath = require('app-module-path')
 const { logError } = require('./helpers')
-const { apiKey } = require('../config')
+const { apiKey, port: PORT } = require('../config')
 
 appModulePath.addPath(path.join(__dirname, '..', '..', 'src'))
 
@@ -26,7 +26,5 @@ app.use(routes(router))
 if (!apiKey && process.env.NODE_ENV !== 'test') {
   logError('ANVIL_API_KEY has not been defined. See .env.example at the root of the project')
 }
-
-const PORT = process.env.PORT
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT} 🚀!`))
