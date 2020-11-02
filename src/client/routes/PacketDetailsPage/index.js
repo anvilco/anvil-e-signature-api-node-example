@@ -256,7 +256,7 @@ const PacketDetailsPage = () => {
     if (signURL) {
       return (
         <AnvilSignatureFrame
-          signURL={signURL}
+          signURL={`${signURL}&withinIframe=true`}
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
         />
