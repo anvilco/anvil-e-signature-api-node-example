@@ -11,8 +11,6 @@ appModulePath.addPath(path.join(__dirname, '..', '..', 'src'))
 const routes = require('./routes')
 const app = express()
 
-app.use(express.static('dist'))
-app.use(fallback('index.html', { root: path.join(__dirname, '../../dist') }))
 app.use(express.json({
   inflate: true,
   limit: '20mb',
@@ -24,6 +22,9 @@ app.use(express.json({
 
 const router = express.Router()
 app.use(routes(router))
+
+app.use(express.static('dist'))
+app.use(fallback('index.html', { root: path.join(__dirname, '../../dist') }))
 
 if (!apiKey && process.env.NODE_ENV !== 'test') {
   logError('ANVIL_API_KEY has not been defined. See .env.example at the root of the project')
