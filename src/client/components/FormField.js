@@ -46,7 +46,7 @@ FormField.propTypes = {
   label: PropTypes.string,
   onChange: PropTypes.func,
   value: PropTypes.any,
-  wide: PropTypes.boolean,
+  wide: PropTypes.bool,
   children: PropTypes.node.isRequired,
 }
 
