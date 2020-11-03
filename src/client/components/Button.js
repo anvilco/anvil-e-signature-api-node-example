@@ -36,7 +36,7 @@ const buttonVariantSolid = ({
   &:hover {
     color: ${colorHover || color};
     background-color: ${backgroundHover};
-
+    cursor: pointer;
   }
 
   &[disabled],
