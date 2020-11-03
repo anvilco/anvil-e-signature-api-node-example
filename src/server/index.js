@@ -1,6 +1,7 @@
 require('dotenv').config()
 const path = require('path')
 const express = require('express')
+const fallback = require('express-history-api-fallback')
 const appModulePath = require('app-module-path')
 const { logError } = require('./helpers')
 const { apiKey, port: PORT } = require('../config')
@@ -11,6 +12,7 @@ const routes = require('./routes')
 const app = express()
 
 app.use(express.static('dist'))
+app.use(fallback('index.html', { root: path.join(__dirname, '../../public') }))
 app.use(express.json({
   inflate: true,
   limit: '20mb',
