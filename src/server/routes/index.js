@@ -2,7 +2,7 @@ const qs = require('qs')
 const Anvil = require('@anvilco/anvil')
 const cloneDeep = require('lodash.clonedeep')
 const { createEtchPacketVars } = require('../apiVariables')
-const { apiKey, apiBaseURL, baseURL, baseURLBackend } = require('../../config')
+const { apiKey, apiBaseURL, baseURL } = require('../../config')
 const { buildURL, handleClientErrors, logInfo } = require('../helpers')
 
 // Initialize Node-anvil client
@@ -20,7 +20,7 @@ function buildRoutes (router) {
       signerOneName,
       signerOneEmail,
       signerOneType = 'embedded',
-      signerOneRedirectURL = `${baseURLBackend}/packet/finish`, // see the /packet/finish route below
+      signerOneRedirectURL = `${baseURL}/api/packet/finish`, // see the /packet/finish route below
       signerOneSignatureMode = 'draw',
       signerOneAcceptEachField = true,
       signerOneEnableEmails = false,
@@ -28,7 +28,7 @@ function buildRoutes (router) {
       signerTwoName,
       signerTwoEmail,
       signerTwoType = 'embedded',
-      signerTwoRedirectURL = `${baseURLBackend}/packet/finish`, // see the /packet/finish route below
+      signerTwoRedirectURL = `${baseURL}/api/packet/finish`, // see the /packet/finish route below
       signerTwoSignatureMode = 'draw',
       signerTwoAcceptEachField = true,
       signerTwoEnableEmails = false,
@@ -121,7 +121,7 @@ function buildRoutes (router) {
   // option. After they are done signing, the signer will be directed to the
   // specified URL by the browser. This route is set as both signers'
   // redirectURL.
-  router.get('/packet/finish', async (req, res) => {
+  router.get('/api/packet/finish', async (req, res) => {
     logRouteInfo('Signer finished! Query params supplied to redirectURL')
     logJSON(qs.parse(req.query))
 
