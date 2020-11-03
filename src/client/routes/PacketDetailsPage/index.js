@@ -33,7 +33,7 @@ const PacketDetailsPage = () => {
       const { statusCode, data, error } = JSON.parse(responseText)
       if (statusCode === 200) {
         const etchPacket = data.data.etchPacket
-        const nextSigner = etchPacket.documentGroup.signers.find((signer) => signer.status === 'sent')
+        const nextSigner = etchPacket.documentGroup.signers?.find((signer) => signer.status === 'sent')
         if (nextSigner) setNextSignerNum(nextSigner.routingOrder)
         return etchPacket
       } else {
@@ -46,7 +46,7 @@ const PacketDetailsPage = () => {
     url: '/api/packet/sign',
     myData: {
       clientUserId: packetEid,
-      signerEid: queryStringData?.nextSignerEid || packetDetails?.documentGroup.signers[0].eid,
+      signerEid: queryStringData?.nextSignerEid || packetDetails?.documentGroup?.signers[0]?.eid,
     },
     callback: async (response) => {
       const responseText = await response.text()
@@ -151,7 +151,7 @@ const PacketDetailsPage = () => {
             Document Group Status: <b>{docStatus}</b><br />
             Document Group EID: <b>{docEid}</b><br />
           </p>
-          {signers.map((signer, index) => (
+          {signers?.map((signer, index) => (
             <p key={index}>
               Signer {index + 1} Name: <b>{signer.name}</b><br />
               Signer {index + 1} Email: <b>{signer.email}</b><br />
