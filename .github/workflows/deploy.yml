@@ -3,9 +3,6 @@ name: Deploy
 on:
   push:
     branches: [ master ]
-  # For debug, remove before merge
-  pull_request:
-    branches: [ master ]
 
 jobs:
   build:
