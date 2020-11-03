@@ -2,7 +2,7 @@ const qs = require('qs')
 const Anvil = require('@anvilco/anvil')
 const cloneDeep = require('lodash.clonedeep')
 const { createEtchPacketVars } = require('../apiVariables')
-const { apiKey, apiBaseURL, baseURL } = require('../../config')
+const { apiKey, apiBaseURL, baseURL, baseURLBackend } = require('../../config')
 const { buildURL, handleClientErrors, logInfo } = require('../helpers')
 
 // Initialize Node-anvil client
@@ -20,7 +20,7 @@ function buildRoutes (router) {
       signerOneName,
       signerOneEmail,
       signerOneType = 'embedded',
-      signerOneRedirectURL = `${baseURL}/packet/finish`, // see the /packet/finish route below
+      signerOneRedirectURL = `${baseURLBackend}/packet/finish`, // see the /packet/finish route below
       signerOneSignatureMode = 'draw',
       signerOneAcceptEachField = true,
       signerOneEnableEmails = false,
@@ -28,7 +28,7 @@ function buildRoutes (router) {
       signerTwoName,
       signerTwoEmail,
       signerTwoType = 'embedded',
-      signerTwoRedirectURL = `${baseURL}/packet/finish`, // see the /packet/finish route below
+      signerTwoRedirectURL = `${baseURLBackend}/packet/finish`, // see the /packet/finish route below
       signerTwoSignatureMode = 'draw',
       signerTwoAcceptEachField = true,
       signerTwoEnableEmails = false,
