@@ -43,7 +43,7 @@ export function parseQueryString () {
 }
 
 export function buildAnvilURL (url) {
-  return window.apiBaseURL + url
+  return window.anvilBaseURL + url
 }
 
 export function isDevelopment () {

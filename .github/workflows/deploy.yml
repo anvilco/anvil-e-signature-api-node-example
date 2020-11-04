@@ -1,0 +1,31 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ master ]
+  # TODO: remove before merge
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: production
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.ETCH_DEMO_PROJECT }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+      - name: Deploy the app
+        env:
+          ETCH_DEMO_PROJECT: ${{ secrets.ETCH_DEMO_PROJECT }}
+          API_KEY: ${{ secrets.ANVIL_API_KEY }}
+        run: |
+          echo "{ \"apiKey\": \"$API_KEY\" }" | npx mustache - app-template.yaml > app.yaml
+          yarn deploy

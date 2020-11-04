@@ -1,16 +1,16 @@
 require('dotenv').config()
 const path = require('path')
 const express = require('express')
+const fallback = require('express-history-api-fallback')
 const appModulePath = require('app-module-path')
 const { logError } = require('./helpers')
-const { apiKey } = require('../config')
+const { apiKey, port: PORT } = require('../config')
 
 appModulePath.addPath(path.join(__dirname, '..', '..', 'src'))
 
 const routes = require('./routes')
 const app = express()
 
-app.use(express.static('dist'))
 app.use(express.json({
   inflate: true,
   limit: '20mb',
@@ -23,10 +23,11 @@ app.use(express.json({
 const router = express.Router()
 app.use(routes(router))
 
+app.use(express.static('dist'))
+app.use(fallback('index.html', { root: path.join(__dirname, '../../dist') }))
+
 if (!apiKey && process.env.NODE_ENV !== 'test') {
   logError('ANVIL_API_KEY has not been defined. See .env.example at the root of the project')
 }
-
-const PORT = process.env.PORT
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT} 🚀!`))

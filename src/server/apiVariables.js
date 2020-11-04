@@ -1,7 +1,10 @@
-const { templateCastEID } = require('../config')
+const { templateCastEID, apiBaseURL } = require('../config')
 const { getTodayISO } = require('./helpers')
 
+const redirectURL = `${apiBaseURL}/api/packet/finish`
+
 module.exports = {
+  redirectURL,
   createEtchPacketVars: {
     // Indicate the packet is all ready to send to the signers. An email will
     // be sent to the first signer if the user is type 'email'.
@@ -19,7 +22,7 @@ module.exports = {
         // This is a file we will upload and specify the fields ourselves
         id: 'fileUploadNDA',
         title: 'Anvil Demo NDA',
-        file: undefined,
+        file: undefined, // File is defined in the '/api/packet/create' route (server/routes/index.js)
         fields: getUploadedFileFields(),
       },
       {
@@ -66,7 +69,7 @@ module.exports = {
         // (Optional) Options are 'email' and 'embedded', defaults to 'email'
         signerType: 'embedded',
         // (Optional) The signer will be redirected to the redirectURL when finished signing, the url should begin with 'http://' or 'https://'
-        redirectURL: 'http://localhost:8080/packet/finish',
+        redirectURL,
         // (Optional) The signer will receive email notifications throughout the signature process, default is true
         enableEmails: false,
       },
@@ -117,12 +120,9 @@ module.exports = {
             effectiveDate: getTodayISO(),
             disclosingPartyName: 'Sally Signer',
             disclosingPartyEmail: 'Sally@example.com',
-            recipientName: undefined,
-            recipientEmail: undefined,
             purposeOfBusiness: 'DEMO!!',
             placeOfGovernance: 'The Land',
             name1: 'Sally Signer',
-            name2: undefined,
           },
         },
       },
