@@ -2,7 +2,12 @@ require('dotenv').config()
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const { apiBaseURL, environment } = require('./src/config')
+const {
+  anvilBaseURL,
+  apiBaseURL,
+  environment,
+  devServerPort,
+} = require('./src/config')
 
 const outputDirectory = 'dist'
 
@@ -41,11 +46,11 @@ module.exports = {
     extensions: ['*', '.js', '.jsx'],
   },
   devServer: {
-    port: 3000,
+    port: devServerPort,
     open: false,
     historyApiFallback: true,
     proxy: {
-      '/api': 'http://localhost:8080',
+      '/api': apiBaseURL,
     },
   },
   plugins: [
@@ -54,7 +59,7 @@ module.exports = {
       template: './public/index.html',
       favicon: './public/favicon.ico',
 
-      apiBaseURL: JSON.stringify(apiBaseURL),
+      anvilBaseURL: JSON.stringify(anvilBaseURL),
       environment: JSON.stringify(environment),
     }),
   ],

@@ -33,7 +33,7 @@ const PacketDetailsPage = () => {
       const { statusCode, data, error } = JSON.parse(responseText)
       if (statusCode === 200) {
         const etchPacket = data.data.etchPacket
-        const nextSigner = etchPacket.documentGroup.signers.find((signer) => signer.status === 'sent')
+        const nextSigner = etchPacket.documentGroup.signers?.find((signer) => signer.status === 'sent')
         if (nextSigner) setNextSignerNum(nextSigner.routingOrder)
         return etchPacket
       } else {
@@ -45,8 +45,8 @@ const PacketDetailsPage = () => {
   const generateSignURL = createRequest({
     url: '/api/packet/sign',
     myData: {
-      clientUserId: packetEid,
-      signerEid: queryStringData?.nextSignerEid || packetDetails?.documentGroup.signers[0].eid,
+      clientUserId: packetDetails?.documentGroup?.signers[nextSignerNum - 1].aliasId,
+      signerEid: queryStringData?.nextSignerEid || packetDetails?.documentGroup?.signers[0].eid,
     },
     callback: async (response) => {
       const responseText = await response.text()
@@ -78,7 +78,7 @@ const PacketDetailsPage = () => {
         <DocsLink href="signerOptions">redirectURL</DocsLink> option.
       </p>
     )
-    if (packetDetails?.documentGroup.signers[0].signActionType === 'email') {
+    if (packetDetails?.documentGroup?.signers[0].signActionType === 'email') {
       return (
         <>
           <PageTitle>Email Signature Packet</PageTitle>
@@ -151,7 +151,7 @@ const PacketDetailsPage = () => {
             Document Group Status: <b>{docStatus}</b><br />
             Document Group EID: <b>{docEid}</b><br />
           </p>
-          {signers.map((signer, index) => (
+          {signers?.map((signer, index) => (
             <p key={index}>
               Signer {index + 1} Name: <b>{signer.name}</b><br />
               Signer {index + 1} Email: <b>{signer.email}</b><br />
@@ -194,7 +194,7 @@ const PacketDetailsPage = () => {
           </Button>
         </>
       )
-    } else if (packetDetails?.documentGroup.signers[nextSignerNum - 1].signActionType === 'email') {
+    } else if (packetDetails?.documentGroup?.signers[nextSignerNum - 1].signActionType === 'email') {
       return (
         <Response color="failure">
           Your signature packet is not yet complete. Signer {nextSignerNum} has

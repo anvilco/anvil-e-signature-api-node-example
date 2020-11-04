@@ -40,13 +40,13 @@ git clone https://github.com/...
 cd anvil-e-signature-api-node-example
 ```
 
-1. Save `.env.example` at the root of this project as `.env`.
+1. Save a copy of `.env.example` at the root of this project as `.env`.
 2. Copy the development API key from your API settings page, then paste it in your `.env` file.
 3. Start the app!
 
 ```sh
 yarn install # Get all the deps
-yarn dev     # Start the server
+yarn dev     # Start the server and client in dev mode
 ```
 
 Visit http://localhost:3001
@@ -62,6 +62,9 @@ If you have questions, email us at [hello@useanvil.com](mailto:hello@useanvil.co
 ## Other app scripts
 
 ```bash
+# Build the production dist
+yarn build
+
 # Start production server
 yarn start
 

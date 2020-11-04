@@ -1,44 +1,40 @@
 const qs = require('qs')
-const Anvil = require('@anvilco/anvil')
 const cloneDeep = require('lodash.clonedeep')
-const { createEtchPacketVars } = require('../apiVariables')
-const { apiKey, apiBaseURL } = require('../../config')
+const Anvil = require('@anvilco/anvil')
+const { createEtchPacketVars, redirectURL } = require('../apiVariables')
+const {
+  apiKey,
+  anvilBaseURL: baseURL,
+  uiBaseURL,
+} = require('../../config')
 const { buildURL, handleClientErrors, logInfo } = require('../helpers')
 
 // Initialize Node-anvil client
-const client = new Anvil({
-  apiKey,
-  baseURL: apiBaseURL,
-})
+const client = new Anvil({ apiKey, baseURL })
 
 function buildRoutes (router) {
   router.post('/api/packet/create', async (req, res) => {
     // Collect user information and preferences submitted from form
-    let {
-      packetName = 'Sample Signature Packet',
+    const {
+      packetName,
 
       signerOneName,
       signerOneEmail,
-      signerOneType = 'embedded',
-      signerOneRedirectURL = 'http://localhost:8080/packet/finish', // see the /packet/finish route below
-      signerOneSignatureMode = 'draw',
-      signerOneAcceptEachField = true,
-      signerOneEnableEmails = false,
+      signerOneSignatureMode,
+      signerOneAcceptEachField,
+      signerOneEnableEmails,
 
       signerTwoName,
       signerTwoEmail,
-      signerTwoType = 'embedded',
-      signerTwoRedirectURL = 'http://localhost:8080/packet/finish', // see the /packet/finish route below
-      signerTwoSignatureMode = 'draw',
-      signerTwoAcceptEachField = true,
-      signerTwoEnableEmails = false,
+      signerTwoSignatureMode,
+      signerTwoAcceptEachField,
+      signerTwoEnableEmails,
     } = req.body
 
     // Modify signer type config depending on query params
-    if (req.query.type === 'email') {
-      signerOneType = 'email'
-      signerTwoType = 'email'
-    }
+    const useSignerType = req.query.type === 'email'
+      ? 'email'
+      : 'embedded'
 
     // Use the predefined createEtchPacket config variables for filling
     const variables = cloneDeep(createEtchPacketVars)
@@ -46,23 +42,24 @@ function buildRoutes (router) {
     // Prepare NDA PDF to be used as file 1 in signature packet
     variables.files[0].file = Anvil.prepareGraphQLFile('src/server/static/test-pdf-nda.pdf')
 
-    // Update config variables to use fields submitted from form
+    // Use request body fields to update signer 1
     variables.signatureEmailSubject = packetName
     variables.signers[0].name = signerOneName
     variables.signers[0].email = signerOneEmail
     variables.signers[0].signatureMode = signerOneSignatureMode
     variables.signers[0].acceptEachField = signerOneAcceptEachField
-    variables.signers[0].signerType = signerOneType
-    variables.signers[0].redirectURL = signerOneRedirectURL
+    variables.signers[0].signerType = useSignerType
     variables.signers[0].enableEmails = signerOneEnableEmails
+
+    // Use request body fields to update PDF fill data
     variables.data.payloads.templatePdfIrsW4.data.name = signerOneName
     variables.data.payloads.fileUploadNDA.data.disclosingPartyName = signerOneName
     variables.data.payloads.fileUploadNDA.data.disclosingPartyEmail = signerOneEmail
     variables.data.payloads.fileUploadNDA.data.name1 = signerOneName
 
-    // Add second signer if signer two info is inputted
-    if (signerTwoName && signerTwoEmail) {
-      variables.signers.push({
+    // Add a second signer if signer two info is found in request body
+    if (signerTwoName) {
+      const signerTwo = {
         id: 'signer2',
         name: signerTwoName,
         email: signerTwoEmail,
@@ -82,10 +79,14 @@ function buildRoutes (router) {
         ],
         signatureMode: signerTwoSignatureMode,
         acceptEachField: signerTwoAcceptEachField,
-        signerType: signerTwoType,
-        redirectURL: signerTwoRedirectURL,
+        signerType: useSignerType,
+        redirectURL,
         enableEmails: signerTwoEnableEmails,
-      })
+      }
+      // Add a second signer to list of signers
+      variables.signers.push(signerTwo)
+
+      // Add second signer PDF fill data
       variables.data.payloads.fileUploadNDA.data.recipientName = signerTwoName
       variables.data.payloads.fileUploadNDA.data.recipientEmail = signerTwoEmail
       variables.data.payloads.fileUploadNDA.data.name2 = signerTwoName
@@ -121,12 +122,12 @@ function buildRoutes (router) {
   // option. After they are done signing, the signer will be directed to the
   // specified URL by the browser. This route is set as both signers'
   // redirectURL.
-  router.get('/packet/finish', async (req, res) => {
+  router.get('/api/packet/finish', async (req, res) => {
     logRouteInfo('Signer finished! Query params supplied to redirectURL')
     logJSON(qs.parse(req.query))
 
-    const baseURL = `http://localhost:3001/packet/${req.query.etchPacketEid}`
-    const baseURLWithQueryString = buildURL(baseURL, req.query)
+    const basePacketURL = `${uiBaseURL}/packet/${req.query.etchPacketEid}`
+    const baseURLWithQueryString = buildURL(basePacketURL, req.query)
     return res.redirect(baseURLWithQueryString)
   })
 
