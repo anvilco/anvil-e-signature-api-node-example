@@ -15,31 +15,26 @@ const client = new Anvil({ apiKey, baseURL })
 function buildRoutes (router) {
   router.post('/api/packet/create', async (req, res) => {
     // Collect user information and preferences submitted from form
-    let {
+    const {
       packetName = 'Sample Signature Packet',
 
       signerOneName,
       signerOneEmail,
-      signerOneType = 'embedded',
-      signerOneRedirectURL = `${baseURL}/api/packet/finish`, // see the /api/packet/finish route below
       signerOneSignatureMode = 'draw',
       signerOneAcceptEachField = true,
       signerOneEnableEmails = false,
 
       signerTwoName,
       signerTwoEmail,
-      signerTwoType = 'embedded',
-      signerTwoRedirectURL = `${baseURL}/api/packet/finish`, // see the /api/packet/finish route below
       signerTwoSignatureMode = 'draw',
       signerTwoAcceptEachField = true,
       signerTwoEnableEmails = false,
     } = req.body
 
     // Modify signer type config depending on query params
-    if (req.query.type === 'email') {
-      signerOneType = 'email'
-      signerTwoType = 'email'
-    }
+    const useSignerType = req.query.type === 'email'
+      ? 'email'
+      : 'embedded'
 
     // Use the predefined createEtchPacket config variables for filling
     const variables = cloneDeep(createEtchPacketVars)
@@ -53,8 +48,7 @@ function buildRoutes (router) {
     variables.signers[0].email = signerOneEmail
     variables.signers[0].signatureMode = signerOneSignatureMode
     variables.signers[0].acceptEachField = signerOneAcceptEachField
-    variables.signers[0].signerType = signerOneType
-    variables.signers[0].redirectURL = signerOneRedirectURL
+    variables.signers[0].signerType = useSignerType
     variables.signers[0].enableEmails = signerOneEnableEmails
     variables.data.payloads.templatePdfIrsW4.data.name = signerOneName
     variables.data.payloads.fileUploadNDA.data.disclosingPartyName = signerOneName
@@ -83,9 +77,9 @@ function buildRoutes (router) {
         ],
         signatureMode: signerTwoSignatureMode,
         acceptEachField: signerTwoAcceptEachField,
-        signerType: signerTwoType,
-        redirectURL: signerTwoRedirectURL,
+        signerType: useSignerType,
         enableEmails: signerTwoEnableEmails,
+        // redirectURL, TODO: plz define this from the apiVariables
       })
       variables.data.payloads.fileUploadNDA.data.recipientName = signerTwoName
       variables.data.payloads.fileUploadNDA.data.recipientEmail = signerTwoEmail
