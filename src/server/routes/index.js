@@ -1,10 +1,9 @@
 const qs = require('qs')
 const cloneDeep = require('lodash.clonedeep')
 const Anvil = require('@anvilco/anvil')
-const { createEtchPacketVars } = require('../apiVariables')
+const { createEtchPacketVars, redirectURL } = require('../apiVariables')
 const {
   apiKey,
-  apiBaseURL,
   anvilBaseURL: baseURL,
   uiBaseURL,
 } = require('../../config')
@@ -81,7 +80,7 @@ function buildRoutes (router) {
         signatureMode: signerTwoSignatureMode,
         acceptEachField: signerTwoAcceptEachField,
         signerType: useSignerType,
-        redirectURL: `${apiBaseURL}/api/packet/finish`,
+        redirectURL,
         enableEmails: signerTwoEnableEmails,
       }
       // Add a second signer to list of signers
