@@ -9,8 +9,8 @@
   "scripts": {
     "build": "webpack --mode production",
     "start": "node src/server/index.js",
-    "client": "webpack-dev-server --mode development --devtool inline-source-map --hot --port 3001",
-    "server": "PORT=8080 nodemon src/server/index.js",
+    "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
+    "server": "nodemon src/server/index.js",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
     "lint": "yarn eslint 'src/**/*.js' 'test/**/*.js'",
     "test:server": "NODE_ENV=test ANVIL_API_KEY=test mocha 'test/server/**/*.test.js' --require test/server/environment.js",
