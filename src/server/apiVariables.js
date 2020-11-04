@@ -19,7 +19,7 @@ module.exports = {
         // This is a file we will upload and specify the fields ourselves
         id: 'fileUploadNDA',
         title: 'Anvil Demo NDA',
-        file: undefined,
+        file: undefined, // File is defined in the '/api/packet/create' route (server/routes/index.js line 44)
         fields: getUploadedFileFields(),
       },
       {
@@ -117,12 +117,9 @@ module.exports = {
             effectiveDate: getTodayISO(),
             disclosingPartyName: 'Sally Signer',
             disclosingPartyEmail: 'Sally@example.com',
-            recipientName: undefined,
-            recipientEmail: undefined,
             purposeOfBusiness: 'DEMO!!',
             placeOfGovernance: 'The Land',
             name1: 'Sally Signer',
-            name2: undefined,
           },
         },
       },

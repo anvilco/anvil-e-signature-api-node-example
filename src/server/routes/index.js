@@ -4,6 +4,7 @@ const Anvil = require('@anvilco/anvil')
 const { createEtchPacketVars } = require('../apiVariables')
 const {
   apiKey,
+  apiBaseURL,
   anvilBaseURL: baseURL,
   uiBaseURL,
 } = require('../../config')
@@ -16,19 +17,19 @@ function buildRoutes (router) {
   router.post('/api/packet/create', async (req, res) => {
     // Collect user information and preferences submitted from form
     const {
-      packetName = 'Sample Signature Packet',
+      packetName,
 
       signerOneName,
       signerOneEmail,
-      signerOneSignatureMode = 'draw',
-      signerOneAcceptEachField = true,
-      signerOneEnableEmails = false,
+      signerOneSignatureMode,
+      signerOneAcceptEachField,
+      signerOneEnableEmails,
 
       signerTwoName,
       signerTwoEmail,
-      signerTwoSignatureMode = 'draw',
-      signerTwoAcceptEachField = true,
-      signerTwoEnableEmails = false,
+      signerTwoSignatureMode,
+      signerTwoAcceptEachField,
+      signerTwoEnableEmails,
     } = req.body
 
     // Modify signer type config depending on query params
@@ -42,7 +43,7 @@ function buildRoutes (router) {
     // Prepare NDA PDF to be used as file 1 in signature packet
     variables.files[0].file = Anvil.prepareGraphQLFile('src/server/static/test-pdf-nda.pdf')
 
-    // Update config variables to use fields submitted from form
+    // Use request body fields to update signer 1
     variables.signatureEmailSubject = packetName
     variables.signers[0].name = signerOneName
     variables.signers[0].email = signerOneEmail
@@ -50,14 +51,16 @@ function buildRoutes (router) {
     variables.signers[0].acceptEachField = signerOneAcceptEachField
     variables.signers[0].signerType = useSignerType
     variables.signers[0].enableEmails = signerOneEnableEmails
+
+    // Use request body fields to update PDF fill data
     variables.data.payloads.templatePdfIrsW4.data.name = signerOneName
     variables.data.payloads.fileUploadNDA.data.disclosingPartyName = signerOneName
     variables.data.payloads.fileUploadNDA.data.disclosingPartyEmail = signerOneEmail
     variables.data.payloads.fileUploadNDA.data.name1 = signerOneName
 
-    // Add second signer if signer two info is inputted
-    if (signerTwoName && signerTwoEmail) {
-      variables.signers.push({
+    // Add a second signer if signer two info is found in request body
+    if (signerTwoName) {
+      const signerTwo = {
         id: 'signer2',
         name: signerTwoName,
         email: signerTwoEmail,
@@ -78,9 +81,13 @@ function buildRoutes (router) {
         signatureMode: signerTwoSignatureMode,
         acceptEachField: signerTwoAcceptEachField,
         signerType: useSignerType,
+        redirectURL: `${apiBaseURL}/api/packet/finish`,
         enableEmails: signerTwoEnableEmails,
-        // redirectURL, TODO: plz define this from the apiVariables
-      })
+      }
+      // Add a second signer to list of signers
+      variables.signers.push(signerTwo)
+
+      // Add second signer PDF fill data
       variables.data.payloads.fileUploadNDA.data.recipientName = signerTwoName
       variables.data.payloads.fileUploadNDA.data.recipientEmail = signerTwoEmail
       variables.data.payloads.fileUploadNDA.data.name2 = signerTwoName
