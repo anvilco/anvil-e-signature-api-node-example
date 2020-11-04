@@ -3,3 +3,6 @@ runtime: nodejs12
 env_variables:
   # This is templated so you can replace prior to a deploy
   ANVIL_API_KEY: {{apiKey}}
+  ANVIL_BASE_URL: 'https://app.useanvil.com'
+  UI_BASE_URL: 'https://esign-demo.useanvil.com'
+  API_BASE_URL: 'https://esign-demo.useanvil.com'
