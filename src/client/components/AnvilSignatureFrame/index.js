@@ -1,4 +1,4 @@
-/* global apiBaseURL */
+/* global anvilBaseURL */
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 
@@ -10,7 +10,7 @@ function AnvilSignatureFrame ({ signURL, isOpen, onClose, onFinish, width, heigh
   useEffect(() => {
     if (isOpen) {
       window.addEventListener('message', ({ origin, data: url }) => {
-        if (origin !== apiBaseURL) return
+        if (origin !== anvilBaseURL) return
         onFinish(url)
       })
     }
