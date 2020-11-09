@@ -42,7 +42,7 @@ export const DeleteIcon = styled(IconDelete)`
 `
 
 export const Iframe = styled.iframe`
-  border-style: none;
+  border-style: groove;
 `
 
 export const Docs = styled.p`

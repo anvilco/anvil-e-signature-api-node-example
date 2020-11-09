@@ -18,7 +18,6 @@ const PacketDetailsPage = () => {
   const [generateURLResponse, setGenerateURLResponse] = useState(undefined)
   const [nextSignerNum, setNextSignerNum] = useState(1)
   const [signURL, setSignURL] = useState(undefined)
-  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
     async function fetchData () {
@@ -69,7 +68,6 @@ const PacketDetailsPage = () => {
 
   const handleSignIFrameClick = async () => {
     setSignURL(await generateSignURL())
-    setIsModalOpen(true)
   }
 
   const handlePacketDownload = () => {
@@ -257,8 +255,7 @@ const PacketDetailsPage = () => {
       return (
         <AnvilSignatureFrame
           signURL={`${signURL}&withinIframe=true`}
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
+          width={560}
         />
       )
     }

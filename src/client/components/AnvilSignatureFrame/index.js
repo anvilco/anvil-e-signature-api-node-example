@@ -1,58 +1,49 @@
-/* global anvilBaseURL */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 
-import { DeleteIcon, Docs, Iframe, ModalBackdrop, ModalContainer, Spinner } from './styled'
+import { Docs, Iframe } from './styled'
 
-function AnvilSignatureFrame ({ signURL, isOpen, onClose, onFinish, width, height }) {
-  const [loading, setLoading] = useState(true)
+const ANVIL_URLS = ['http://app.useanvil.com', 'http://localhost:3000']
+
+function AnvilSignatureFrame ({ signURL, scroll, onLoad, onFinish, width, height }) {
+  const myRef = useRef(null)
 
   useEffect(() => {
-    if (isOpen) {
-      window.addEventListener('message', ({ origin, data: url }) => {
-        if (origin !== anvilBaseURL) return
-        onFinish(url)
-      })
-    }
-  }, [isOpen])
+    window.addEventListener('message', ({ origin, data: url }) => {
+      if (!ANVIL_URLS.includes(origin)) return
+      onFinish(url)
+    })
+    if (scroll) myRef.current.scrollIntoView({ behavior: scroll })
+  }, [])
 
-  if (!isOpen) return null
   return (
-    <>
-      <ModalContainer id="signatureModalContainer">
-        {loading && <Spinner id="signatureModalSpinner" />}
-        <DeleteIcon
-          id="signatureModalClose"
-          style={{ position: 'fixed', top: '10px', right: '10px' }}
-          onClick={() => onClose()}
-        />
-        <Iframe
-          id="signatureFrame"
-          src={signURL}
-          name="Anvil E-Signatures"
-          title="Anvil E-Signatures"
-          width={width}
-          height={height}
-          onLoad={() => setLoading(false)}
-        >
-          <Docs>Your browser does not support iframes.</Docs>
-        </Iframe>
-      </ModalContainer>
-      <ModalBackdrop id="signatureModalBackdrop" />
-    </>
+    <Iframe
+      id="signatureFrame"
+      src={signURL}
+      name="Anvil E-Signatures"
+      title="Anvil E-Signatures"
+      width={width}
+      height={height}
+      onLoad={onLoad}
+      ref={myRef}
+    >
+      <Docs>Your browser does not support iframes.</Docs>
+    </Iframe>
   )
 }
 
 AnvilSignatureFrame.defaultProps = {
-  isOpen: false,
+  scroll: 'auto',
+  onFinish: (url) => window.location.assign(url),
   width: 900,
   height: 1100,
-  onFinish: (url) => window.location.assign(url),
 }
 
 AnvilSignatureFrame.propTypes = {
   signURL: PropTypes.string.isRequired,
-  isOpen: PropTypes.bool,
+  scroll: PropTypes.string,
+  onLoad: PropTypes.func,
+  onFinish: PropTypes.func,
   width: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
@@ -61,8 +52,6 @@ AnvilSignatureFrame.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
-  onClose: PropTypes.func.isRequired,
-  onFinish: PropTypes.func,
 }
 
 export default AnvilSignatureFrame
