@@ -5,7 +5,7 @@ const { createEtchPacketVars, redirectURL } = require('../apiVariables')
 const {
   apiKey,
   anvilBaseURL: baseURL,
-  uiBaseURL,
+  apiBaseURL,
 } = require('../../config')
 const { buildURL, handleClientErrors, logInfo } = require('../helpers')
 
@@ -126,7 +126,7 @@ function buildRoutes (router) {
     logRouteInfo('Signer finished! Query params supplied to redirectURL')
     logJSON(qs.parse(req.query))
 
-    const basePacketURL = `${uiBaseURL}/packet/${req.query.etchPacketEid}`
+    const basePacketURL = `${apiBaseURL}/packet/${req.query.etchPacketEid}`
     const baseURLWithQueryString = buildURL(basePacketURL, req.query)
     return res.redirect(baseURLWithQueryString)
   })

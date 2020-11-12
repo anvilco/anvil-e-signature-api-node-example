@@ -4,7 +4,7 @@ const express = require('express')
 const fallback = require('express-history-api-fallback')
 const appModulePath = require('app-module-path')
 const { logError } = require('./helpers')
-const { apiKey, port: PORT } = require('../config')
+const { apiKey, port: PORT, environment } = require('../config')
 
 appModulePath.addPath(path.join(__dirname, '..', '..', 'src'))
 
@@ -26,7 +26,7 @@ app.use(routes(router))
 app.use(express.static('dist'))
 app.use(fallback('index.html', { root: path.join(__dirname, '../../dist') }))
 
-if (!apiKey && process.env.NODE_ENV !== 'test') {
+if (!apiKey && environment !== 'test') {
   logError('ANVIL_API_KEY has not been defined. See .env.example at the root of the project')
 }
 
