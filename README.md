@@ -49,7 +49,7 @@ yarn install # Get all the deps
 yarn dev     # Start the server and client in dev mode
 ```
 
-Visit http://localhost:3001
+Visit http://localhost:8080
 
 Watch the server logs. The logs will show pertinent JSON payloads being sent & received via the API.
 

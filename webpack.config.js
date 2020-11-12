@@ -12,6 +12,7 @@ const {
 const outputDirectory = 'dist'
 
 module.exports = {
+  mode: environment,
   entry: ['@babel/polyfill', './src/client/index.js'],
   output: {
     path: path.join(__dirname, outputDirectory),
@@ -48,6 +49,7 @@ module.exports = {
     port: devServerPort,
     open: false,
     historyApiFallback: true,
+    writeToDisk: true,
     proxy: {
       '/api': apiBaseURL,
     },
