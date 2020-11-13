@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { Docs, Iframe } from './styled'
 
-const ANVIL_URLS = ['http://app.useanvil.com', 'http://localhost:3000']
+const ANVIL_URLS = ['https://app.useanvil.com', 'https://staging.useanvil.com', 'http://localhost:3000']
 
 function AnvilSignatureFrame ({ signURL, scroll, onLoad, onFinish, width, height }) {
   const myRef = useRef(null)

@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@anvilco/anvil": "^2.4.0",
+    "@anvilco/react-signature-frame": "^1.3.0",
     "@babel/polyfill": "^7.11.5",
     "app-module-path": "^2.2.0",
     "dotenv": "^8.2.0",
