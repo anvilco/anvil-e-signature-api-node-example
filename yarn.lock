@@ -13,6 +13,16 @@
     limiter "^1.1.5"
     node-fetch "^2.6.0"
 
+"@anvilco/react-signature-frame@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@anvilco/react-signature-frame/-/react-signature-frame-1.4.0.tgz#5b1d590341f81029492941ede3c8aef92aef94f8"
+  integrity sha512-SfJ7zEkz1vKrFRwFLEfm+6+pXVUBhPY/2pfDLUeGxHQZI1ROM6FUaEqQg5elEdCeDc+93rGSYQ4FcYOeOr1fOA==
+
+"@anvilco/react-signature-modal@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@anvilco/react-signature-modal/-/react-signature-modal-1.4.0.tgz#ce6964e8c59abbd7956a0ca706c9315c2d23c95d"
+  integrity sha512-Si+K7TsmboD1FMRdBk9OwoEfwCTfp72cOY9oaWQty1WnB4jio0aguAvljLkMXq/s55LidY4XsdwTyCI044is6A==
+
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4":
   version "7.10.4"
   resolved "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.10.4.tgz#168da1a36e90da68ae8d49c0f1b48c7c6249213a"

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import AnvilSignatureFrame from 'components/AnvilSignatureFrame'
-import AnvilSignatureModal from 'components/AnvilSignatureModal'
+import AnvilSignatureFrame from '@anvilco/react-signature-frame'
+import '@anvilco/react-signature-frame/lib/styles.css'
+import AnvilSignatureModal from '@anvilco/react-signature-modal'
+import '@anvilco/react-signature-modal/lib/styles.css'
 import Button from 'components/Button'
 import Content from 'components/Content'
 import Spinner from 'components/Spinner'
