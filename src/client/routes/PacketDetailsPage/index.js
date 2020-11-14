@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import AnvilSignatureFrame from '@anvilco/react-signature-frame'
+import AnvilSignatureFrame from 'components/AnvilSignatureFrame'
+import AnvilSignatureModal from 'components/AnvilSignatureModal'
 import Button from 'components/Button'
 import Content from 'components/Content'
 import Spinner from 'components/Spinner'
@@ -18,6 +19,8 @@ const PacketDetailsPage = () => {
   const [generateURLResponse, setGenerateURLResponse] = useState(undefined)
   const [nextSignerNum, setNextSignerNum] = useState(1)
   const [signURL, setSignURL] = useState(undefined)
+  const [isSignFrameOpen, setIsSignFrameOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
     async function fetchData () {
@@ -66,8 +69,16 @@ const PacketDetailsPage = () => {
     if (signURL) window.location.assign(signURL)
   }
 
-  const handleSignIFrameClick = async () => {
-    setSignURL(await generateSignURL())
+  const handleOpenSignFrame = async () => {
+    const signURL = await generateSignURL() + '&withinIframe=true'
+    setSignURL(signURL)
+    setIsSignFrameOpen(!isSignFrameOpen)
+  }
+
+  const handleOpenSignModal = async () => {
+    const signURL = await generateSignURL() + '&withinIframe=true'
+    setSignURL(signURL)
+    setIsModalOpen(true)
   }
 
   const handlePacketDownload = () => {
@@ -221,13 +232,19 @@ const PacketDetailsPage = () => {
               type="cta"
               onClick={async () => handleSignButtonClick()}
             >
-              Sign Now as Signer {nextSignerNum}
+              Go to Signing Page
             </Button>
             <Button
               type="orange"
-              onClick={async () => handleSignIFrameClick()}
+              onClick={async () => handleOpenSignFrame()}
             >
-              Alternatively, sign with Anvil E-Sign Frame
+              {isSignFrameOpen ? 'Close' : 'Open'} Signing Frame
+            </Button>
+            <Button
+              type="blue"
+              onClick={async () => handleOpenSignModal()}
+            >
+              Open Signing Modal
             </Button>
           </Flex>
           <Response color="failure">{generateURLResponse}</Response>
@@ -250,23 +267,33 @@ const PacketDetailsPage = () => {
     )
   }
 
-  const renderIframeModal = () => {
-    if (signURL) {
+  const renderSignFrame = () => {
+    if (isSignFrameOpen) {
       return (
         <AnvilSignatureFrame
-          signURL={`${signURL}&withinIframe=true`}
+          signURL={signURL}
+          scroll="smooth"
           width={560}
         />
       )
     }
   }
 
+  const renderSignModal = () => (
+    <AnvilSignatureModal
+      signURL={signURL}
+      isOpen={isModalOpen}
+      onClose={() => setIsModalOpen(false)}
+    />
+  )
+
   return (
     <>
       {renderHeader()}
       {renderQueryParamData()}
       {renderDetailsAndAction()}
-      {renderIframeModal()}
+      {renderSignFrame()}
+      {renderSignModal()}
       <StyledLink size="small" to="/">Back to index</StyledLink>
     </>
   )

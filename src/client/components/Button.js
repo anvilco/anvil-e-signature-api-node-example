@@ -53,10 +53,10 @@ const buttonStyles = ({ size, type, toolbar, colorDisabled }) => `
   font-size: ${theme.fontSizes[40]}px;
   border-color: transparent !important;
 
-  ${buttonVariantSolid({
+  ${type === 'blue' && buttonVariantSolid({
     color: 'white',
-    background: theme.colors.blacks[50],
-    backgroundHover: theme.colors.blacks[40],
+    background: theme.colors.blues[70],
+    backgroundHover: theme.colors.blues[60],
   })};
 
   ${type === 'cta' && buttonVariantSolid({
@@ -195,7 +195,7 @@ Button.defaultProps = {
 
 Button.propTypes = {
   isSubmit: PropTypes.bool,
-  type: PropTypes.oneOf(['button', 'primary', 'default', 'cta', 'danger', 'black', 'orange']),
+  type: PropTypes.oneOf(['button', 'primary', 'default', 'cta', 'danger', 'black', 'orange', 'blue']),
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
 }
