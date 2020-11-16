@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import './index.css'
+import ReactModal from 'react-modal'
 import DeleteIcon from './components/DeleteIcon'
+import './index.css'
+
+ReactModal.setAppElement('#root')
 
 const ANVIL_URLS = ['https://app.useanvil.com', 'https://staging.useanvil.com', 'http://localhost:3000']
 
-function AnvilSignatureModal ({ signURL, isOpen, onClose, onLoad, onFinish, width, height }) {
+function AnvilSignatureModal ({ signURL, isOpen, onClose, onLoad, onFinish }) {
   useEffect(() => {
     function handleSignFinish ({ origin, data: url }) {
       if (!ANVIL_URLS.includes(origin)) return
@@ -17,37 +20,42 @@ function AnvilSignatureModal ({ signURL, isOpen, onClose, onLoad, onFinish, widt
     }
   }, [isOpen])
 
-  if (!isOpen) return null
   return (
-    <>
-      <div className="modalContainer">
-        {onClose &&
-          <DeleteIcon
-            className="deleteIcon"
-            onClick={() => onClose()}
-          />}
-        <iframe
-          id="signatureFrame"
-          src={signURL}
-          name="Anvil E-Signatures"
-          title="Anvil E-Signatures"
-          width={width}
-          height={height}
-          onLoad={onLoad}
-        >
-          <p className="docs">Your browser does not support iframes.</p>
-        </iframe>
-      </div>
-      <div className="modalBackdrop" />
-    </>
+    <ReactModal
+      isOpen={isOpen}
+      ariaHideApp
+      shouldFocusAfterRender
+      shouldCloseOnEsc
+      shouldReturnFocusAfterClose
+      role="e-sign"
+      contentLabel="Anvil Signature Modal"
+      className="anvil-modal"
+      overlayClassName="anvil-overlay"
+      portalClassName="anvil-modalPortal"
+      bodyOpenClassName="anvil-signaturePageBody"
+      htmlOpenClassName="anvil-signaturePageHTML"
+    >
+      <iframe
+        id="anvil-signatureModal"
+        src={signURL}
+        name="Anvil E-Signatures"
+        title="Anvil E-Signatures"
+        onLoad={onLoad}
+      >
+        <p className="anvil-docs">Your browser does not support iframes.</p>
+      </iframe>
+      {onClose &&
+        <DeleteIcon
+          className="anvil-deleteIcon"
+          onClick={() => onClose()}
+        />}
+    </ReactModal>
   )
 }
 
 AnvilSignatureModal.defaultProps = {
   isOpen: false,
   onFinish: (url) => window.location.assign(url),
-  width: 900,
-  height: 1100,
 }
 
 AnvilSignatureModal.propTypes = {
@@ -56,14 +64,6 @@ AnvilSignatureModal.propTypes = {
   onClose: PropTypes.func,
   onLoad: PropTypes.func,
   onFinish: PropTypes.func,
-  width: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
-  height: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
 }
 
 export default AnvilSignatureModal

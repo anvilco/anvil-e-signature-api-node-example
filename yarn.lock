@@ -13,15 +13,15 @@
     limiter "^1.1.5"
     node-fetch "^2.6.0"
 
-"@anvilco/react-signature-frame@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@anvilco/react-signature-frame/-/react-signature-frame-1.4.0.tgz#5b1d590341f81029492941ede3c8aef92aef94f8"
-  integrity sha512-SfJ7zEkz1vKrFRwFLEfm+6+pXVUBhPY/2pfDLUeGxHQZI1ROM6FUaEqQg5elEdCeDc+93rGSYQ4FcYOeOr1fOA==
+"@anvilco/react-signature-frame@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@anvilco/react-signature-frame/-/react-signature-frame-1.4.2.tgz#7607d64f76d967d439c792175966be83caaf1709"
+  integrity sha512-4YRPgEUhrrYS/3bk+P5TabeSgWQAq35WX3G6U2md+wBz8oBEvcui5XpUrc3vfvPtVxAfiH7u36+ZxuWsWrYopQ==
 
-"@anvilco/react-signature-modal@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@anvilco/react-signature-modal/-/react-signature-modal-1.4.0.tgz#ce6964e8c59abbd7956a0ca706c9315c2d23c95d"
-  integrity sha512-Si+K7TsmboD1FMRdBk9OwoEfwCTfp72cOY9oaWQty1WnB4jio0aguAvljLkMXq/s55LidY4XsdwTyCI044is6A==
+"@anvilco/react-signature-modal@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@anvilco/react-signature-modal/-/react-signature-modal-1.4.2.tgz#52d2cc2121befd2a72f39caeb849f42bef35c48d"
+  integrity sha512-OAxaxWZKKeS2kB8Rx7tkyMsQ096f5/Y7d7NxckgM3gumgP8jhC4r+rac2P/Qz6kyNNfUXXa2s7en7D/rLL/KhQ==
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4":
   version "7.10.4"
@@ -3419,6 +3419,11 @@ execa@^1.0.0:
     signal-exit "^3.0.0"
     strip-eof "^1.0.0"
 
+exenv@^1.2.0:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/exenv/-/exenv-1.2.2.tgz#2ae78e85d9894158670b03d47bec1f03bd91bb9d"
+  integrity sha1-KueOhdmJQVhnCwPUe+wfA72Ru50=
+
 expand-brackets@^2.1.4:
   version "2.1.4"
   resolved "https://registry.npmjs.org/expand-brackets/-/expand-brackets-2.1.4.tgz#b77735e315ce30f6b6eff0f83b04151a22449622"
@@ -6191,7 +6196,7 @@ prop-types-exact@^1.2.0:
     object.assign "^4.1.0"
     reflect.ownkeys "^0.2.0"
 
-prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.5.10, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -6391,6 +6396,21 @@ react-is@^17.0.1:
   version "17.0.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.1.tgz#5b3531bd76a645a4c9fb6e693ed36419e3301339"
   integrity sha512-NAnt2iGDXohE5LI7uBnLnqvLQMtzhkiAOLXTmv+qnF9Ky7xAPcX8Up/xWIhxvLVGJvuLiNc4xQLtuqDRzb4fSA==
+
+react-lifecycles-compat@^3.0.0:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
+  integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
+
+react-modal@^3.11.2:
+  version "3.11.2"
+  resolved "https://registry.yarnpkg.com/react-modal/-/react-modal-3.11.2.tgz#bad911976d4add31aa30dba8a41d11e21c4ac8a4"
+  integrity sha512-o8gvvCOFaG1T7W6JUvsYjRjMVToLZgLIsi5kdhFIQCtHxDkA47LznX62j+l6YQkpXDbvQegsDyxe/+JJsFQN7w==
+  dependencies:
+    exenv "^1.2.0"
+    prop-types "^15.5.10"
+    react-lifecycles-compat "^3.0.0"
+    warning "^4.0.3"
 
 react-router-dom@^5.2.0:
   version "5.2.0"
@@ -7975,6 +7995,13 @@ w3c-xmlserializer@^2.0.0:
   integrity sha512-4tzD0mF8iSiMiNs30BiLO3EpfGLZUT2MSX/G+o7ZywDzliWQ3OPtTZ0PTC3B3ca1UAf4cJMHB+2Bf56EriJuRA==
   dependencies:
     xml-name-validator "^3.0.0"
+
+warning@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/warning/-/warning-4.0.3.tgz#16e9e077eb8a86d6af7d64aa1e05fd85b4678ca3"
+  integrity sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==
+  dependencies:
+    loose-envify "^1.0.0"
 
 watchpack-chokidar2@^2.0.0:
   version "2.0.0"

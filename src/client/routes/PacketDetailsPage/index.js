@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import AnvilSignatureFrame from '@anvilco/react-signature-frame'
-import '@anvilco/react-signature-frame/lib/styles.css'
+import '@anvilco/react-signature-frame/dist/styles.css'
 import AnvilSignatureModal from '@anvilco/react-signature-modal'
-import '@anvilco/react-signature-modal/lib/styles.css'
+import '@anvilco/react-signature-modal/dist/styles.css'
+
 import Button from 'components/Button'
 import Content from 'components/Content'
 import Spinner from 'components/Spinner'
@@ -233,18 +234,21 @@ const PacketDetailsPage = () => {
             <Button
               type="cta"
               onClick={async () => handleSignButtonClick()}
+              style={{ marginRight: '5px' }}
             >
               Go to Signing Page
             </Button>
             <Button
               type="orange"
               onClick={async () => handleOpenSignFrame()}
+              style={{ marginLeft: '5px', marginRight: '5px' }}
             >
               {isSignFrameOpen ? 'Close' : 'Open'} Signing Frame
             </Button>
             <Button
               type="blue"
               onClick={async () => handleOpenSignModal()}
+              style={{ marginLeft: '5px' }}
             >
               Open Signing Modal
             </Button>
@@ -272,11 +276,12 @@ const PacketDetailsPage = () => {
   const renderSignFrame = () => {
     if (isSignFrameOpen) {
       return (
-        <AnvilSignatureFrame
-          signURL={signURL}
-          scroll="smooth"
-          width={560}
-        />
+        <Flex spacing="center">
+          <AnvilSignatureFrame
+            signURL={signURL}
+            scroll="smooth"
+          />
+        </Flex>
       )
     }
   }

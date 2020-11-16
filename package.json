@@ -29,8 +29,8 @@
   },
   "dependencies": {
     "@anvilco/anvil": "^2.4.0",
-    "@anvilco/react-signature-frame": "^1.4.0",
-    "@anvilco/react-signature-modal": "^1.4.0",
+    "@anvilco/react-signature-frame": "^1.4.2",
+    "@anvilco/react-signature-modal": "^1.4.2",
     "@babel/polyfill": "^7.11.5",
     "app-module-path": "^2.2.0",
     "dotenv": "^8.2.0",
@@ -44,6 +44,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-is": "^17.0.1",
+    "react-modal": "^3.11.2",
     "react-router-dom": "^5.2.0",
     "styled-components": "^5.1.0"
   },

@@ -4,7 +4,7 @@ import './index.css'
 
 const ANVIL_URLS = ['https://app.useanvil.com', 'https://staging.useanvil.com', 'http://localhost:3000']
 
-function AnvilSignatureFrame ({ signURL, scroll, onLoad, onFinish, width, height }) {
+function AnvilSignatureFrame ({ signURL, scroll, onLoad, onFinish }) {
   const iframeRef = useRef(null)
 
   useEffect(() => {
@@ -19,24 +19,20 @@ function AnvilSignatureFrame ({ signURL, scroll, onLoad, onFinish, width, height
 
   return (
     <iframe
-      id="signatureFrame"
+      id="anvil-signatureFrame"
       src={signURL}
       name="Anvil Etch E-Sign"
       title="Anvil Etch E-Sign"
-      width={width}
-      height={height}
       onLoad={onLoad}
       ref={iframeRef}
     >
-      <p className="docs">Your browser does not support iframes.</p>
+      <p className="anvil-docs">Your browser does not support iframes.</p>
     </iframe>
   )
 }
 
 AnvilSignatureFrame.defaultProps = {
   onFinish: (url) => window.location.assign(url),
-  width: 900,
-  height: 1100,
 }
 
 AnvilSignatureFrame.propTypes = {
@@ -44,14 +40,6 @@ AnvilSignatureFrame.propTypes = {
   scroll: PropTypes.string,
   onLoad: PropTypes.func,
   onFinish: PropTypes.func,
-  width: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
-  height: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
 }
 
 export default AnvilSignatureFrame
