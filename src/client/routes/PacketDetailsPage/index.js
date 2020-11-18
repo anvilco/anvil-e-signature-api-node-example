@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import AnvilSignatureFrame from '@anvilco/react-signature-frame'
-import '@anvilco/react-signature-frame/dist/styles.css'
 import AnvilSignatureModal from '@anvilco/react-signature-modal'
-import '@anvilco/react-signature-modal/dist/styles.css'
 
 import Button from 'components/Button'
 import Content from 'components/Content'
@@ -280,6 +278,7 @@ const PacketDetailsPage = () => {
           <AnvilSignatureFrame
             signURL={signURL}
             scroll="smooth"
+            anvilURL={anvilBaseURL}
           />
         </Flex>
       )
@@ -291,6 +290,7 @@ const PacketDetailsPage = () => {
       signURL={signURL}
       isOpen={isModalOpen}
       onClose={() => setIsModalOpen(false)}
+      anvilURL={anvilBaseURL}
     />
   )
 
