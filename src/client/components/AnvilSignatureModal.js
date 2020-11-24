@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactModal from 'react-modal'
-import AnvilSignatureFrame from '../AnvilSignatureFrame'
-import DeleteIcon from './components/DeleteIcon'
-import './index.css'
+import AnvilSignatureFrame from './AnvilSignatureFrame'
+import IconClose from 'components/icons/IconClose'
 
 class AnvilSignatureModal extends React.Component {
   constructor (props) {
@@ -13,8 +12,8 @@ class AnvilSignatureModal extends React.Component {
 
   render () {
     const {
-      signURL, isOpen, onClose, onLoad, onFinish, anvilURL, showDeleteIcon,
-      anvilFrameProps, deleteIconProps, ...otherProps
+      signURL, isOpen, onClose, onLoad, onFinish, anvilURL, showIconClose,
+      anvilFrameProps, iconCloseProps, enableDefaultStyles, ...otherProps
     } = this.props
 
     return (
@@ -26,27 +25,58 @@ class AnvilSignatureModal extends React.Component {
         shouldCloseOnOverlayClick
         role="e-sign"
         contentLabel="Anvil Signature Modal"
-        className="anvil-modal"
-        overlayClassName="anvil-overlay"
         portalClassName="anvil-modal-portal"
         bodyOpenClassName="anvil-signature-page-body"
         htmlOpenClassName="anvil-signature-page-html"
+        style={enableDefaultStyles ? {
+          content: {
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            transform: 'translate(-50%, -50%)',
+            background: '#fbfbfb',
+            border: 'none',
+            outline: 'none',
+            padding: '0px',
+          },
+          overlay: {
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0, 0, 0, 0.3)',
+          },
+        } : undefined}
         {...otherProps}
         isOpen={isOpen}
         onRequestClose={onClose}
       >
         <AnvilSignatureFrame
+          style={enableDefaultStyles ? {
+            width: '80vw',
+            height: '85vh',
+            maxWidth: '1200px',
+            borderStyle: 'none',
+          } : undefined}
           {...anvilFrameProps}
-          style={null}
           signURL={signURL}
           onLoad={onLoad}
           onFinish={onFinish}
           anvilURL={anvilURL}
         />
-        {showDeleteIcon &&
-          <DeleteIcon
+        {showIconClose &&
+          <IconClose
             className="anvil-delete-icon"
-            {...deleteIconProps}
+            style={enableDefaultStyles ? {
+              cursor: 'pointer',
+              position: 'fixed',
+              top: '10px',
+              right: '10px',
+            } : undefined}
+            {...iconCloseProps}
             onClick={onClose}
           />}
       </ReactModal>
@@ -57,9 +87,10 @@ class AnvilSignatureModal extends React.Component {
 AnvilSignatureModal.defaultProps = {
   isOpen: false,
   modalAppElement: document.body,
-  showDeleteIcon: true,
+  showIconClose: true,
+  enableDefaultStyles: true,
   anvilFrameProps: { id: 'anvil-signature-modal' },
-  deleteIconProps: {},
+  iconCloseProps: {},
 }
 
 AnvilSignatureModal.propTypes = {
@@ -73,9 +104,10 @@ AnvilSignatureModal.propTypes = {
     PropTypes.instanceOf(Element),
   ]),
   anvilURL: PropTypes.string,
-  showDeleteIcon: PropTypes.bool,
+  showIconClose: PropTypes.bool,
+  enableDefaultStyles: PropTypes.bool,
   anvilFrameProps: PropTypes.object,
-  deleteIconProps: PropTypes.object,
+  iconCloseProps: PropTypes.object,
 }
 
 export default AnvilSignatureModal

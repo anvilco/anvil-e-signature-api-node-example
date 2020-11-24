@@ -23,13 +23,19 @@ class AnvilSignatureFrame extends React.Component {
   }
 
   render () {
-    const { signURL, onLoad, ...otherProps } = this.props
+    const { signURL, onLoad, enableDefaultStyles, ...otherProps } = this.props
     const { iframeWarningProps, ...anvilFrameProps } = otherProps
     return (
       <iframe
         id="anvil-signature-frame"
         name="Anvil Etch E-Sign"
         title="Anvil Etch E-Sign"
+        style={enableDefaultStyles ? {
+          width: '80vw',
+          height: '85vh',
+          maxWidth: '1200px',
+          borderStyle: 'groove',
+        } : undefined}
         {...anvilFrameProps}
         src={signURL}
         onLoad={onLoad}
@@ -45,13 +51,8 @@ AnvilSignatureFrame.defaultProps = {
   onFinish: (url) => {
     console.log('RedirectURL:', url)
   },
-  style: {
-    width: '80vw',
-    height: '85vh',
-    maxWidth: '1200px',
-    borderStyle: 'groove',
-  },
   anvilURL: 'https://app.useanvil.com',
+  enableDefaultStyles: true,
 }
 
 AnvilSignatureFrame.propTypes = {
@@ -60,6 +61,7 @@ AnvilSignatureFrame.propTypes = {
   onLoad: PropTypes.func,
   onFinish: PropTypes.func,
   anvilURL: PropTypes.string,
+  enableDefaultStyles: PropTypes.bool,
 }
 
 export default AnvilSignatureFrame
