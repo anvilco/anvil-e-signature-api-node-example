@@ -14,7 +14,7 @@ class AnvilSignatureModal extends React.Component {
   render () {
     const {
       signURL, isOpen, onClose, onLoad, onFinish, anvilURL, showDeleteIcon,
-      docsProps, AnvilFrameProps, deleteIconProps, ...otherProps
+      anvilFrameProps, deleteIconProps, ...otherProps
     } = this.props
 
     return (
@@ -36,12 +36,12 @@ class AnvilSignatureModal extends React.Component {
         onRequestClose={onClose}
       >
         <AnvilSignatureFrame
-          {...AnvilFrameProps}
+          {...anvilFrameProps}
+          style={null}
           signURL={signURL}
           onLoad={onLoad}
           onFinish={onFinish}
           anvilURL={anvilURL}
-          docsProps={docsProps}
         />
         {showDeleteIcon &&
           <DeleteIcon
@@ -56,23 +56,25 @@ class AnvilSignatureModal extends React.Component {
 
 AnvilSignatureModal.defaultProps = {
   isOpen: false,
-  modalAppElement: '#root',
+  modalAppElement: document.body,
   showDeleteIcon: true,
-  AnvilFrameProps: { id: 'anvil-signature-modal' },
+  anvilFrameProps: { id: 'anvil-signature-modal' },
   deleteIconProps: {},
 }
 
 AnvilSignatureModal.propTypes = {
-  signURL: PropTypes.string.isRequired,
+  signURL: PropTypes.string,
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
   onLoad: PropTypes.func,
   onFinish: PropTypes.func,
-  modalAppElement: PropTypes.string,
+  modalAppElement: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(Element),
+  ]),
   anvilURL: PropTypes.string,
   showDeleteIcon: PropTypes.bool,
-  docsProps: PropTypes.array,
-  AnvilFrameProps: PropTypes.object,
+  anvilFrameProps: PropTypes.object,
   deleteIconProps: PropTypes.object,
 }
 

@@ -27,20 +27,11 @@
 }
 
 .anvil-delete-icon {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  position: fixed;
-  top: 10px;
-  right: 10px;
-}
-.anvil-delete-icon :hover {
   cursor: pointer;
-  opacity: 0.75;
-}
-
-.anvil-docs {
-  margin: 10px 10px 10px 10px;
-  font-size: 14px;
-  color: #bbb;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  position: fixed;
+  top: 10px;
+  right: 10px;
 }

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import AnvilSignatureFrame from '@anvilco/react-signature-frame'
-import AnvilSignatureModal from '@anvilco/react-signature-modal'
+import AnvilSignatureFrame from 'components/AnvilSignatureFrame'
+import AnvilSignatureModal from 'components/AnvilSignatureModal'
 
 import Button from 'components/Button'
 import Content from 'components/Content'
@@ -87,6 +87,8 @@ const PacketDetailsPage = () => {
     const { eid: documentGroupEid } = documentGroup || {}
     window.location.assign(`/api/packet/download/${documentGroupEid}`)
   }
+
+  const handleSignFinish = (url) => window.location.assign(url)
 
   const renderHeader = () => {
     const redirectDescription = (
@@ -253,8 +255,7 @@ const PacketDetailsPage = () => {
           </Flex>
           <Response color="failure">{generateURLResponse}</Response>
           <Footer>
-            Your Anvil organization must have <code>allowFormEmbed</code> set to true to
-            embed a signing page within an iframe.
+            Please contact us at <DocsLink href="mailto:support@useanvil.com">support@useanvil.com</DocsLink> to enable iframe embedded signing for production signature packets.
           </Footer>
         </>
       )
@@ -278,6 +279,7 @@ const PacketDetailsPage = () => {
           <AnvilSignatureFrame
             signURL={signURL}
             scroll="smooth"
+            onFinish={handleSignFinish}
             anvilURL={anvilBaseURL}
           />
         </Flex>
@@ -290,6 +292,7 @@ const PacketDetailsPage = () => {
       signURL={signURL}
       isOpen={isModalOpen}
       onClose={() => setIsModalOpen(false)}
+      onFinish={handleSignFinish}
       anvilURL={anvilBaseURL}
     />
   )
