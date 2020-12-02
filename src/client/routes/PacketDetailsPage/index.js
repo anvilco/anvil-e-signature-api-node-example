@@ -92,12 +92,22 @@ const PacketDetailsPage = () => {
     console.log('RedirectURL:', url)
     setIsSignFrameOpen(false)
     setPacketDetails(await getEtchPacket())
+
+    // We don't need to trigger a redirect after iframe signing
+    // instead, send a GET request to retrieve the redirectURL query params
+    const response = await fetch(url)
+    setQueryStringData(parseQueryString(response.url))
   }
 
   const handleModalSignFinish = async (url) => {
     console.log('RedirectURL:', url)
     setIsModalOpen(false)
     setPacketDetails(await getEtchPacket())
+
+    // We don't need to trigger a redirect after modal signing
+    // instead, send a GET request to retrieve the redirectURL query params
+    const response = await fetch(url)
+    setQueryStringData(parseQueryString(response.url))
   }
 
   const renderHeader = () => {

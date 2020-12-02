@@ -22,8 +22,8 @@ export function createRequest ({ url, method, callback, myData }) {
   }
 }
 
-export function parseQueryString () {
-  const queryString = window.location.search.replace('?', '')
+export function parseQueryString (url) {
+  const queryString = url?.split('?')[1] || window.location.search.replace('?', '')
 
   const items = queryString.split('&')
   return items.reduce((data, item) => {
