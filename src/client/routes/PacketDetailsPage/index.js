@@ -52,7 +52,7 @@ const PacketDetailsPage = () => {
     url: '/api/packet/sign',
     myData: {
       clientUserId: packetDetails?.documentGroup?.signers[nextSignerNum - 1].aliasId,
-      signerEid: queryStringData?.nextSignerEid || packetDetails?.documentGroup?.signers[0].eid,
+      signerEid: packetDetails?.documentGroup?.signers[nextSignerNum - 1].eid,
     },
     callback: async (response) => {
       const responseText = await response.text()
@@ -71,13 +71,13 @@ const PacketDetailsPage = () => {
   }
 
   const handleOpenSignFrame = async () => {
-    const signURL = await generateSignURL() + '&withinIframe=true'
+    const signURL = await generateSignURL()
     setSignURL(signURL)
     setIsSignFrameOpen(!isSignFrameOpen)
   }
 
   const handleOpenSignModal = async () => {
-    const signURL = await generateSignURL() + '&withinIframe=true'
+    const signURL = await generateSignURL()
     setSignURL(signURL)
     setIsModalOpen(true)
   }
@@ -88,7 +88,17 @@ const PacketDetailsPage = () => {
     window.location.assign(`/api/packet/download/${documentGroupEid}`)
   }
 
-  const handleSignFinish = (url) => window.location.assign(url)
+  const handleIframeSignFinish = async (url) => {
+    console.log('RedirectURL:', url)
+    setIsSignFrameOpen(false)
+    setPacketDetails(await getEtchPacket())
+  }
+
+  const handleModalSignFinish = async (url) => {
+    console.log('RedirectURL:', url)
+    setIsModalOpen(false)
+    setPacketDetails(await getEtchPacket())
+  }
 
   const renderHeader = () => {
     const redirectDescription = (
@@ -279,7 +289,7 @@ const PacketDetailsPage = () => {
           <AnvilSignatureFrame
             signURL={signURL}
             scroll="smooth"
-            onFinish={handleSignFinish}
+            onFinish={handleIframeSignFinish}
             anvilURL={anvilBaseURL}
           />
         </Flex>
@@ -292,7 +302,7 @@ const PacketDetailsPage = () => {
       signURL={signURL}
       isOpen={isModalOpen}
       onClose={() => setIsModalOpen(false)}
-      onFinish={handleSignFinish}
+      onFinish={handleModalSignFinish}
       anvilURL={anvilBaseURL}
     />
   )
