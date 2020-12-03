@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 
 import AnvilSignatureFrame from '@anvilco/react-signature-frame'
 import AnvilSignatureModal from '@anvilco/react-signature-modal'
+import '@anvilco/react-signature-modal/dist/styles.css'
 
 import Button from 'components/Button'
 import Content from 'components/Content'

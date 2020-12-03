@@ -29,8 +29,8 @@
   },
   "dependencies": {
     "@anvilco/anvil": "^2.4.0",
-    "@anvilco/react-signature-frame": "^1.4.5",
-    "@anvilco/react-signature-modal": "^1.4.5",
+    "@anvilco/react-signature-frame": "^1.4.6",
+    "@anvilco/react-signature-modal": "^1.4.6",
     "@babel/polyfill": "^7.11.5",
     "app-module-path": "^2.2.0",
     "cors": "^2.8.5",
