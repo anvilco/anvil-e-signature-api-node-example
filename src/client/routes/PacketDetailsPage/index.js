@@ -89,25 +89,25 @@ const PacketDetailsPage = () => {
     window.location.assign(`/api/packet/download/${documentGroupEid}`)
   }
 
-  const handleIframeSignFinish = async (url) => {
-    console.log('RedirectURL:', url)
+  const handleIframeSignFinish = async (redirectURL) => {
+    console.log('RedirectURL:', redirectURL)
     setIsSignFrameOpen(false)
     setPacketDetails(await getEtchPacket())
 
     // We don't need to trigger a redirect after iframe signing
     // instead, send a GET request to retrieve the redirectURL query params
-    const response = await fetch(url)
+    const response = await fetch(redirectURL)
     setQueryStringData(parseQueryString(response.url))
   }
 
-  const handleModalSignFinish = async (url) => {
-    console.log('RedirectURL:', url)
+  const handleModalSignFinish = async (redirectURL) => {
+    console.log('RedirectURL:', redirectURL)
     setIsModalOpen(false)
     setPacketDetails(await getEtchPacket())
 
     // We don't need to trigger a redirect after modal signing
     // instead, send a GET request to retrieve the redirectURL query params
-    const response = await fetch(url)
+    const response = await fetch(redirectURL)
     setQueryStringData(parseQueryString(response.url))
   }
 
