@@ -25,8 +25,8 @@ class Form extends React.Component {
     const { onSubmit } = this.props
     const { values } = this.state
     this.setState({ isSubmitting: true })
-    await onSubmit(values)
-    this.setState({ isSubmitting: false })
+    const success = await onSubmit(values)
+    if (!success) this.setState({ isSubmitting: false })
   }
 
   handleChange = async (fieldName, value) => {

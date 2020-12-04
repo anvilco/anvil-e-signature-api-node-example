@@ -19,8 +19,10 @@ const CreatePacketTemplate = ({ title, description, packetType, PacketForm = Def
       const { statusCode, data, error } = JSON.parse(responseText)
       if (statusCode === 200 && data?.data?.createEtchPacket?.eid) {
         history.push(`/packet/${data.data.createEtchPacket.eid}`)
+        return true
       } else {
         setCreatePacketResponse(`Error: ${error?.message}`)
+        return false
       }
     },
   })
