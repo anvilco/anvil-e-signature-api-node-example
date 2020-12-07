@@ -69,3 +69,25 @@ export const Footer = styled.p`
   font-size: 14px;
   color: ${theme.textColors.subtle};
 `
+
+const handleSpacing = (spacing) => {
+  switch (spacing) {
+    case 'start':
+      return 'start'
+    case 'center':
+      return 'center'
+    case 'between':
+      return 'space-between'
+    case 'around':
+      return 'space-around'
+    case 'evenly':
+      return 'space-evenly'
+    default:
+      return 'space-between'
+  }
+}
+
+export const Flex = styled.div`
+  display: flex;
+  justify-content: ${({ spacing }) => handleSpacing(spacing)};
+`

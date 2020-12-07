@@ -39,8 +39,7 @@ class FormField extends React.Component {
   }
 }
 
-FormField.defaultProps = {
-}
+FormField.defaultProps = {}
 
 FormField.propTypes = {
   label: PropTypes.string,

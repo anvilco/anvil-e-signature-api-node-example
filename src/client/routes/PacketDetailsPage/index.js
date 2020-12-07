@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
+import AnvilSignatureFrame from '@anvilco/react-signature-frame'
+import AnvilSignatureModal from '@anvilco/react-signature-modal'
+import '@anvilco/react-signature-modal/dist/styles.css'
+
 import Button from 'components/Button'
 import Content from 'components/Content'
 import Spinner from 'components/Spinner'
 import DocsLink from 'components/DocsLink'
-import { Description, Response, StyledAnchor, StyledLink } from 'components/styled'
+import { Description, Response, StyledAnchor, StyledLink, Flex, Footer } from 'components/styled'
 import PageTitle from 'components/PageTitle'
 
 import { createRequest, parseQueryString, isDevelopment } from 'helpers'
@@ -16,6 +20,9 @@ const PacketDetailsPage = () => {
   const [queryStringData, setQueryStringData] = useState(undefined)
   const [generateURLResponse, setGenerateURLResponse] = useState(undefined)
   const [nextSignerNum, setNextSignerNum] = useState(1)
+  const [signURL, setSignURL] = useState(undefined)
+  const [isSignFrameOpen, setIsSignFrameOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
     async function fetchData () {
@@ -46,7 +53,7 @@ const PacketDetailsPage = () => {
     url: '/api/packet/sign',
     myData: {
       clientUserId: packetDetails?.documentGroup?.signers[nextSignerNum - 1].aliasId,
-      signerEid: queryStringData?.nextSignerEid || packetDetails?.documentGroup?.signers[0].eid,
+      signerEid: packetDetails?.documentGroup?.signers[nextSignerNum - 1].eid,
     },
     callback: async (response) => {
       const responseText = await response.text()
@@ -64,10 +71,44 @@ const PacketDetailsPage = () => {
     if (signURL) window.location.assign(signURL)
   }
 
+  const handleOpenSignFrame = async () => {
+    const signURL = await generateSignURL()
+    setSignURL(signURL)
+    setIsSignFrameOpen(!isSignFrameOpen)
+  }
+
+  const handleOpenSignModal = async () => {
+    const signURL = await generateSignURL()
+    setSignURL(signURL)
+    setIsModalOpen(true)
+  }
+
   const handlePacketDownload = () => {
     const { documentGroup } = packetDetails
     const { eid: documentGroupEid } = documentGroup || {}
     window.location.assign(`/api/packet/download/${documentGroupEid}`)
+  }
+
+  const handleIframeSignFinish = async (redirectURL) => {
+    console.log('RedirectURL:', redirectURL)
+    setIsSignFrameOpen(false)
+    setPacketDetails(await getEtchPacket())
+
+    // We don't need to trigger a redirect after iframe signing
+    // instead, send a GET request to retrieve the redirectURL query params
+    const response = await fetch(redirectURL)
+    setQueryStringData(parseQueryString(response.url))
+  }
+
+  const handleModalSignFinish = async (redirectURL) => {
+    console.log('RedirectURL:', redirectURL)
+    setIsModalOpen(false)
+    setPacketDetails(await getEtchPacket())
+
+    // We don't need to trigger a redirect after modal signing
+    // instead, send a GET request to retrieve the redirectURL query params
+    const response = await fetch(redirectURL)
+    setQueryStringData(parseQueryString(response.url))
   }
 
   const renderHeader = () => {
@@ -210,13 +251,33 @@ const PacketDetailsPage = () => {
             the <code>/api/packet/sign</code> route
             in <code>server/routes/index.js</code> for details.
           </Response>
-          <Button
-            type="cta"
-            onClick={async () => handleSignButtonClick()}
-          >
-            Sign Now as Signer {nextSignerNum}
-          </Button>
+          <Flex>
+            <Button
+              type="cta"
+              onClick={async () => handleSignButtonClick()}
+              style={{ marginRight: '5px' }}
+            >
+              Go to Signing Page
+            </Button>
+            <Button
+              type="orange"
+              onClick={async () => handleOpenSignFrame()}
+              style={{ marginLeft: '5px', marginRight: '5px' }}
+            >
+              {isSignFrameOpen ? 'Close' : 'Open'} Signing Frame
+            </Button>
+            <Button
+              type="blue"
+              onClick={async () => handleOpenSignModal()}
+              style={{ marginLeft: '5px' }}
+            >
+              Open Signing Modal
+            </Button>
+          </Flex>
           <Response color="failure">{generateURLResponse}</Response>
+          <Footer>
+            Please contact us at <DocsLink href="mailto:support@useanvil.com">support@useanvil.com</DocsLink> to enable iframe embedded signing for production signature packets.
+          </Footer>
         </>
       )
     }
@@ -232,11 +293,38 @@ const PacketDetailsPage = () => {
     )
   }
 
+  const renderSignFrame = () => {
+    if (isSignFrameOpen) {
+      return (
+        <Flex spacing="center">
+          <AnvilSignatureFrame
+            signURL={signURL}
+            scroll="smooth"
+            onFinish={handleIframeSignFinish}
+            anvilURL={anvilBaseURL}
+          />
+        </Flex>
+      )
+    }
+  }
+
+  const renderSignModal = () => (
+    <AnvilSignatureModal
+      signURL={signURL}
+      isOpen={isModalOpen}
+      onClose={() => setIsModalOpen(false)}
+      onFinish={handleModalSignFinish}
+      anvilURL={anvilBaseURL}
+    />
+  )
+
   return (
     <>
       {renderHeader()}
       {renderQueryParamData()}
       {renderDetailsAndAction()}
+      {renderSignFrame()}
+      {renderSignModal()}
       <StyledLink size="small" to="/">Back to index</StyledLink>
     </>
   )

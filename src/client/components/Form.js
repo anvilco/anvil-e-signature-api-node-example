@@ -1,14 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 
 import Button from 'components/Button'
 import Spinner from 'components/Spinner'
+import { Flex } from 'components/styled'
 
-const ButtonBar = styled.div`
-  display: flex;
-  margin-top: 25px;
-`
 const checkboxNames = ['signerOneSignatureMode', 'signerOneAcceptEachField', 'signerTwoSignatureMode', 'signerTwoAcceptEachField']
 
 class Form extends React.Component {
@@ -29,8 +25,8 @@ class Form extends React.Component {
     const { onSubmit } = this.props
     const { values } = this.state
     this.setState({ isSubmitting: true })
-    await onSubmit(values)
-    this.setState({ isSubmitting: false })
+    const success = await onSubmit(values)
+    if (!success) this.setState({ isSubmitting: false })
   }
 
   handleChange = async (fieldName, value) => {
@@ -75,7 +71,7 @@ class Form extends React.Component {
         onSubmit={this.handleSubmit}
       >
         {fields}
-        <ButtonBar>
+        <Flex spacing="start">
           <Button
             isSubmit
             type="cta"
@@ -84,7 +80,7 @@ class Form extends React.Component {
             {submitButtonText}
           </Button>
           {isSubmitting && <Spinner />}
-        </ButtonBar>
+        </Flex>
       </form>
     )
   }
