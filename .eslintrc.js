@@ -9,6 +9,9 @@ module.exports = {
           '.'
         ]
       }
+    },
+    'react': {
+      'version': 'detect',
     }
   },
   env: {
