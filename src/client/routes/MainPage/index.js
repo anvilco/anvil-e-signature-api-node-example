@@ -27,6 +27,7 @@ const MainPage = () => {
             </p>
           )
           : null}
+        <p>Fork <a href="https://github.com/anvilco/anvil-e-signature-api-node-example">the demo project's repo</a> to experiment with the API.</p>
       </Description>
       <Menu />
       <Footer>
