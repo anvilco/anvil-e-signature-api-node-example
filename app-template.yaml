@@ -6,3 +6,4 @@ env_variables:
   ANVIL_BASE_URL: 'https://app.useanvil.com'
   UI_BASE_URL: 'https://esign-demo.useanvil.com'
   API_BASE_URL: 'https://esign-demo.useanvil.com'
+  NODE_ENV: 'production'
