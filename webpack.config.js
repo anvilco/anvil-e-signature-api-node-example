@@ -29,7 +29,15 @@ module.exports = {
       // global css
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              esModule: false,
+            },
+          },
+        ],
         exclude: /\.module\.css$/,
       },
       // css modules
@@ -42,6 +50,7 @@ module.exports = {
             options: {
               importLoaders: 1,
               modules: true,
+              esModule: false,
             },
           },
         ],
