@@ -87,6 +87,7 @@
   },
   "resolutions": {
     "lodash": "4.17.21",
-    "hosted-git-info": "4.0.2"
+    "hosted-git-info": "4.0.2",
+    "url-parse": "1.5.1"
   }
 }
