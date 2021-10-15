@@ -140,10 +140,27 @@ const PacketDetailsPage = () => {
 
   const renderQueryParamData = () => {
     if (queryStringData?.signerEid) {
-      const { documentGroupEid, documentGroupStatus, etchPacketEid, signerEid, signerStatus, nextSignerEid } = queryStringData
+      const {
+        documentGroupEid,
+        documentGroupStatus,
+        etchPacketEid,
+        signerEid,
+        signerStatus,
+        nextSignerEid,
+
+        // `action` will be 'signerComplete' or 'signerError'
+        action,
+
+        // Error information will be available when action === 'signerError'
+        errorType,
+        error,
+        message,
+      } = queryStringData
+
+      const isError = action === 'signerError'
       return (
         <Content.Card>
-          <h3>Signer Finished!</h3>
+          <h3>Signer {isError ? 'Error' : 'Finished'}!</h3>
           <Description>
             {signerCompleteDataType === 'queryParams'
               ? (
@@ -152,6 +169,18 @@ const PacketDetailsPage = () => {
                 <>The signature frame's <code>onFinishSigning</code> callback returned a payload containing the following fields.</>
               )}
           </Description>
+          {action && (
+            <p>
+              Callback <code>action</code>: <b>{action}</b>
+            </p>
+          )}
+          {isError && (
+            <p>
+              <code>errorType</code>: <b>{errorType}</b><br />
+              <code>error</code>: {error}<br />
+              <code>message</code>: {message}<br />
+            </p>
+          )}
           <p>
             Signature Packet EID: <b>{etchPacketEid}</b>
           </p>
