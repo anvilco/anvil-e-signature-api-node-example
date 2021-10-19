@@ -89,26 +89,20 @@ const PacketDetailsPage = () => {
     window.location.assign(`/api/packet/download/${documentGroupEid}`)
   }
 
-  const handleIframeSignFinish = async (redirectURL) => {
-    console.log('RedirectURL:', redirectURL)
+  const handleIframeSignFinish = async (payload) => {
+    console.log('Payload:', payload)
     setIsSignFrameOpen(false)
     setPacketDetails(await getEtchPacket())
 
-    // We don't need to trigger a redirect after iframe signing
-    // instead, send a GET request to retrieve the redirectURL query params
-    const response = await fetch(redirectURL)
-    setQueryStringData(parseQueryString(response.url))
+    setQueryStringData(payload)
   }
 
-  const handleModalSignFinish = async (redirectURL) => {
-    console.log('RedirectURL:', redirectURL)
+  const handleModalSignFinish = async (payload) => {
+    console.log('Payload:', payload)
     setIsModalOpen(false)
     setPacketDetails(await getEtchPacket())
 
-    // We don't need to trigger a redirect after modal signing
-    // instead, send a GET request to retrieve the redirectURL query params
-    const response = await fetch(redirectURL)
-    setQueryStringData(parseQueryString(response.url))
+    setQueryStringData(payload)
   }
 
   const renderHeader = () => {
@@ -300,7 +294,7 @@ const PacketDetailsPage = () => {
           <AnvilSignatureFrame
             signURL={signURL}
             scroll="smooth"
-            onFinish={handleIframeSignFinish}
+            onFinishSigning={handleIframeSignFinish}
             anvilURL={anvilBaseURL}
           />
         </Flex>
@@ -313,7 +307,7 @@ const PacketDetailsPage = () => {
       signURL={signURL}
       isOpen={isModalOpen}
       onClose={() => setIsModalOpen(false)}
-      onFinish={handleModalSignFinish}
+      onFinishSigning={handleModalSignFinish}
       anvilURL={anvilBaseURL}
     />
   )
