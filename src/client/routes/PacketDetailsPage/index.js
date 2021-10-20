@@ -18,6 +18,7 @@ const PacketDetailsPage = () => {
   const { packetEid } = useParams()
   const [packetDetails, setPacketDetails] = useState(undefined)
   const [queryStringData, setQueryStringData] = useState(undefined)
+  const [signerCompleteDataType, setSignerCompleteDataType] = useState(undefined)
   const [generateURLResponse, setGenerateURLResponse] = useState(undefined)
   const [nextSignerNum, setNextSignerNum] = useState(1)
   const [signURL, setSignURL] = useState(undefined)
@@ -29,6 +30,7 @@ const PacketDetailsPage = () => {
       setPacketDetails(await getEtchPacket())
     }
     setQueryStringData(parseQueryString())
+    setSignerCompleteDataType('queryParams')
     fetchData()
   }, [])
 
@@ -89,26 +91,14 @@ const PacketDetailsPage = () => {
     window.location.assign(`/api/packet/download/${documentGroupEid}`)
   }
 
-  const handleIframeSignFinish = async (redirectURL) => {
-    console.log('RedirectURL:', redirectURL)
+  const handleIframeSignFinish = async (payload) => {
+    console.log('Payload:', payload)
     setIsSignFrameOpen(false)
-    setPacketDetails(await getEtchPacket())
-
-    // We don't need to trigger a redirect after iframe signing
-    // instead, send a GET request to retrieve the redirectURL query params
-    const response = await fetch(redirectURL)
-    setQueryStringData(parseQueryString(response.url))
-  }
-
-  const handleModalSignFinish = async (redirectURL) => {
-    console.log('RedirectURL:', redirectURL)
     setIsModalOpen(false)
     setPacketDetails(await getEtchPacket())
 
-    // We don't need to trigger a redirect after modal signing
-    // instead, send a GET request to retrieve the redirectURL query params
-    const response = await fetch(redirectURL)
-    setQueryStringData(parseQueryString(response.url))
+    setQueryStringData(payload)
+    setSignerCompleteDataType('onFinishSigning')
   }
 
   const renderHeader = () => {
@@ -155,7 +145,12 @@ const PacketDetailsPage = () => {
         <Content.Card>
           <h3>Signer Finished!</h3>
           <Description>
-            The <code>redirectURL</code> received the following query parameters.
+            {signerCompleteDataType === 'queryParams'
+              ? (
+                <>The <code>redirectURL</code> received the following query parameters.</>
+              ) : (
+                <>The signature frame's <code>onFinishSigning</code> callback returned a payload containing the following fields.</>
+              )}
           </Description>
           <p>
             Signature Packet EID: <b>{etchPacketEid}</b>
@@ -300,7 +295,7 @@ const PacketDetailsPage = () => {
           <AnvilSignatureFrame
             signURL={signURL}
             scroll="smooth"
-            onFinish={handleIframeSignFinish}
+            onFinishSigning={handleIframeSignFinish}
             anvilURL={anvilBaseURL}
           />
         </Flex>
@@ -313,7 +308,7 @@ const PacketDetailsPage = () => {
       signURL={signURL}
       isOpen={isModalOpen}
       onClose={() => setIsModalOpen(false)}
-      onFinish={handleModalSignFinish}
+      onFinishSigning={handleIframeSignFinish}
       anvilURL={anvilBaseURL}
     />
   )
