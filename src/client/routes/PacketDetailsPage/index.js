@@ -92,13 +92,6 @@ const PacketDetailsPage = () => {
   const handleIframeSignFinish = async (payload) => {
     console.log('Payload:', payload)
     setIsSignFrameOpen(false)
-    setPacketDetails(await getEtchPacket())
-
-    setQueryStringData(payload)
-  }
-
-  const handleModalSignFinish = async (payload) => {
-    console.log('Payload:', payload)
     setIsModalOpen(false)
     setPacketDetails(await getEtchPacket())
 
@@ -307,7 +300,7 @@ const PacketDetailsPage = () => {
       signURL={signURL}
       isOpen={isModalOpen}
       onClose={() => setIsModalOpen(false)}
-      onFinishSigning={handleModalSignFinish}
+      onFinishSigning={handleIframeSignFinish}
       anvilURL={anvilBaseURL}
     />
   )
