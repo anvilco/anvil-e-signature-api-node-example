@@ -13,15 +13,15 @@
     limiter "^1.1.5"
     node-fetch "^2.6.0"
 
-"@anvilco/react-signature-frame@^1.4.6":
-  version "1.4.6"
-  resolved "https://registry.yarnpkg.com/@anvilco/react-signature-frame/-/react-signature-frame-1.4.6.tgz#ca65a1ccd77082d06d44bdbc8be13353eedad893"
-  integrity sha512-834FEqUhYv4QVboOoABPTVzzB7oR9ZPuwajDLAeehxxx3YgujasFrXElwbCpUgQS1fcokqdNwxTZrKzf/6gh2A==
+"@anvilco/react-signature-frame@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@anvilco/react-signature-frame/-/react-signature-frame-1.5.0.tgz#bbcc279627b375246c937336b1bf39cd87d11126"
+  integrity sha512-YfykLLUwGvdVIPqr60Bi/oUe/Sl2//1d+ds/HwGyniy1OUi0Pd78L+fpewFHoNvBPTBKYh+ETY4QCQDh0ZfvgA==
 
-"@anvilco/react-signature-modal@^1.4.6":
-  version "1.4.6"
-  resolved "https://registry.yarnpkg.com/@anvilco/react-signature-modal/-/react-signature-modal-1.4.6.tgz#b8f71d74d3059956939d72792848d36233954091"
-  integrity sha512-382pVZlhilA2H+7VIitYNAq0B8xS4DaTp9Wa+jZS4Pb/6Yp4RYRTSUny4cuSZumvyCVHKOgQlxGT8UcjzSmHWA==
+"@anvilco/react-signature-modal@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@anvilco/react-signature-modal/-/react-signature-modal-1.5.0.tgz#2efdf1d5bcc5311db567113f5d5f889583f7b81e"
+  integrity sha512-iOxapBv1lQjTRE1RAS8nWZrjiI5Yml74eHa/rvTDwYglpYRIYg/qvby8mD/yCZWqnz952ULVxHUts+EoQ3mDCQ==
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4":
   version "7.10.4"
