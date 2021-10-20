@@ -18,6 +18,7 @@ const PacketDetailsPage = () => {
   const { packetEid } = useParams()
   const [packetDetails, setPacketDetails] = useState(undefined)
   const [queryStringData, setQueryStringData] = useState(undefined)
+  const [signerCompleteDataType, setSignerCompleteDataType] = useState(undefined)
   const [generateURLResponse, setGenerateURLResponse] = useState(undefined)
   const [nextSignerNum, setNextSignerNum] = useState(1)
   const [signURL, setSignURL] = useState(undefined)
@@ -29,6 +30,7 @@ const PacketDetailsPage = () => {
       setPacketDetails(await getEtchPacket())
     }
     setQueryStringData(parseQueryString())
+    setSignerCompleteDataType('queryParams')
     fetchData()
   }, [])
 
@@ -96,6 +98,7 @@ const PacketDetailsPage = () => {
     setPacketDetails(await getEtchPacket())
 
     setQueryStringData(payload)
+    setSignerCompleteDataType('onFinishSigning')
   }
 
   const renderHeader = () => {
@@ -142,7 +145,12 @@ const PacketDetailsPage = () => {
         <Content.Card>
           <h3>Signer Finished!</h3>
           <Description>
-            The <code>redirectURL</code> received the following query parameters.
+            {signerCompleteDataType === 'queryParams'
+              ? (
+                <>The <code>redirectURL</code> received the following query parameters.</>
+              ) : (
+                <>The signature frame's <code>onFinishSigning</code> callback returned a payload containing the following fields.</>
+              )}
           </Description>
           <p>
             Signature Packet EID: <b>{etchPacketEid}</b>
