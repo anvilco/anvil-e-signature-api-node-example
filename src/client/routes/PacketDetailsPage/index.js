@@ -92,13 +92,23 @@ const PacketDetailsPage = () => {
   }
 
   const handleIframeSignFinish = async (payload) => {
-    console.log('Payload:', payload)
+    console.log('Complete Payload:', payload)
     setIsSignFrameOpen(false)
     setIsModalOpen(false)
     setPacketDetails(await getEtchPacket())
 
     setQueryStringData(payload)
     setSignerCompleteDataType('onFinishSigning')
+  }
+
+  const handleIframeSignError = async (payload) => {
+    console.log('Error Payload:', payload)
+    setIsSignFrameOpen(false)
+    setIsModalOpen(false)
+    setPacketDetails(await getEtchPacket())
+
+    setQueryStringData(payload)
+    setSignerCompleteDataType('onError')
   }
 
   const renderHeader = () => {
@@ -157,18 +167,20 @@ const PacketDetailsPage = () => {
         message,
       } = queryStringData
 
+      let description = null
+      if (signerCompleteDataType === 'onFinishSigning') {
+        description = <>The signature frame's <code>onFinishSigning</code> callback returned a payload containing the following fields.</>
+      } else if (signerCompleteDataType === 'onError') {
+        description = <>The signature frame's <code>onError</code> callback returned a payload containing the following fields.</>
+      } else {
+        description = <>The <code>redirectURL</code> received the following query parameters.</>
+      }
+
       const isError = action === 'signerError'
       return (
         <Content.Card>
           <h3>Signer {isError ? 'Error' : 'Finished'}!</h3>
-          <Description>
-            {signerCompleteDataType === 'queryParams'
-              ? (
-                <>The <code>redirectURL</code> received the following query parameters.</>
-              ) : (
-                <>The signature frame's <code>onFinishSigning</code> callback returned a payload containing the following fields.</>
-              )}
-          </Description>
+          <Description>{description}</Description>
           {action && (
             <p>
               Callback <code>action</code>: <b>{action}</b>
@@ -324,6 +336,7 @@ const PacketDetailsPage = () => {
           <AnvilSignatureFrame
             signURL={signURL}
             scroll="smooth"
+            onError={handleIframeSignError}
             onFinishSigning={handleIframeSignFinish}
             anvilURL={anvilBaseURL}
           />
@@ -337,6 +350,7 @@ const PacketDetailsPage = () => {
       signURL={signURL}
       isOpen={isModalOpen}
       onClose={() => setIsModalOpen(false)}
+      onError={handleIframeSignError}
       onFinishSigning={handleIframeSignFinish}
       anvilURL={anvilBaseURL}
     />
