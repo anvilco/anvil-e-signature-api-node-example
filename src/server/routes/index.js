@@ -123,7 +123,7 @@ function buildRoutes (router) {
   // specified URL by the browser. This route is set as both signers'
   // redirectURL.
   router.get('/api/packet/finish', async (req, res) => {
-    logRouteInfo('Signer finished! Query params supplied to redirectURL')
+    logRouteInfo('Signer redirect called! Query params supplied to redirectURL')
     logJSON(qs.parse(req.query))
 
     const basePacketURL = `${apiBaseURL}/packet/${req.query.etchPacketEid}`
