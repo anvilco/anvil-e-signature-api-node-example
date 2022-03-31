@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import Content from 'components/Content'
@@ -9,7 +9,7 @@ import DefaultForm from './PacketForm'
 import PageTitle from 'components/PageTitle'
 
 const CreatePacketTemplate = ({ title, description, packetType, PacketForm = DefaultForm }) => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const [createPacketResponse, setCreatePacketResponse] = useState(undefined)
 
   const createSignaturePacket = createRequest({
@@ -18,7 +18,7 @@ const CreatePacketTemplate = ({ title, description, packetType, PacketForm = Def
       const responseText = await response.text()
       const { statusCode, data, error } = JSON.parse(responseText)
       if (statusCode === 200 && data?.data?.createEtchPacket?.eid) {
-        history.push(`/packet/${data.data.createEtchPacket.eid}`)
+        navigate(`/packet/${data.data.createEtchPacket.eid}`)
         return true
       } else {
         setCreatePacketResponse(`Error: ${error?.message}`)
