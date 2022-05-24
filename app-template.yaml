@@ -1,4 +1,4 @@
-runtime: nodejs12
+runtime: nodejs16
 
 env_variables:
   # This is templated so you can replace prior to a deploy
