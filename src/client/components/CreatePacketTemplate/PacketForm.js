@@ -23,7 +23,7 @@ const PacketForm = ({ submitButtonText = 'Create Signature Packet', onSubmit }) 
             {hasTwoSigners ? 'Remove' : 'Add'} Second Signer
           </Button>
         </p>
-      )
+        )
   )
 
   return (

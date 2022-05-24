@@ -247,7 +247,7 @@ const PacketDetailsPage = () => {
               >
                 View packet on your Anvil dashboard →
               </StyledAnchor>
-            )
+              )
             : null}
         </>
       )
