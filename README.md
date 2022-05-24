@@ -5,7 +5,7 @@ This is an example full stack Node / Express / React web app showcasing the [Anv
 <img src="https://user-images.githubusercontent.com/69169/97480978-63891a00-1911-11eb-80ee-395e82d893a4.png">
 
 ---
-### Example repository maintained by [Anvil](www.useanvil.com/developers)
+**Example repository maintained by [Anvil](www.useanvil.com/developers)**
 
 ![Horizontal Lockupblack](https://user-images.githubusercontent.com/293079/169453889-ae211c6c-7634-4ccd-8ca9-8970c2621b6f.png#gh-light-mode-only)
 ![Horizontal Lockup copywhite](https://user-images.githubusercontent.com/293079/169453892-895f637b-4633-4a14-b997-960c9e17579b.png#gh-dark-mode-only)
