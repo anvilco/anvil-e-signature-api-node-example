@@ -1,7 +1,7 @@
 require('dotenv').config()
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const {
   anvilBaseURL,
   apiBaseURL,
@@ -16,7 +16,7 @@ module.exports = {
   entry: ['@babel/polyfill', './src/client/index.js'],
   output: {
     path: path.join(__dirname, outputDirectory),
-    publicPath: '/',
+    publicPath: environment === 'development' ? `http://localhost:${devServerPort}` : '/',
     filename: 'bundle.js',
   },
   module: {
@@ -58,7 +58,10 @@ module.exports = {
       },
       {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-        loader: 'url-loader?limit=100000',
+        loader: 'url-loader',
+        options: {
+          limit: 100000
+        }
       },
     ],
   },
@@ -75,17 +78,20 @@ module.exports = {
     port: devServerPort,
     open: false,
     historyApiFallback: true,
-    writeToDisk: true,
     proxy: {
       '/api': apiBaseURL,
     },
+    devMiddleware: {
+      writeToDisk: (filePath) => {
+        return /index\.html$/.test(filePath)
+      },
+    },
   },
   plugins: [
-    new CleanWebpackPlugin([outputDirectory]),
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './public/index.html',
       favicon: './public/favicon.png',
-
       anvilBaseURL: JSON.stringify(anvilBaseURL),
       environment: JSON.stringify(environment),
     }),

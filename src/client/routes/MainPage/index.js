@@ -25,7 +25,7 @@ const MainPage = () => {
               <DocsLink href="repository" isCode={false}>Clone this project</DocsLink> to
               experiment with our e-sign API in your own Anvil account.
             </p>
-          )
+            )
           : null}
         <p>Fork <a href="https://github.com/anvilco/anvil-e-signature-api-node-example">the demo project's repo</a> to experiment with the API.</p>
       </Description>

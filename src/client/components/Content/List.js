@@ -56,19 +56,6 @@ const Actions = styled.div`
 `
 
 class List extends React.Component {
-  componentWillMount () {
-    this.cacheSort(this.props)
-  }
-
-  componentWillReceiveProps (nextProps) {
-    this.cacheSort(nextProps)
-  }
-
-  cacheSort (props) {
-    const { items } = props
-    this.cachedItems = items
-  }
-
   render () {
     const { renderItem, items, ...others } = this.props
     return (
