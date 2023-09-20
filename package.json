@@ -46,7 +46,7 @@
     "react-is": "^18.2.0",
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.16.0",
-    "styled-components": "^5.3.5",
+    "styled-components": "^6.0.8",
     "url-parse": "^1.5.10"
   },
   "devDependencies": {
