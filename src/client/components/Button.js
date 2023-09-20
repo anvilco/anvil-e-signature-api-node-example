@@ -176,7 +176,7 @@ const ButtonStyled = styled.button`
 const Button = ({ type, children, isSubmit, className, ...others }) => {
   return (
     <ButtonStyled
-      htmlType={isSubmit ? 'submit' : null}
+      htmltype={isSubmit ? 'submit' : null}
       type={type}
       className={className}
       {...others}
