@@ -2,7 +2,7 @@ const path = require('path')
 const appModulePath = require('app-module-path')
 
 const { configure } = require('enzyme')
-const Adapter = require('enzyme-adapter-react-16')
+const Adapter = require('@cfaester/enzyme-adapter-react-18').default
 
 require('./dom')
 

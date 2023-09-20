@@ -13,7 +13,9 @@ module.exports = {
   },
   handleClientErrors (response, statusCode, payload, errors) {
     if (statusCode !== 200) return response.jsonp({ statusCode, error: errors[0] })
-    if (payload && payload.errors) return response.jsonp({ statusCode: payload.errors[0].status, error: payload.errors[0] })
+
+    const localErrors = errors || payload?.errors
+    if (localErrors) return response.jsonp({ statusCode: localErrors[0].status, error: localErrors[0] })
   },
   logError (str) {
     const color = '\x1b[41m'
