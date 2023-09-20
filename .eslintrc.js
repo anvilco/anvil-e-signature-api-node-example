@@ -20,5 +20,8 @@ module.exports = {
   },
   globals: {
     anvilBaseURL: "readonly",
+    describe: "readonly",
+    it: "readonly",
+    beforeEach: "readonly",
   },
 }
