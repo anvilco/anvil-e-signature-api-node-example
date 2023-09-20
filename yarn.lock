@@ -15,6 +15,11 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
+"@anvilco/anvil-embed-frame@2.0.0-alpha.0":
+  version "2.0.0-alpha.0"
+  resolved "https://registry.npmjs.org/@anvilco/anvil-embed-frame/-/anvil-embed-frame-2.0.0-alpha.0.tgz#c4292804800c1c664bacc7a68cf44aafb9901669"
+  integrity sha512-G2r4kOY+kWlbNm2h7qSkI8iYIseIHRTp0xj7bCFJCgZWBjn09Qn50N1MZPgBohFhbfOkHAaeJeIld8KuIjJOCA==
+
 "@anvilco/anvil@^2.11.0":
   version "2.11.0"
   resolved "https://registry.npmjs.org/@anvilco/anvil/-/anvil-2.11.0.tgz#574790fe021053278cc522faf5c8380c2f37bdfc"
@@ -26,15 +31,10 @@
     limiter "^2.1.0"
     node-fetch "^2.6.7"
 
-"@anvilco/react-signature-frame@^1.8.1":
-  version "1.8.1"
-  resolved "https://registry.npmjs.org/@anvilco/react-signature-frame/-/react-signature-frame-1.8.1.tgz#6d22ff5b63e7aa8934cf862b097369bb79d783ea"
-  integrity sha512-ssJmWgSLzqtgNxwfRF3AegM7KXGOVXXuHZP5YJrEmksaCLutzTuxiNQ84YOzN4bnvY7L4OVcz8PoaarCOx2oFA==
-
-"@anvilco/react-signature-modal@^1.8.1":
-  version "1.8.1"
-  resolved "https://registry.npmjs.org/@anvilco/react-signature-modal/-/react-signature-modal-1.8.1.tgz#dbd9674a7e9c13325b9acaa9c9bef013da5dc844"
-  integrity sha512-slaCQpC6BWhaNlKoExV4+wpzHKvwBHgQxW152haPg+37ka0yd9iF2pNtb6oJiBSX2Pgg9OlQO8b8udvmV2fMVw==
+"@anvilco/react-signature-modal@2.0.1-alpha.0":
+  version "2.0.1-alpha.0"
+  resolved "https://registry.npmjs.org/@anvilco/react-signature-modal/-/react-signature-modal-2.0.1-alpha.0.tgz#8f8424c377d7bec18d60f1f0c24f4018871a60bb"
+  integrity sha512-nvSDqumdpWSYsgUq7pPU1LD3/cl8bdULEztAQ8lYn6W8tX656sWTOCxD+zbonrLXYWJqYnBus/WyFgYkRWvSdg==
 
 "@babel/code-frame@^7.16.7":
   version "7.16.7"

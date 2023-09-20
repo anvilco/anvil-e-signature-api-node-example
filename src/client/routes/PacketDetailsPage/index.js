@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import AnvilSignatureFrame from '@anvilco/react-signature-frame'
+import theme from 'theme'
+import AnvilEmbedFrame from '@anvilco/anvil-embed-frame'
 import AnvilSignatureModal from '@anvilco/react-signature-modal'
 import '@anvilco/react-signature-modal/dist/styles.css'
 
@@ -91,24 +92,18 @@ const PacketDetailsPage = () => {
     window.location.assign(`/api/packet/download/${documentGroupEid}`)
   }
 
-  const handleIframeSignFinish = async (payload) => {
-    console.log('Complete Payload:', payload)
-    setIsSignFrameOpen(false)
-    setIsModalOpen(false)
-    setPacketDetails(await getEtchPacket())
-
-    setQueryStringData(payload)
-    setSignerCompleteDataType('onFinishSigning')
+  const handleIframeLoad = async () => {
+    console.log('IFrame loaded')
   }
 
-  const handleIframeSignError = async (payload) => {
-    console.log('Error Payload:', payload)
+  const handleIframeEvent = async (eventObject) => {
+    // https://www.useanvil.com/docs/api/e-signatures/#events-from-the-iframe
+    console.log('Event Payload:', eventObject)
     setIsSignFrameOpen(false)
     setIsModalOpen(false)
     setPacketDetails(await getEtchPacket())
-
-    setQueryStringData(payload)
-    setSignerCompleteDataType('onError')
+    setQueryStringData(eventObject)
+    setSignerCompleteDataType(eventObject.action)
   }
 
   const renderHeader = () => {
@@ -312,7 +307,7 @@ const PacketDetailsPage = () => {
           </Flex>
           <Response color="failure">{generateURLResponse}</Response>
           <Footer>
-            Please contact us at <DocsLink href="mailto:support@useanvil.com">support@useanvil.com</DocsLink> to enable iframe embedded signing for production signature packets.
+            Please contact us at <DocsLink href="mailto:support@useanvil.com">support@useanvil.com</DocsLink> if you have any questions!
           </Footer>
         </>
       )
@@ -333,11 +328,19 @@ const PacketDetailsPage = () => {
     if (isSignFrameOpen) {
       return (
         <Flex spacing="center">
-          <AnvilSignatureFrame
-            signURL={signURL}
+          <AnvilEmbedFrame
             scroll="smooth"
-            onError={handleIframeSignError}
-            onFinishSigning={handleIframeSignFinish}
+            iframeURL={signURL}
+            onLoad={handleIframeLoad}
+            onEvent={handleIframeEvent}
+
+            style={{
+              width: '100%',
+              height: '800px',
+              border: 'none',
+              boxShadow: theme.shadows[60],
+            }}
+
             anvilURL={anvilBaseURL}
           />
         </Flex>
@@ -347,11 +350,11 @@ const PacketDetailsPage = () => {
 
   const renderSignModal = () => (
     <AnvilSignatureModal
-      signURL={signURL}
+      iframeURL={signURL}
       isOpen={isModalOpen}
       onClose={() => setIsModalOpen(false)}
-      onError={handleIframeSignError}
-      onFinishSigning={handleIframeSignFinish}
+      onEvent={handleIframeEvent}
+
       anvilURL={anvilBaseURL}
     />
   )
