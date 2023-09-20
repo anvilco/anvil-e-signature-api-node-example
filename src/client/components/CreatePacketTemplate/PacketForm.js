@@ -85,6 +85,7 @@ const renderSignerFields = ({ prefix, signerLabel, namePlaceholder, emailPlaceho
   >
     <Input
       required
+      type="email"
       placeholder={emailPlaceholder}
     />,
   </FormField>,
