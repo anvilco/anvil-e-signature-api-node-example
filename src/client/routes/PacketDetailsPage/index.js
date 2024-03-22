@@ -98,12 +98,17 @@ const PacketDetailsPage = () => {
 
   const handleIframeEvent = async (eventObject) => {
     // https://www.useanvil.com/docs/api/e-signatures/#events-from-the-iframe
+    const { action } = eventObject
     console.log('Event Payload:', eventObject)
-    setIsSignFrameOpen(false)
-    setIsModalOpen(false)
+
+    if (action === 'signerComplete' || action === 'signerError') {
+      setIsSignFrameOpen(false)
+      setIsModalOpen(false)
+    }
+
     setPacketDetails(await getEtchPacket())
     setQueryStringData(eventObject)
-    setSignerCompleteDataType(eventObject.action)
+    setSignerCompleteDataType(action)
   }
 
   const renderHeader = () => {
