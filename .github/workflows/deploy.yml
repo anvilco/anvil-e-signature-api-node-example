@@ -9,11 +9,19 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NODE_ENV: production
+    permissions:
+      contents: 'read'
+      id-token: 'write'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}  
       - uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ secrets.ETCH_DEMO_PROJECT }}
