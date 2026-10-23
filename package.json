@@ -14,7 +14,7 @@
     "dev": "concurrently \"yarn server\" \"yarn client\"",
     "lint": "yarn eslint 'src/**/*.js' 'test/**/*.js'",
     "test:server": "NODE_ENV=test ANVIL_API_KEY=test mocha 'test/server/**/*.test.js' --require test/server/environment.js",
-    "test:client": "NODE_ENV=test mocha 'test/client/**/*.test.js' --require test/client/environment.js --require @babel/register",
+    "test:client": "NODE_ENV=test mocha --node-option no-experimental-detect-module 'test/client/**/*.test.js' --require test/client/environment.js --require @babel/register",
     "test": "yarn lint && yarn test:server && yarn test:client",
     "gcp-build": "yarn build",
     "deploy": "gcloud app deploy --project=$ETCH_DEMO_PROJECT"
