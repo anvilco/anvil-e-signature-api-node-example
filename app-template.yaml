@@ -1,4 +1,4 @@
-runtime: nodejs20
+runtime: nodejs24
 
 env_variables:
   # This is templated so you can replace prior to a deploy
